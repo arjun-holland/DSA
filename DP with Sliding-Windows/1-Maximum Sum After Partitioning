@@ -1,0 +1,114 @@
+//Problem Statement
+/*
+You are given an integer array of size N. Your task is to partition this array into contiguous subarrays, 
+where each subarray contains at most K elements. After partitioning, replace every element in each subarray with the largest value from that subarray.
+
+Next, calculate the maximum possible sum of the transformed array. Let this maximum sum be M.
+Finally, find and display the count of prime numbers that are less than or equal to M.
+Test cases are generated such that the answer fits within a 32-bit integer.
+
+Input Format:
+The first line contains an integer N, which represents the size of the array.
+The second line contains N space-separated integers representing the elements of the array.
+The third line contains an integer K, which is the maximum allowed size for each subarray.
+
+Output Format
+Print a single integer, representing the count of prime numbers less than or equal to M, where  M is the maximum sum after partitioning the array.
+
+Constraints
+1 <= Arr.length <= 5*10^2
+0 <= Arr[i] <= 10^6
+1 <= K <= Arr.length
+
+Sample Testcase 0
+Testcase Input
+7
+1 15 7 9 2 5 10
+3
+Testcase Output
+23
+Explanation
+Split the array [1, 15, 7, 9, 2, 5, 10] into contiguous subarrays of length up to 3.
+Subarray 1: [1, 15, 7] 
+After transformation: [15, 15, 15] 
+Subarray 2: [2, 5, 10] 
+After transformation: [10, 10, 10]
+Subarray 3: [9] 
+After transformation: [9]
+Overall sum = 15+15+15+10+10+10+9 = 84
+Number of Primes less than equal to 84  = 23
+
+Sample Testcase 1
+Testcase Input
+1
+1
+1
+Testcase Output
+0
+Explanation
+The array contains only one element, so the maximum sum after partitioning is 1.
+The count of prime numbers less than or equal to 1 is 0, as there are no primes less than or equal to 1.
+*/
+
+/*
+Understanding the Approach
+The problem requires us to partition the array into contiguous subarrays of at most k elements 
+and replace every element in each subarray with the maximum element to maximize the sum.
+Since there are many ways to partition, we need an efficient way to find the best partitioning.
+This is where Dynamic Programming (DP) helps.
+*/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+//Dynamic Programming (DP) with Sliding Window Optimization
+//Here, dp[i] represents the maximum sum possible using the first i elements of the array.
+
+int max_sum_after_partitioning(vector<int>& arr, int k) {
+    if(arr.size() == 1)return arr[0];
+    int n = arr.size();
+    vector<int> dp(n + 1, 0);       // dp[i] stores max sum for first i elements
+
+    for (int i = 0; i < n; i++) {
+        int maxVal = 0, best = 0;
+
+        for (int j = 1; j <= k && i - j + 1 >= 0; j++) {
+            maxVal = max(maxVal, arr[i - j + 1]);          // Max value in current subarray
+            best = max(best, dp[i - j + 1] + maxVal * j);     // Compute best sum
+        }
+
+        dp[i + 1] = best;
+    }
+    return dp[n];
+}
+
+int sieve_of_eratosthenes(int n) {
+    vector<bool> p(n + 1, true);
+    p[0] = p[1] = false;  // 0 and 1 are not prime
+
+    for (int i = 2; i * i <= n; i++) {
+        if (p[i]) {
+            for (int j = i * i; j <= n; j += i) {  // Start from i*i
+                p[j] = false;
+            }
+        }
+    }
+    return count(p.begin(), p.end(), true);    // Count primes
+}
+
+int main() {
+    int n, k;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    cin >> k;
+  
+    int max_sum = max_sum_after_partitioning(arr, k);
+    int prime_count = sieve_of_eratosthenes(max_sum);
+    
+    cout << prime_count << std::endl;
+    return 0;
+}
