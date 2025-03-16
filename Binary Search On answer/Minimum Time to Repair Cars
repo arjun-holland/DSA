@@ -1,0 +1,58 @@
+/*
+You are given an integer array ranks representing the ranks of some mechanics. ranksi is the rank of the ith mechanic. 
+A mechanic with a rank r can repair n cars in r * n2 minutes.
+You are also given an integer cars representing the total number of cars waiting in the garage to be repaired.
+Return the minimum time taken to repair all the cars.
+Note: All the mechanics can repair the cars simultaneously.
+
+Example 1:
+Input: ranks = [4,2,3,1], cars = 10
+Output: 16
+Explanation: 
+- The first mechanic will repair two cars. The time required is 4 * 2 * 2 = 16 minutes.
+- The second mechanic will repair two cars. The time required is 2 * 2 * 2 = 8 minutes.
+- The third mechanic will repair two cars. The time required is 3 * 2 * 2 = 12 minutes.
+- The fourth mechanic will repair four cars. The time required is 1 * 4 * 4 = 16 minutes.
+It can be proved that the cars cannot be repaired in less than 16 minutes.​​​​​
+
+Constraints:
+1 <= ranks.length <= 10^5
+1 <= ranks[i] <= 100
+1 <= cars <= 10^6
+*/
+
+
+//Intuition : We know the maximum time(time = r * n ^ 2 where n is total cars and r is the max rank) to complete all cars and we need to find the nminimum time. 
+//Bbinary search on answer here answer is time as minimim time from problem statement. 
+
+#define ll long long
+class Solution {
+public:
+    bool isValid(vector<int>& ranks, int cars, ll m) {
+        ll carFixed = 0;
+        for(int i = 0; i < ranks.size(); i++) {
+            carFixed += sqrt(m / ranks[i]);     // Calculate how many cars can be repaired
+            if (carFixed >= cars) return true;    // No need to continue 
+        }
+        return carFixed >= cars;
+    }
+
+    long long repairCars(vector<int>& ranks, int cars) {
+        int n = ranks.size();
+        ll l = 1;
+        ll me = *min_element(ranks.begin(), ranks.end());
+        ll r = me * 1ll * cars * cars; // max possible time to complete all cars 
+        ll ans = r;
+
+        while (l <= r) {
+            ll m = l + (r - l) / 2; 
+            if (isValid(ranks, cars, m)) {
+                ans = m;
+                r = m - 1;
+            } else {
+                l = m + 1;
+            }
+        }
+        return ans;
+    }
+};
