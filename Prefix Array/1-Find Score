@@ -1,0 +1,110 @@
+//Problem Statement
+/*
+Given an array arr[] (0-based indexed) of integers of size N, define the power of the integer at index i as follows:
+Let:
+a be the second minimum integer among all integers with indices less than i .
+b be the second minimum integer among all integers with indices greater than i.
+The power of the integer at index i is defined as:
+max(arr[i] - a, arr[i] - b).
+The score of the array arr is defined as the sum of powers for all integers in the array. Print the score of the array arr.
+Note: If there are less than equal to one element before or after the index i, then consider the second minimus as INT_MAX.
+
+Input Format
+The first line contains an integer N which denotes the size of the array.
+The second line contains N space-separated integers denoting the elements of the array arr[].
+
+Output Format
+Print an integer denoting the score of the array.
+
+Constraints
+1 <= N <= 10^5
+1 <= Arr[i] <= 10^6
+
+Sample Testcase 
+Testcase Input
+5
+4 7 1 8 3
+Testcase Output
+2
+Explanation
+Index 0 (arr[0] = 4):
+Before: INT_MAX (no elements).
+After: Second minimum in [7, 1, 8, 3] = 3.
+Score: max(4 - INT_MAX, 4 - 3) = 1.
+
+Index 1 (arr[1] = 7):
+Before: Second minimum in [4] = INT_MAX.
+After: Second minimum in [1, 8, 3] = 3.
+Score: max(7 - INT_MAX, 7 - 3) = 4.
+
+Index 2 (arr[2] = 1):
+Before: Second minimum in [4, 7] = 7.
+After: Second minimum in [8, 3] = 8.
+Score: max(1 - 7, 1 - 8) = -6.
+
+Index 3 (arr[3] = 8):
+Before: Second minimum in [4, 7, 1] = 4.
+After: INT_MAX (no elements).
+Score: max(8 - 4, 8 - INT_MAX) = 4.
+
+Index 4 (arr[4] = 3):
+Before: Second minimum in [4, 7, 1, 8] = 4.
+After: INT_MAX (no elements).
+Score: max(3 - 4, 3 - INT_MAX) = -1.
+
+Total Score: 1 + 4 - 6 + 4 - 1 = 2.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int computeScore(vector<int>& arr) {
+    int n = arr.size();
+    vector<int> pr(n,INT_MAX),su(n,INT_MAX);
+
+    int min1 = min(arr[0],arr[1]);
+    int min2 = max(arr[0],arr[1]);
+    for(int i=2; i<n; i++){
+        pr[i] = min2;
+        if(arr[i] < min1){
+            min2 = min1;
+            min1 = arr[i];
+        }
+        else if(arr[i] < min2 && arr[i] != min1){
+            min2 = arr[i];
+        }
+    }
+
+    min1 = min(arr[n-1],arr[n-2]);
+    min2 = max(arr[n-1],arr[n-2]);
+    for(int i=n-3; i>=0; i--){
+        su[i] = min2;
+        if(arr[i] < min1){
+            min2 = min1;
+            min1 = arr[i];
+        }
+        else if(arr[i] < min2 && arr[i] != min1){
+            min2 = arr[i];
+        }
+    }
+
+    int score = 0;
+    for(int i=0; i<n; i++){
+        score += max(arr[i]-pr[i],arr[i]-su[i]);
+    }
+    return score;
+}
+
+int main() {
+    int n;
+    cin >> n; // First input is the integer n
+    vector<int> arr(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i]; // Remaining input is the array of integers
+    }
+
+    // Call user logic function and print the output
+    int result = computeScore(arr);
+    cout << result << endl;
+    return 0;
+}
