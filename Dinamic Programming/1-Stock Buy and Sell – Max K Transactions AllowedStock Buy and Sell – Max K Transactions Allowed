@@ -1,0 +1,70 @@
+/*
+In the stock market, a person buys a stock and sells it on some future date. You are given an array prices[] representing stock prices on different days and a positive integer k, find out the maximum profit a person can make in at-most k transactions.
+
+A transaction consists of buying and subsequently selling a stock and new transaction can start only when the previous transaction has been completed.
+
+Examples :
+Input: prices[] = [10, 22, 5, 80], k = 2
+Output: 87
+Explaination:
+1st transaction: Buy at 10 and sell at 22. 
+2nd transaction : Buy at 5 and sell at 80.
+Total Profit will be 12 + 75 = 87.
+*/
+
+//Intuition : We don't know what to buy and when to sell the stock. so we need to ckeck for every possibility of prices for max profit. hence we use recursion
+//For BUY : we can take the price value to buy or we may ignore for that and check the its followed price value
+//For SELL : we can take the price value to sell or we may ignore for that and check the its followed price value
+//For every recursion we have value of take and bnot take and we need to return the max of it because the selling price is always greater then the cost price to get profit.
+
+//Recursuion
+ class Solution {
+   public:
+     int solve(int ind, int k, bool canbuy, const vector<int>& prices){
+         if(k == 0 || ind >= prices.size())return 0;
+         int include = 0, ignore = 0;
+         if(canbuy){   //buy
+             include = -1*prices[ind] + solve(ind+1, k, false, prices);
+             ignore = solve(ind+1, k, true, prices);
+         }else{  //sell
+             include = prices[ind] + solve(ind+1, k-1, true, prices);
+             ignore = solve(ind+1, k, false, prices);
+         }
+         return max(include,ignore);
+     }
+   
+     int maxProfit(vector<int>& prices, int k) {  
+         return solve(0,k,true,prices);
+     }
+};
+
+//To turn the recursion code to DP, We need to use the three dimentional(3D) vector as there are three(3) parameters changing in the recursion solve function those are:
+//ind -> index
+//k -> no.of Transactions
+//canbuy -> can but this current price value or not
+
+//Dinamic Programming
+class Solution {
+  public:
+    int solve(int ind, int k, bool canbuy, const vector<int>& prices,vector<vector<vector<int>>>& dp){
+        if(k == 0 || ind >= prices.size())return 0;
+        
+        if(dp[ind][k][canbuy] != -1)return dp[ind][k][canbuy];
+        
+        int include = 0, ignore = 0;
+        if(canbuy){ //for  buy
+            include = -1*prices[ind] + solve(ind+1, k, false, prices, dp);
+            ignore = solve(ind+1, k, true, prices, dp);
+        }else{  // for sell
+            include = prices[ind] + solve(ind+1, k-1, true, prices, dp);
+            ignore = solve(ind+1, k, false, prices, dp);
+        }
+        return dp[ind][k][canbuy] =  max(include,ignore);
+    }
+    
+    int maxProfit(vector<int>& prices, int k) {
+        int n = prices.size();
+        vector<vector<vector<int>>> dp(n,vector<vector<int>>(k+1,vector<int>(2,-1)));
+        return solve(0,k,true,prices,dp);
+    }
+};
