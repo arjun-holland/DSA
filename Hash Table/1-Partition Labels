@@ -1,0 +1,69 @@
+/*
+You are given a string s. We want to partition the string into as many parts as possible so that each letter appears in at most one part. 
+For example, the string "ababcc" can be partitioned into ["abab", "cc"], but partitions such as ["aba", "bcc"] or ["ab", "ab", "cc"] are invalid.
+Note that the partition is done so that after concatenating all the parts in order, the resultant string should be s.
+Return a list of integers representing the size of these parts.
+
+Example 1:
+Input: s = "ababcbacadefegdehijhklij"
+Output: [9,7,8]
+Explanation:
+The partition is "ababcbaca", "defegde", "hijhklij".
+This is a partition so that each letter appears in at most one part.
+A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits s into less parts.
+
+Example 2:
+Input: s = "eccbbbbdec"
+Output: [10]
+ 
+Constraints:
+1 <= s.length <= 500
+s consists of lowercase English letter
+*/
+
+
+class Solution {
+public:
+    vector<int> partitionLabels(string s) {
+        int n = s.length();
+        vector<int> res;
+        unordered_map<char,int> mp;
+
+        for(char c : s)mp[c]++;
+
+        set<char> st;
+        int j=0;
+        for(int i=0 ;i<n ;i++){
+            if(!st.count(s[i]))st.insert(s[i]);  //O(log k)
+            mp[s[i]]--;
+            if(mp[s[i]] == 0)mp.erase(s[i]);
+            bool v = true;
+            for(auto it = st.begin();it != st.end();it++){  //O(26),max 26 alphabets
+                char c = *it;
+                if(mp.count(c)){  //O(1)
+                    v = false;
+                    break;
+                }
+            }
+            if(v){
+                st.clear();  //O(k)
+                int len = i-j+1;
+                res.push_back(len);
+                j = i + 1;
+            }
+        }
+        return res;
+    }
+};
+
+
+
+/*
+Final Time Complexity:
+Combining everything:
+Frequency Calculation: O(n)
+Outer Loop with Set Operations: O(n log k)
+Clearing the Set: O(n)
+Total Time Complexity:O(n)+O(nlogk)+O(n)=O(nlogk) 
+As k is a constant (at most 26), so in practice, O(n log k) = O(n).
+*/
