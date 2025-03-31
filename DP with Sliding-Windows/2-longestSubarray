@@ -1,0 +1,82 @@
+/*
+//Sliding Window Template
+int slidingWindow(vector<int>& arr, int k) {
+    int i = 0, j = 0;
+    int currentResult = 0; // To store the final result
+    // Data structure to maintain window state (multiset/map/set)
+    
+    while (j < arr.size()) {
+        // Step 1: Expand the window -- Add arr[j] to the window
+        // Step 2: Check window condition
+        while (/* Condition to shrink the window */) {
+            // Remove arr[i] from the window
+            i++; // Move the left pointer
+        }
+        // Step 3: Update result based on current window state
+        // Step 4: Move the right pointer
+        j++;
+    }
+    return currentResult;
+}
+*/
+
+
+/*
+Problem statement
+Return the length of the longest subarray length such that the elements in that are only two distinct elements.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+int longestSubarray(vector<int> arr) {
+    int ans = 0, i = 0, j = 0;
+    multiset<int> window;
+
+    while (j < arr.size()) {
+        //step 1 : Do
+        window.insert(arr[j]);   
+        //step 2 : Ensure the window is valid
+        while (*window.rbegin() - *window.begin() > 1) {
+            window.erase(window.find(arr[i]));
+            i++;
+        }
+        //step 3 : Update the answer
+        ans = max(ans, (int)window.size());
+        j++;
+    }
+    return ans;
+}
+int main() {
+    int n;
+    cout << "Enter array size: ";
+    cin >> n;
+    vector<int> arr(n);
+    cout << "Enter array elements: ";
+    for (int i = 0; i < n; i++) {
+        cin >> arr[i];
+    }
+    int result = longestSubarray(arr);
+    cout << "Longest subarray length: " << result << endl;
+    return 0;
+}
+
+
+
+// we can also use the map instead of multiset as there are same elements present in the subarray.
+int longestSubarray(vector<int> arr) {
+    int ans = 0, i = 0;
+    map<int, int> freq;          // Frequency map to store element counts
+    for (int j = 0; j < arr.size(); j++) {
+        freq[arr[j]]++;
+        // Ensure the window is valid
+        while (freq.rbegin()->first - freq.begin()->first > 1) {
+            freq[arr[i]]--;
+            if (freq[arr[i]] == 0)
+                freq.erase(arr[i]);
+            i++;
+        }
+        // Update the answer
+        ans = max(ans, j - i + 1);
+    }
+    return ans;
+}
