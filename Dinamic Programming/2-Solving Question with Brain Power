@@ -1,0 +1,73 @@
+/*
+You are given a 0-indexed 2D integer array questions where questions[i] = [pointsi, brainpoweri].
+The array describes the questions of an exam, where you have to process the questions in order (i.e., starting from question 0) and make a decision whether to solve or skip each question. Solving question i will earn you pointsi points but you will be unable to solve each of the next brainpoweri questions.
+If you skip question i, you get to make the decision on the next question.
+
+Example 1:
+Input: questions = [[3,2],[4,3],[4,4],[2,5]]
+Output: 5
+Explanation: The maximum points can be earned by solving questions 0 and 3.
+- Solve question 0: Earn 3 points, will be unable to solve the next 2 questions
+- Unable to solve questions 1 and 2
+- Solve question 3: Earn 2 points
+Total points earned: 3 + 2 = 5. There is no other way to earn 5 or more points.
+
+Constraints:
+1 <= questions.length <= 10^5
+questions[i].length == 2
+1 <= pointsi, brainpoweri <= 10^5
+*/
+
+
+//Recurssion
+class Solution {
+ public:
+     // Recursive approach
+     long long solve(vector<vector<int>>& questions, int index) {
+         // Base case: If index is out of bounds
+         if (index >= questions.size()) return 0;
+
+         // Solve the current question
+         long long solveCurrent = questions[index][0] + solve(questions, index + questions[index][1] + 1);
+        
+         // Skip the current question
+         long long skipCurrent = solve(questions, index + 1);
+
+         // Return the maximum of both choices
+         return max(solveCurrent, skipCurrent);
+     }
+
+     long long mostPoints(vector<vector<int>>& questions) {
+         return solve(questions, 0);
+     }
+};
+
+
+//Memoization(Dp)
+class Solution {
+public:
+    vector<long long> memo;
+
+    // Memoized approach
+    long long solve(vector<vector<int>>& questions, int index) {
+        // Base case
+        if (index >= questions.size()) return 0;
+
+        // Return memoized result
+        if (memo[index] != -1) return memo[index];
+
+        // Solve current question
+        long long solveCurrent = questions[index][0] + solve(questions, index + questions[index][1] + 1);
+
+        // Skip current question
+        long long skipCurrent = solve(questions, index + 1);
+
+        // Memoize and return result
+        return memo[index] = max(solveCurrent, skipCurrent);
+    }
+
+    long long mostPoints(vector<vector<int>>& questions) {
+        memo.assign(questions.size(), -1);
+        return solve(questions, 0);
+    }
+};
