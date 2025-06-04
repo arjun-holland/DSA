@@ -1,0 +1,42 @@
+/*
+Given a Binary Tree, you need to find all the possible paths from the root node to all the leaf nodes of the binary tree.
+Note: The paths should be returned such that paths from the left subtree of any node are listed first, followed by paths from the right subtree.
+*/
+
+
+/*
+Definition for Binary Tree Node
+struct Node
+{
+    int data;
+    struct Node* left;
+    struct Node* right;
+
+    Node(int x){
+        data = x;
+        left = right = NULL;
+    }
+};
+*/
+
+class Solution {
+  public:
+    void solve(Node* node, vector<vector<int>>& paths, vector<int>& currentPath) {
+        if (!node) return;
+        currentPath.push_back(node->data);
+        if (node->left == NULL && node->right == NULL) {  // Leaf node
+            paths.push_back(currentPath); 
+        } else {
+            solve(node->left, paths, currentPath);
+            solve(node->right, paths, currentPath);
+        }
+        currentPath.pop_back(); // Backtrack
+    }
+
+    vector<vector<int>> Paths(Node* root) {
+        vector<vector<int>> allPaths;
+        vector<int> currentPath;
+        solve(root, allPaths, currentPath);
+        return allPaths;
+    }
+};
