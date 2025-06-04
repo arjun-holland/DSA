@@ -1,0 +1,105 @@
+/*
+Given an array arr[] and an integer k, the task is to find the length of longest subarray in which the 
+count of elements greater than k is more than the count of elements less than or equal to k.
+
+Examples:
+Input: arr[] = [1, 2, 3, 4, 1], k = 2
+Output: 3
+Explanation: The subarray [2, 3, 4] or [3, 4, 1] satisfy the given condition, and there is no 
+subarray of length 4 or 5 which will hold the given condition, so the answer is 3.
+
+Constraints:
+1 <= arr.size() <= 10^6
+1 <= arr[i] <= 10^6
+0 <= k <= 10^6
+*/
+
+
+
+class Solution {
+  public:
+    int longestSubarray(vector<int> &arr, int k) {
+        unordered_map<int, int> first_occurrence;
+        int sum = 0, maxLen = 0;
+        
+        first_occurrence[0] = -1;       // Important: sum 0 before index 0
+
+        for (int i = 0; i < arr.size(); ++i) {
+            if (arr[i] > k) sum += 1;
+            else sum -= 1;
+            if (sum > 0) {       // Case 1: Whole subarray from 0 to i is valid
+                maxLen = max(maxLen, i+1);    // 1 2 3 then -1 0 1 , 1 > 0 so 2+1 = 3
+            }
+            else if (first_occurrence.find(sum - 1) != first_occurrence.end()) {   // Case 2: We have seen (sum - 1) before
+                maxLen = max(maxLen, i - first_occurrence[sum - 1]);  // first condition : 0 - (-1) =  1
+            }
+            if (first_occurrence.find(sum) == first_occurrence.end()) {    // Store first occurrence of this sum
+                first_occurrence[sum] = i;
+            }
+        }
+        return maxLen;
+    }
+};
+
+
+
+/*
+🔁 Prefix Sum + Hashing: General Algorithm Steps
+
+Problem Analysis:
+Identify a balance condition (e.g., equal number of 0s and 1s, more elements > k than ≤ k).
+Decide how to map or transform each element to +1, -1, or their actual value.
+Transform the Array:
+Convert original elements to a form that allows tracking the desired balance using prefix sums.
+Examples:
+0 → -1, 1 → +1 (for equal 0s and 1s)
+arr[i] > k → +1, else → -1 (for “more than k” problems)
+
+Initialize Tracking Structures:
+prefix_sum = 0
+A hash map (first_occurrence) to store the first index where each prefix_sum was seen.
+Often set "first_occurrence[0] = -1" as the base case.
+
+Iterate Through the Array:
+At each index:
+-Update the prefix sum.
+-Check if the prefix sum indicates that the entire subarray from 0 to i satisfies the condition.
+-Check if the same prefix sum (or an offset like sum - 1) was seen before.
+-Use the index difference to calculate a potential subarray length.
+-Update the answer accordingly.
+
+Record First Occurrence:
+If this prefix sum hasn’t been seen before, record the current index.
+
+Return the Final Result:
+This is typically the maximum length or count of subarrays satisfying the condition.
+
+*/
+
+
+/*
+How to Identify Such Problems?
+✅ Common Keywords / Clues in Problem:
+-Count of elements with certain property (like > k, <= k, even/odd, 0/1, etc.)
+-Subarray where the number of Xs is more than Ys
+-Longest subarray with some balance condition
+-Transform array to +1/-1 based on a property (frequently used)
+-You are tracking how the difference between counts evolves over time
+-You need non-contiguous shrinking (sliding window can't work)
+
+
+🧩 Similar Pattern Problems:
+-Longest subarray with equal number of 0s and 1s
+-Longest subarray with equal number of A and B
+-Subarray sum equals K (standard prefix sum)
+-Longest subarray with more 1s than 0s
+-Balanced parenthesis tracking (stack version of balance)
+
+🧠 Common Variants & Transform Rules
+Problem Type	Transform Rule
+More 1s than 0s	 -------------------- 1 → +1, 0 → -1
+More elements > k than ≤ k ---------- >k → +1, else → -1
+Equal number of 0s and 1s ----------- 1 → +1, 0 → -1
+Longest subarray with sum = K	------- Use sum directly, store prefix
+More vowels than consonants	vowel --- +1, consonant → -1
+*/
