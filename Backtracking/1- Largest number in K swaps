@@ -1,0 +1,79 @@
+/*
+Given a number k and string s of digits denoting a positive integer, build the largest number possible by 
+performing swap operations on the digits of s at most k times.
+
+Examples :
+Input: s = "1234567", k = 4
+Output: 7654321
+Explanation: Three swaps can make the input 1234567 to 7654321, swapping 1 with 7, 2 with 6 and finally 3 with 5.
+
+Constraints:
+1 ≤ s.size() ≤ 15
+1 ≤ k ≤ 7
+*/
+
+
+
+class Solution {
+  public:
+    string res = "";
+    void solve(int index, string& s, int k, string& res) {
+        if (k == 0 || index == s.length()) {
+            if (s > res) res = s;  // Update the result if current is greater
+            return;
+        }
+
+        char maxChar = s[index];
+
+        // Find the max digit after or at current index to decide if a swap is beneficial
+        for (int i = index + 1; i < s.length(); i++) {
+            if (s[i] > maxChar) {
+                maxChar = s[i];
+            }
+        }
+
+        // If no greater digit is found, we move to the next digit
+        if (maxChar == s[index]) {
+            solve(index + 1, s, k, res);
+            return;
+        }
+
+        // Try all possible swaps with the maxChar(s)
+        for (int i = index + 1; i < s.length(); i++) {
+            if (s[i] == maxChar) {
+                swap(s[i], s[index]);          // Swap to try this configuration
+                solve(index + 1, s, k - 1, res); // Recurse with one less swap
+                swap(s[i], s[index]);          // Backtrack to original state
+            }
+        }
+    }
+
+    // Main function called by the user
+    string findMaximumNum(string& s, int k) {
+        res = s;             // Initialize result with original string
+        solve(0, s, k, res); // Start recursion
+        return res;
+    }
+};
+
+
+// class Solution {//greedy method fails
+//   public:
+//     // Function to find the largest number after k swaps.
+//     string findMaximumNum(string& s, int k) {
+//         for(int i=0;i<s.length() && k>0;i++){
+//             int le = s[i]-'0',id = i;
+//             for(int j=i+1;j<s.length();j++){
+//                 if((s[j]-'0') >= le){
+//                     le = s[j]-'0';
+//                     id = j;
+//                 }
+//             }
+//             if(id != i && s[i] != s[id]){
+//                 swap(s[i],s[id]);
+//                 k--;
+//             }
+//         }
+//         return s;
+//     }
+// };
