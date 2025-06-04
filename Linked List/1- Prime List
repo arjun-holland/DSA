@@ -1,0 +1,73 @@
+/*
+You are given the head of a linked list. You have to replace all the values of the nodes
+with the nearest prime number. If more than one prime number exists at an equal distance,
+choose the smallest one. Return the head of the modified linked list.
+
+Exammple:
+Input: head = 2 → 6 → 10
+Output: 2 → 5 → 11
+Explanation: The nearest prime of 2 is 2 itself.
+The nearest primes of 6 are 5 and 7, since 5 is smaller so, 5 will be chosen. The nearest prime of 10 is 11.
+
+Constraints:
+1 <= no. of Nodes <= 10^4
+1 <= node.val <= 10^4
+*/
+
+
+
+// User function Template for C++
+
+/*
+class Node{
+public:
+    int val;
+    Node *next;
+    Node(int num){
+        val=num;
+        next=NULL;
+    }
+};
+*/
+class Solution {
+  public:
+    vector<bool> p;
+    Solution() {
+        p.resize(100001, true);
+        p[0] = p[1] = false;
+        seive();
+    }
+    void seive() {
+        for (int i = 2; i * i <= 100000; ++i) {
+            if (p[i]) {
+                for (int j = i * i; j <= 100000; j += i) {
+                    p[j] = false;
+                }
+            }
+        }
+    }
+
+    int getData(int n) {
+        if (p[n]) return n;
+        int lower = n - 1;
+        int upper = n + 1;
+
+        while (lower >= 2 && !p[lower]) --lower;
+        while (upper <= 100000 && !p[upper]) ++upper;
+
+        // If no lower prime found (e.g., when n = 1), return upper
+        if (lower < 2) return upper;
+
+        if (n - lower <= upper - n) return lower;
+        return upper;
+    }
+
+    Node *primeList(Node *head) {
+        Node* curr = head;
+        while (curr) {
+            curr->val = getData(curr->val);
+            curr = curr->next;
+        }
+        return head;
+    }
+};
