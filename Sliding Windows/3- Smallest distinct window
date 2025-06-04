@@ -1,0 +1,36 @@
+/*
+Given a string str, your task is to find the length of the smallest window 
+that contains all the characters of the given string at least once.
+
+Input: str = "aabcbcdbca"
+Output: 4
+Explanation: Sub-String "dbca" has the smallest length that contains all the characters of str.
+
+Constraints:
+1 ≤ str.size() ≤ 105
+str contains only lower-case english alphabets.
+*/
+
+class Solution {
+  public:
+    int findSubString(string& str) {
+        set<char>s;
+        for(char c: str) s.insert(c);
+        int len=s.size();
+        int ans=INT_MAX;
+        int i=0,j=0;
+        unordered_map<char,int>mp;
+        while(j < str.size()){
+            mp[str[j]]++;
+            if(mp.size()>=len){
+                while(mp[str[i]] > 1){  //when we have more then 1 same character we need to reduce the frequency
+                    mp[str[i]]--;
+                    i++;
+                }
+                ans=min(ans,j-i+1);
+            }
+            j++;
+        }
+        return ans;
+    }
+};
