@@ -30,3 +30,21 @@ class Solution {
         return maxLen;
     }
 };
+
+
+/*
+we can use Sliding Window but — does solve subarray sum problems efficiently — but only when all elements are non-negative.
+
+🔴 Problem: Longest Subarray with Sum = K (with possible negative numbers)
+➡️ ❌ Sliding window doesn’t work reliably with negatives
+➡️ ✅ We use Prefix Sum + Hash Map instead.
+
+🧠 Why Sliding Window Fails (when negatives exist):
+In sliding window:
+
+You expand right to increase sum.
+You shrink left to decrease sum.
+But if the array has negative numbers, shrinking might increase the sum. That breaks the window logic.
+*/
+
+
