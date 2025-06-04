@@ -1,0 +1,62 @@
+/*
+Given an array arr of 0s and 1s. Find and return the length of the longest subarray with equal number of 0s and 1s.
+Input: arr[] = [1, 0, 1, 1, 1, 0, 0]
+Output: 6
+Explanation: arr[1...6] is the longest subarray with three 0s and three 1s.
+*/
+
+class Solution {
+  public:
+    int maxLen(vector<int> &arr) {
+        unordered_map<int,int> fs;
+        fs[0] = -1;
+        int n = arr.size();
+        int sum = 0,ans = 0;
+        
+        for(int i=0;i<n;i++){
+            if(arr[i] == 1)sum++;
+            else sum--;
+            if(sum == 0){
+                ans = max(ans,i+1);
+            }
+            else if(fs.find(sum) != fs.end()) {
+                ans = max(ans, i - fs[sum]);
+            }
+            if(fs.find(sum) == fs.end()){
+                fs[sum] = i;
+            }
+        }
+        return ans;
+    }
+};
+
+
+/*
+
+✅ When to Use fs.find(sum):
+🔹 Condition: “equal number” of two types (like 0s and 1s, A and B, mapped to +1/-1).
+➡️ Use:
+if (fs.find(sum) != fs.end()) {
+    ans = max(ans, i - fs[sum]);
+}
+🧠 Why: When the same prefix sum appears again, it means the net change between the two indices is zero ⇒ the subarray between them is balanced.
+
+✅ When to Use fs.find(sum - 1):
+🔸 Condition: “more of one type” (like more 1s than 0s, more elements > k than ≤ k).
+➡️ Use:
+if (fs.find(sum - 1) != fs.end()) {
+    ans = max(ans, i - fs[sum - 1]);
+}
+🧠 Why: You're checking if there's a prefix with 1 less, which means the current subarray has a net positive (e.g., more 1s than 0s).
+
+
+| Goal                 | Hash Lookup   |
+| -------------------- | ------------- |
+| Equal (1s == 0s)     | `fs[sum]`     |
+| More 1s than 0s      | `fs[sum - 1]` |
+| More 1s than 0s by X | `fs[sum - X]` |
+| More >k than ≤k      | `fs[sum - 1]` |
+| More >k than ≤k by X | `fs[sum - X]` |
+
+
+*/
