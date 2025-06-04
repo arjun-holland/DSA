@@ -1,0 +1,46 @@
+/*
+Given two matrices mat1[][] and mat2[][] of size n x n, where the elements in each matrix 
+are arranged in strictly ascending order. Specifically, each row is sorted from left to right,
+and the last element of a row is smaller than the first element of the next row.
+You're given a target value x, your task is to find and count all pairs {a, b} such that a is from mat1 and b is from mat2 
+where the sum of a + b is equal to x.
+
+Input: n = 3, x = 21,
+mat1[][] = [[1, 5, 6], [8, 10, 11], [15, 16, 18]],
+mat2[][] = [[2, 4, 7], [9, 10, 12], [13, 16, 20]]
+OUTPUT: 4
+Explanation: The pairs whose sum is found to be 21 are (1, 20), (5, 16), (8, 13) and (11, 10).
+*/
+
+//Intuition: AS the matrix is sorted we can use thge two poointer technique but here one pointer is for mat1 and another is for mat2.
+
+class Solution {
+  public:
+    int countPairs(vector<vector<int>> &mat1, vector<vector<int>> &mat2, int k) {
+        int res = 0;
+        int n = mat1.size();
+        int r1 = 0,c1 = 0,r2 = n-1,c2 = n-1;
+        while(r1 < n && r2 >= 0){
+            int e1 = mat1[r1][c1];
+            int e2 = mat2[r2][c2];
+            if(e1 + e2 == k){
+                res++;
+                c1++;
+                c2--;
+            }else if(e1 + e2 < k){
+                c1++;
+            }else{
+                c2--;
+            }
+            if(c1 == n){
+                r1++;
+                c1 = 0;
+            }
+            if(c2 == -1){
+                r2--;
+                c2 = n-1;
+            }
+        }
+        return res;
+    }
+};
