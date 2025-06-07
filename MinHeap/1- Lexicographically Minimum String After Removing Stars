@@ -1,0 +1,41 @@
+/*
+You are given a string s. It may contain any number of '*' characters. Your task is to remove all '*' characters.
+While there is a '*', do the following operation:
+Delete the leftmost '*' and the smallest non-'*' character to its left. If there are several smallest characters, you can delete any of them.
+Return the lexicographically smallest resulting string after removing all '*' characters.
+
+Example 1:
+Input: s = "aaba*"
+Output: "aab"
+Explanation:
+We should delete one of the 'a' characters with '*'. If we choose s[3], s becomes the lexicographically smallest.
+*/
+
+
+class Solution {
+public:
+    string clearStars(string s) {
+        priority_queue<int,vector<int>,greater<int>> mh; //min heap
+        unordered_map<char,vector<int>> m;  //map to track the positions of char
+        vector<bool> st(s.length(),true);   
+
+        for(int i=0;i<s.length();i++){
+            if(s[i] == '*'){
+                char c = mh.top();  //take the top of heap as its lowest
+                mh.pop();        //pop the top of heap
+                int p = m[c].back();  //finding the last index that char present
+                m[c].pop_back();   //pop that pos cus we delete the lowest char
+                st[p] = false;
+                st[i] = false;
+            }else{
+                m[s[i]].push_back(i);
+                mh.push(s[i]);
+            }
+        }
+        string res = "";
+        for(int i=0;i<s.length();i++){
+            if(st[i])res += s[i];
+        }
+        return res;
+    }
+};
