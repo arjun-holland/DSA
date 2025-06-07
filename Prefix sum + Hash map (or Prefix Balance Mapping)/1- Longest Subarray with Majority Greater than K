@@ -86,6 +86,8 @@ How to Identify Such Problems?
 -Transform array to +1/-1 based on a property (frequently used)
 -You are tracking how the difference between counts evolves over time
 -You need non-contiguous shrinking (sliding window can't work)
+-longest subarray satisfying some cumulative condition,
+-needing to track how a difference evolves over time.
 
 
 🧩 Similar Pattern Problems:
