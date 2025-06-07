@@ -1,0 +1,36 @@
+/*
+Given two binary arrays, a1[] and a2[]. Find the length of longest common span (i, j) 
+where j>= i such that a1[i] + a1[i+1] + .... + a1[j] =  a2[i] + a2[i+1] + ... + a2[j].
+
+Examples:
+Input: a1[] = [0, 1, 0, 0, 0, 0], a2[] = [1, 0, 1, 0, 0, 1]
+Output: 4
+Explanation: The longest span with same sum is from index 1 to 4 following zero based indexing.
+*/
+
+class Solution {
+public:
+    int longestCommonSum(vector<int> &a1, vector<int> &a2) {
+        int n = a1.size();
+        vector<int> diff(n);
+  
+        for (int i = 0; i < n; ++i) {   // Step 1: Compute the difference array
+            diff[i] = a1[i] - a2[i];
+        }
+        
+        unordered_map<int, int> sumIndex;   // Step 2: Find the longest subarray with sum = 0
+        int maxLen = 0, prefixSum = 0;
+        for (int i = 0; i < n; ++i) {
+            prefixSum += diff[i];
+            if (prefixSum == 0) {
+                maxLen = i + 1;
+            }
+            if (sumIndex.find(prefixSum) != sumIndex.end()) {
+                maxLen = max(maxLen, i - sumIndex[prefixSum]);
+            } else {
+                sumIndex[prefixSum] = i;
+            }
+        }
+        return maxLen;
+    }
+};
