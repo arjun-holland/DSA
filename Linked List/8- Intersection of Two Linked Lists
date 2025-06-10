@@ -3,3 +3,42 @@ Given the heads of two singly linked-lists headA and headB, return the node at w
 If the two linked lists have no intersection at all, return null.
 */
 
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA == NULL || headB == NULL)return NULL;
+
+        ListNode* endA = headA;        //connect the listA end to the listB head
+        while(endA -> next != NULL){
+            endA = endA -> next;
+        }
+        endA -> next = headB;
+
+        ListNode* s = headA;   
+        ListNode* f = headA;
+        while(f->next != NULL && f->next->next != NULL){
+            s = s->next;
+            f = f->next->next;
+            if(s == f){
+                ListNode* st = headA;
+                while(st != s){
+                    s = s->next;
+                    st = st->next;
+                }
+                endA->next = NULL;
+                return st;
+            }
+        }
+        endA->next = NULL;
+        return NULL;
+    }
+};
