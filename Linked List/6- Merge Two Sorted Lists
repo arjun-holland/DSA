@@ -13,7 +13,7 @@ Return the head of the merged linked list.
  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
  * };
  */
-
+//T.C : O(min(len(l1)+len(l2)))
 
 //recursive
 class Solution {
