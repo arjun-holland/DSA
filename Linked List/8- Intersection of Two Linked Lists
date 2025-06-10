@@ -42,3 +42,23 @@ public:
         return NULL;
     }
 };
+
+
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *head1, ListNode *head2) {
+        ListNode* t1=head1; 
+        ListNode* t2=head2;
+        while(true){
+            if(t1 == t2)return t1;//when both t1 and t2 address are same then that is the interset point
+            t1 = t1->next;
+            t2 = t2->next;
+            if(t1 == nullptr && t2 == nullptr)return nullptr;
+            if(t1 == nullptr)t1 = head1;
+            if(t2 == nullptr)t2 = head2;
+        }
+        return nullptr;
+
+    }
+};
