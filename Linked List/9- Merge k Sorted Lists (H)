@@ -3,3 +3,32 @@ You are given an array of k linked-lists lists, each linked-list is sorted in as
 Merge all the linked-lists into one sorted linked-list and return it.
 */
 
+class Solution {
+public:
+    ListNode* merge(ListNode* n1,ListNode* n2){  //O(m + n), function merges two sorted lists of lengths m and n
+        if(n1 == NULL)return n2;
+        if(n2 == NULL)return n1;
+        
+        ListNode* res = NULL;
+        if(n1->val <= n2->val){
+            res = n1;
+            res->next = merge(n1->next,n2);
+        }else if(n2->val < n1->val){
+            res = n2;
+            res->next = merge(n1,n2->next);
+        }
+        return res;
+    }
+
+    ListNode* mergeKLists(vector<ListNode*>& arr) {
+        if(arr.empty())return nullptr;
+        ListNode* r = arr[0];
+        for(int i=1;i<arr.size();i++){
+            ListNode* r2 = arr[i];
+            r = merge(r,r2);
+        }
+        return r;
+    }
+};
+
+//Time Complexity: O(kN) in your current code(Where k is the number of lists, and N is the total number of nodes across all lists)
