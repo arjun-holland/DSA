@@ -1,0 +1,37 @@
+/*
+Given a string s consisting only of characters a, b and c.
+Return the number of substrings containing at least one occurrence of all these characters a, b and c.
+
+Example 1:
+Input: s = "abcabc"
+Output: 10
+Explanation: The substrings containing at least one occurrence of the characters a, b and c are
+"abc", "abca", "abcab", "abcabc", "bca", "bcab", "bcabc", "cab", "cabc" and "abc" (again). 
+
+Constraints:
+3 <= s.length <= 5 x 10^4
+s only consists of a, b or c characters.
+*/
+
+class Solution {
+public:
+    int numberOfSubstrings(string s) {
+        int i = 0,j = 0;
+        int k = s.size();
+        unordered_map<char,int> mp;
+        int ans = 0;
+        while(j < k){
+            mp[s[j]]++;
+            while(i<k && mp.size() == 3){
+                ans += k-j;
+                mp[s[i]]--;
+                if(mp[s[i]] == 0){
+                    mp.erase(s[i]);
+                }
+                i++;
+            }
+            j++;
+        }
+        return ans;
+    }
+};
