@@ -105,3 +105,10 @@ Equal number of 0s and 1s ----------- 1 → +1, 0 → -1
 Longest subarray with sum = K	------- Use sum directly, store prefix
 More vowels than consonants	vowel --- +1, consonant → -1
 */
+
+| Situation                                          | Example Problem                        |
+| -------------------------------------------------- | -------------------------------------- |
+| Count subarrays with exact sum                     | [Binary Subarrays With Sum]            |
+| Count subarrays divisible by k                     | Subarrays Sums Divisible by K          |
+| Substrings or subarrays matching a numeric pattern | Continuous Subarray Sum                |
+| Pattern of adding or removing to meet sum          | Contiguous Array (equal 0s and 1s)     |
