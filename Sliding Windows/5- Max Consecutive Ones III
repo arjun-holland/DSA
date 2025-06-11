@@ -1,0 +1,31 @@
+/*
+Given a binary array nums and an integer k, return the maximum number of consecutive 1's in the array if you can flip at most k 0's.
+
+Input: nums = [1,1,1,0,0,0,1,1,1,1,0], k = 2
+Output: 6
+Explanation: [1,1,1,0,0,1,1,1,1,1,1]
+Bolded numbers were flipped from 0 to 1. The longest subarray is underlined.
+*/
+
+class Solution {
+public:
+    int longestOnes(vector<int>& nums, int k) {
+        int i = 0, maxLength = 0, zeroCount = 0;
+
+        for (int j = 0; j < nums.size(); j++) {
+            if (nums[j] == 0) {    // Expand the window by moving j to the right
+                zeroCount++;
+            }
+            
+            while (zeroCount > k) {   // Shrink the window from the left if zeroCount exceeds k
+                if (nums[i] == 0) {
+                    zeroCount--;
+                }
+                i++;  // Move the left pointer of the window
+            }
+            
+            maxLength = max(maxLength, j - i + 1);    // Update the maximum length of the subarray
+        }
+        return maxLength;
+    }
+};
