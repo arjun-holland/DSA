@@ -1,0 +1,44 @@
+/*
+Koko is given an array arr[], where each element represents a pile of bananas. She has exactly k hours to eat all the bananas.
+Each hour, Koko can choose one pile and eat up to s bananas from it.
+If the pile has atleast s bananas, she eats exactly s bananas.
+If the pile has fewer than s bananas, she eats the entire pile in that hour.
+Koko can only eat from one pile per hour.
+Your task is to find the minimum value of s (bananas per hour) such that Koko can finish all the piles within k hours.
+
+Examples:
+Input: arr[] = [5, 10, 3], k = 4
+Output: 5
+Explanation: Koko eats at least 5 bananas per hour to finish all piles within 4 hours, as she can consume each pile in 1 + 2 + 1 = 4 hours.
+
+Constraint:
+1 ≤ arr.size() ≤ 10^5 
+1 ≤ arr[i] ≤ 10^6
+arr.size() ≤ k ≤ 10^6
+*/
+
+class Solution {
+  public:
+    bool isValid(vector<int>&ans,int m,int h){
+        int hr = 0;
+        for(int e : ans){
+            hr += (e < m)?1:ceil(float(e)/float(m));     //(e + m - 1)/m is integer ceil
+        }
+        return hr <= h;
+    }
+    int kokoEat(vector<int>& arr, int k) {
+        int n = arr.size();
+        int l = 1,r = *max_element(arr.begin(),arr.end());
+        int ans = INT_MAX;
+        while(l<=r){
+            int m = l+(r-l)/2;
+            if(isValid(arr,m,k)){
+                ans = m;
+                r = m-1;
+            }else{
+                l = m+1;
+            }
+        }
+        return ans;
+    }
+};
