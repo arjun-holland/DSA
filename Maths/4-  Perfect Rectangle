@@ -1,0 +1,61 @@
+/*
+Problem statement
+You are given N rectangles whose sides are aligned with the x-axis and the y-axis. 
+Each rectangle is represented by 4 integers [ a, b, c ,d ]. Here, (a, b) are x and y coordinates 
+of the bottom left corner, and (c, d) are x and y coordinates of the top right corner.
+You need to find if they all together form a rectangular region cover.
+
+For Example :
+If the given rectangle is [1, 1, 3, 2]. It means the bottom left corner is at [1, 1] 
+and the top right corner is at [3, 2]. Hence, the top left corner is at [1, 2] and the bottom right corner is at [3, 1].
+For the given figure is for N = 4, rectangle[0] = [1, 1, 4, 5], 
+rectangle[1] = [4, 1, 6, 2], rectangle[3] = [4, 2, 6, 5], rectangle[4] = [6, 1, 8, 5].
+As they all form a big rectangle [1, 1, 8, 5]. So, the answer is 1.
+
+Constraints :
+1<= T <= 50
+1 <= N <= 20000
+0 <=  'rectangle[i][j]' <= 20000
+rectangle[i].size = 4
+*/
+
+#include <bits/stdc++.h> 
+int perfectRectangle(vector<vector<int>> &rectangles)
+{
+	set<pair<int,int>> corners;
+	long long totArea = 0;
+	int minX = INT_MAX; //final rec co-ordinates
+	int minY = INT_MAX;
+	int maxX = INT_MIN;
+	int maxY = INT_MIN;
+
+	for(auto r : rectangles){
+		int a = r[0],b = r[1],c = r[2],d = r[3];
+		totArea += 1LL*(c - a)*(d - b);
+
+		minX = min(minX,a); //updating final co-ordinates
+		minY = min(minY,b);
+		maxX = max(maxX,c);
+		maxY = max(maxY,d);
+	
+		vector<pair<int,int>> curRecCorners = {{a,b},{a,d},{c,b},{c,d}};
+
+		for(auto c : curRecCorners){
+			if(corners.count(c))corners.erase(c);
+			else corners.insert(c);
+		}
+	}
+	long long finalArea = 1LL*(maxX-minX)*(maxY-minY);
+ 
+	if(finalArea != totArea)return 0;
+ 
+	if(corners.size() != 4)return 0;
+ 
+	if(!corners.count({minX,minY})  ||
+		!corners.count({minX,maxY}) ||
+		!corners.count({maxX,minY}) ||
+		!corners.count({maxX,maxY}))
+		return 0;
+  
+	return 1;
+}
