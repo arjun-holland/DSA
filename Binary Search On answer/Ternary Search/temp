@@ -1,0 +1,6 @@
+Terinary search is used whenever we don't have a certain condition to do the binary search on answer.
+generally binary search on answer technique has a certain condition to control the left and right pointers ,
+if we have to control the left and right pointers but why don't have the certain condition then we have
+to use the ternary search this is quite same as the binary search on answer approach but here we are 
+actually finding the 2 mid value position and we have to consider the minimum or the maximum depending upon 
+the answer.
