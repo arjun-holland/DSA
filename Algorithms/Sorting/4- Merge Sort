@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void merge(vector<int>& a,int s,int m,int e){
+    vector<int> t;
+    int fi = s,si = m+1;
+    while(fi <= m && si <= e){
+        if(a[fi] <= a[si]){
+            t.push_back(a[fi]);
+            fi++;
+        }else{
+            t.push_back(a[si]);
+            si++;
+        }
+    }
+    while(fi <= m){
+        t.push_back(a[fi]);
+        fi++;
+    }
+    while(si <= e){
+        t.push_back(a[si]);
+        si++;
+    }
+    int j = 0;
+    for(int i=s-0;i<=e;i++){
+        a[i] = t[j];
+        j++;
+    }
+}
+
+void mergeSort(vector<int>& a,int s,int e){
+    if(s < e){
+        int m = s+(e-s)/2;
+        mergeSort(a,s,m);
+        mergeSort(a,m+1,e);
+        merge(a,s,m,e);
+    }
+}
+
+int main() {
+	int n;
+	cin>>n;
+	vector<int> a(n);
+	//vector<int> a = {1,2,3,4,9,8};
+	//int n = 6;
+	for(int i=0;i<n;i++)cin>>a[i];
+	mergeSort(a,0,n-1);
+	for(int i=0;i<n;i++)cout<<a[i]<<" ";
+}
