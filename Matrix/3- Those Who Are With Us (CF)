@@ -1,0 +1,127 @@
+/*
+You are given a matrix of integers with n rows and mcolumns. The cell at the intersection of the i-th row and the j-th column contains the number aij.
+
+You can perform the following operation exactly once:
+-Choose two numbers 1≤r≤n and 1≤c≤m.
+-For all cells (i,j) in the matrix such that i=r or j=c, decrease aij by one.
+You need to find the minimal possible maximum value in the matrix a after performing exactly one such operation.
+
+Input
+Each test consists of multiple test cases. The first line contains a single integer t (1≤t≤10^4) — the number of test cases. 
+The description of the test cases follows.
+The first line of each test case contains two integers n and m(1≤n⋅m≤10^5) — the number of rows and columns in the matrix.
+
+The next n lines of each test case describe the matrix a. The i-th line contains m integers ai1,ai2,…,aim (1≤aij≤100) — 
+the elements in the i-th row of the matrix.
+It is guaranteed that the sum of n⋅macross all test cases does not exceed 2⋅10^5.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int solve(int n, int m, int mx, const vector<vector<int>>& ar) {
+    vector<pair<int, int>> maxCells;
+    unordered_map<int, int> rowCount, colCount;
+
+    // Step 1: Find all cells with the max value
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
+            if (ar[i][j] == mx) {
+                maxCells.emplace_back(i, j);
+                rowCount[i]++;
+                colCount[j]++;
+            }
+
+    int total = maxCells.size();
+
+    // Step 2: Check if any row+col pair covers all max cells
+    for (auto& [r, _] : rowCount) {
+        for (auto& [c, __] : colCount) {
+            int covered = rowCount[r] + colCount[c];
+
+            // If (r, c) is a max cell, it's double-counted — subtract 1
+            if (ar[r][c] == mx) covered--;
+
+            if (covered == total)
+                return mx - 1;
+        }
+    }
+
+    return mx;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> matrix(n, vector<int>(m));
+        int mx = 0;
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j) {
+                cin >> matrix[i][j];
+                mx = max(mx, matrix[i][j]);
+            }
+        cout << solve(n, m, mx, matrix) << '\n';
+    }
+    return 0;
+}
+
+
+
+
+
+//gives TLE
+#include <bits/stdc++.h>
+using namespace std;
+
+bool isValid(int i, int j, const vector<pair<int, int>>& ar) {
+    for (auto& [r, c] : ar) {
+        if (r != i && c != j)
+            return false;
+    }
+    return true;
+}
+
+int solve(int n, int m, int mx, vector<vector<int>>& ar) {
+    vector<pair<int, int>> cells;
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
+            if (ar[i][j] == mx)
+                cells.push_back({i, j});
+
+    for (int i = 0; i < n; ++i)
+        for (int j = 0; j < m; ++j)
+            if (isValid(i, j, cells))return mx - 1;
+
+    return mx;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<int>> matrix(n, vector<int>(m));
+        int mx = 0;
+        for (int i = 0; i < n; ++i)
+            for (int j = 0; j < m; ++j) {
+                cin >> matrix[i][j];
+                mx = max(mx, matrix[i][j]);
+            }
+
+        cout << solve(n, m, mx, matrix) << '\n';
+    }
+    return 0;
+}
+
+
+
