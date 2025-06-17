@@ -1,0 +1,45 @@
+/*
+Problem statement
+While practicing questions on data structures, Ninja faced a problem and was not able to pass all the test cases of a question as the time complexity of the code Ninja made was very large. 
+Ninja asked you for help. You are given a snippet of code and you have to optimize the code.
+Pseudocode:
+RES = 0
+FOR(i -> A to B) {
+    FOR(j -> C to D) {
+        ADD (i ^ j) to RES;
+    }
+}
+PRINT(RES)
+You are given the integers ‘A’, ‘B’, ‘C’, and ‘D’, and ‘^’ represents the bitwise XOR operator. As the result can be large print the result modulo 1000000007.
+Detailed explanation ( Input/output format, Notes, Images )
+Constraints :
+1 <= T <= 10
+1 <= A <= B <= 5*10^3
+1 <= C <= D <= 5*10^3
+*/
+
+int countBits(int x,int bit){
+    int c = 1 <<(bit+1);
+    int fc = x/c;
+    int rc = x%c;
+    int ct = fc*(1<<bit)+max(0,rc-(1<<bit)+1);
+    return ct;
+}
+
+long long optimizeCode(int a, int b, int c, int d){
+    int mod = 1e9+7;
+    long long res = 0;
+    for(int i=0;i<31;i++){
+        int bitVal = (1<<i);
+
+        int setB = countBits(d,i)-countBits(c-1,i);
+        int unsetB = (d-c+1)-setB;
+        int setA = countBits(b,i)-countBits(a-1,i);
+        int unsetA = (b-a+1)-setA;
+
+        long long contr = 1LL * bitVal*(1LL * setA*unsetB + 1LL* setB*unsetA);
+        res = (res + contr % mod)%mod;
+    }
+    return res;
+}
+
