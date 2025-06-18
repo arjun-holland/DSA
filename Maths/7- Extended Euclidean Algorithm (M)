@@ -1,0 +1,182 @@
+/*
+Problem statement
+You have just been taught about linear equations and about GCD(Greatest Common Divisor). 
+So, you are given an equation AX + BY = C where A and B are two integers that you are given 
+and D is the GCD or greatest common divisors of A and B.
+So, you have to find out 2 integers x and y such that the above equation is satisfied for C = D,
+|X+Y| is minimum. If there are multiple such pairs, return the one where X is maximum.
+
+Example:-
+A = 2
+B = 4
+The answer should be D = 2 [gcd of (2,4)] and X = 1  and Y = 0 (|X+Y|=1 is 
+the minimum possible value that can be obtained here).
+Detailed explanation ( Input/output format, Notes, Images )
+Constraints :
+1 <= T <= 10
+1 <= A <= 10^9
+1 <= B <= 10^9
+Time Limit = 1 sec
+*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// Extended Euclidean Algorithm (recursive)
+// Returns gcd(a, b), and integers x and y such that: a*x + b*y = gcd(a, b)
+
+tuple<long long, long long, long long> get_gcd(long long a, long long b) {
+    if (b == 0) return {a, 1, 0};     // Base case
+    
+    auto [g, x1, y1] = get_gcd(b, a % b);   // Recursive call : get [a*x1 + b*y1 = gcd(a,b)]
+
+    long long x = y1;               // Backtrack to get current x and y
+    long long y = x1 - (a / b) * y1;
+
+    return {g, x, y};      // Return GCD and coefficients
+}
+
+// Finds a solution (x, y) to AX + BY = D (D = GCD(A, B))
+// Such that |X + Y| is minimized, and if tie, X is maximized
+
+vector<int> extended_gcd(long long a, long long b) {
+    // Get initial solution using Extended Euclidean Algorithm
+    auto [g, x0, y0] = get_gcd(a, b);
+
+    // Special case: A == B
+    if (a == b) {
+        return {static_cast<int>(g), 1, 0};   
+    }
+
+    long long A = a, B = b;
+    long long bestX = x0;
+    long long bestY = y0;
+    long long bestSum = abs(x0 + y0);    // Track the minimal |X + Y|
+
+    // Brute force a few k values near 0 to adjust the solution
+    // (avoid full brute-force from -10000 to 10000)
+    
+    for (long long k = -1000; k <= 1000; ++k) {
+        // General solution to linear Diophantine equation:
+        // x = x0 + k*(B / g), y = y0 - k*(A / g)
+        
+        long long x = x0 + k * (B / g);
+        long long y = y0 - k * (A / g);
+        long long sum = abs(x + y);
+
+        // Update best pair if |X + Y| is smaller or X is larger (tie-breaker)
+        if (sum < bestSum || (sum == bestSum && x > bestX)) {
+            bestX = x;
+            bestY = y;
+            bestSum = sum;
+        }
+    }
+
+    // Return GCD, and best (X, Y) that satisfies AX + BY = GCD
+    
+    return {static_cast<int>(g), static_cast<int>(bestX), static_cast<int>(bestY)};
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        long long A, B;
+        cin >> A >> B;
+
+        // Solve AX + BY = GCD(A, B) and get optimal X, Y
+        vector<int> result = extended_gcd(A, B);
+        for (int val : result) {
+            cout << val << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
+
+
+
+
+
+//
+✅ Step-by-Step Visual Example (with actual values):
+
+gcd(30, 12)
+We want:
+30·x + 12·y = gcd(30, 12)
+
+
+🔁 Step 1: Recursive Breakdown
+We use the relation:
+gcd(a, b) = gcd(b, a % b)
+So:
+
+gcd(30, 12)  
+→ gcd(12, 6)  
+→ gcd(6, 0) = 6
+Now backtrack using Extended Euclidean steps:
+
+🔁 Step 2:
+gcd(6, 0) = 6
+→ So, x = 1, y = 0
+
+
+That is:
+6·1 + 0·0 = 6 ✅
+🔁 Step 3: Back to gcd(12, 6)
+We previously had:
+
+a = 12, b = 6
+→ a % b = 0
+→ x1 = 1, y1 = 0 (from last step)
+Apply:
+
+x = y1 = 0  
+y = x1 - (a / b) * y1  
+  = 1 - (12 / 6) * 0  
+  = 1
+
+
+12·0 + 6·1 = 6 ✅
+🔁 Step 4: Back to gcd(30, 12)
+Now:
+a = 30, b = 12  
+→ a % b = 6  
+→ x1 = 0, y1 = 1 (from last step)
+Apply:
+
+makefile
+Copy
+Edit
+x = y1 = 1  
+y = x1 - (a / b) * y1  
+  = 0 - (30 / 12) * 1  
+  = -2
+Check:
+
+Copy
+Edit
+30·1 + 12·(-2) = 6 ✅
+📌 Final Result:
+makefile
+Copy
+Edit
+gcd(30, 12) = 6  
+x = 1  
+y = -2
+📊 Visual Summary
+Step	a	b	gcd	x	y
+1	6	0	6	1	0
+2	12	6	6	0	1
+3	30	12	6	1	-2
+
+Each step adjusts x, y using:
+
+ini
+Copy
+Edit
+x = y1  
+y = x1 - (a / b) * y1
+
