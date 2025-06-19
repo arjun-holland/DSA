@@ -1,0 +1,110 @@
+/*
+Problem statement
+Ninja has recently learned to calculate the LCM of arrays and his teacher challenged him 
+to solve a problem that no student was able to solve till now in the first attempt.
+
+He gives two integers ‘N’ and ‘M’ and you need to find ‘N’ integers ‘A1’, ‘A2’, … , ‘AN’ such that :
+A1 + A2 + … + AN = M
+LCM ( A1, A2 , … , AN ) <= M/2
+Here LCM is the least common multiple of numbers ‘A1’, ‘A2’, … , ‘AN’.
+
+Output ‘N’ integers for which above conditions are satisfied. It is guaranteed that
+for given constraints, the answer always exists.
+
+Example :
+N = 4
+M = 6
+
+Explanation : 
+One of the possible answers can be [ 1, 2, 2, 1].
+Sum of elements = 1+2+2+1 = 6.
+LCM of elements = LCM ( 1, 2, 2, 1 ) = 2 which is <= (6/2).
+
+Constraints :
+1 <= T <= 10
+3 <= M <= 10^9
+3 <= N <= M
+Time Limit : 1 sec
+
+*/
+
+
+
+
+// Function: ninjaClass
+// Constructs an array of N integers such that:
+// 1. The sum of the array is exactly M
+// 2. The LCM (Least Common Multiple) of the array is ≤ M / 2
+// It's guaranteed that such a solution exists for given constraints
+vector<int> ninjaClass(int N, int M) {
+    vector<int> res;  // Result vector to store final array
+
+    int sum = 0;
+
+    // STEP 1: Fill the first N - 3 elements with 1
+    // Why? Because:
+    // - 1 contributes to the total sum
+    // - 1 doesn't affect LCM (LCM stays low when 1s are present)
+    for (int i = 0; i < N - 3; ++i) {
+        res.push_back(1); // Add 1 to the result
+        sum += 1;         // Update sum
+    }
+
+    // STEP 2: Calculate remaining value needed to reach total sum M
+    int left = M - sum; // 'left' must be distributed among the last 3 elements
+
+    // STEP 3: Decide the last 3 numbers in a pattern that ensures:
+    // - Their sum = `left`
+    // - Their LCM ≤ M / 2
+
+    // CASE 1: If 'left' is odd
+    if (left % 2 == 1) {
+        // Example: left = 5 → (1, 2, 2)
+        // Why this works:
+        // - Sum = 5
+        // - LCM(1,2,2) = 2 → safe
+        res.push_back(1);
+        res.push_back(left / 2);
+        res.push_back(left / 2);
+    } 
+    else {
+        // CASE 2: If 'left' is even
+
+        // Subcase 2a: If divisible by 4
+        if (left % 4 == 0) {
+            // Example: left = 8 → (4, 2, 2)
+            // - Sum = 8
+            // - LCM(4,2,2) = 4 → safe
+            res.push_back(left / 2);
+            res.push_back(left / 4);
+            res.push_back(left / 4);
+        } 
+        else {
+            // Subcase 2b: Even but not divisible by 4
+            // Example: left = 6 → (2, 2, 2)
+            // - Sum = 6
+            // - LCM(2,2,2) = 2 → safe
+            res.push_back(2);
+            res.push_back(left / 2 - 1);
+            res.push_back(left / 2 - 1);
+        }
+    }
+
+    // STEP 4: Return the final array
+    return res;
+}
+
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int N, M;
+        cin >> N >> M;
+        vector<int> ans = ninjaClass(N, M);
+        for(int x : ans){
+          cout<<x<<" ";
+        }
+        cout<<endl;
+    }
+    return 0;
+}
