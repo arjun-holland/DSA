@@ -20,78 +20,83 @@ Time Limit = 1 sec
 */
 
 
-
 #include <bits/stdc++.h>
 using namespace std;
 
-// Extended Euclidean Algorithm (recursive)
-// Returns gcd(a, b), and integers x and y such that: a*x + b*y = gcd(a, b)
-
+// Iterative Extended Euclidean Algorithm
+// Returns a tuple (gcd, s, t) such that: a*s + b*t = gcd(a, b)
 tuple<long long, long long, long long> get_gcd(long long a, long long b) {
-    if (b == 0) return {a, 1, 0};     // Base case
-    
-    auto [g, x1, y1] = get_gcd(b, a % b);   // Recursive call : get [a*x1 + b*y1 = gcd(a,b)]
+    long long r1 = a, r2 = b;
+    long long s1 = 1, s2 = 0;  //initial values
+    long long t1 = 0, t2 = 1;
 
-    long long x = y1;               // Backtrack to get current x and y
-    long long y = x1 - (a / b) * y1;
+    // Perform the Euclidean Algorithm iteratively
+    while (r2 != 0) {
+        long long q = r1 / r2;         // quotient
+        long long r = r1 - q * r2;     // remainder
+        long long s = s1 - q * s2;     // x update
+        long long t = t1 - q * t2;     // y update
 
-    return {g, x, y};      // Return GCD and coefficients
+        // Shift for next iteration
+        r1 = r2; r2 = r;
+        s1 = s2; s2 = s;
+        t1 = t2; t2 = t;
+    }
+
+    // r1 is gcd(a, b), and (s1, t1) is one solution: a*s1 + b*t1 = gcd
+
+    return {r1, s1, t1};
 }
 
-// Finds a solution (x, y) to AX + BY = D (D = GCD(A, B))
-// Such that |X + Y| is minimized, and if tie, X is maximized
+// Function to find the best (x, y) satisfying a*x + b*y = gcd(a, b)
+// Returns the solution with minimum |x + y| and, if tied, the maximum x
 
-vector<int> extended_gcd(long long a, long long b) {
-    // Get initial solution using Extended Euclidean Algorithm
+tuple<long long, long long, long long> extended_gcd(long long a, long long b) {
     auto [g, x0, y0] = get_gcd(a, b);
 
-    // Special case: A == B
+    // Special case: when a == b, x = 1, y = 0 is always optimal
     if (a == b) {
-        return {static_cast<int>(g), 1, 0};   
+        return {g, 1, 0};
     }
 
     long long A = a, B = b;
+
+    // Initialize best solution with the original one
     long long bestX = x0;
     long long bestY = y0;
-    long long bestSum = abs(x0 + y0);    // Track the minimal |X + Y|
+    long long bestSum = abs(x0 + y0);
 
-    // Brute force a few k values near 0 to adjust the solution
-    // (avoid full brute-force from -10000 to 10000)
-    
+    // Try general solution for k in range [-1000, 1000]
+    // General solution: x = x0 + k * (B / g), y = y0 - k * (A / g)
+
     for (long long k = -1000; k <= 1000; ++k) {
-        // General solution to linear Diophantine equation:
-        // x = x0 + k*(B / g), y = y0 - k*(A / g)
-        
-        long long x = x0 + k * (B / g);
-        long long y = y0 - k * (A / g);
+        long long x = x0 + k * (B / g);   // B / gcd(A,B)
+        long long y = y0 - k * (A / g);   // A / gcd(A,B)
         long long sum = abs(x + y);
 
-        // Update best pair if |X + Y| is smaller or X is larger (tie-breaker)
+        // Update best solution if:
+        // 1. New sum is smaller
+        // 2. Same sum but x is larger
         if (sum < bestSum || (sum == bestSum && x > bestX)) {
             bestX = x;
             bestY = y;
             bestSum = sum;
         }
     }
-
-    // Return GCD, and best (X, Y) that satisfies AX + BY = GCD
-    
-    return {static_cast<int>(g), static_cast<int>(bestX), static_cast<int>(bestY)};
+    return {g, bestX, bestY};
 }
 
 int main() {
     int t;
-    cin >> t;
+    cin >> t;  // Number of test cases
     while (t--) {
-        long long A, B;
-        cin >> A >> B;
+        long long a, b;
+        cin >> a >> b;  // Input A and B for each test case
+        // Compute gcd and best (x, y)
+        auto [g, x, y] = extended_gcd(a, b);
 
-        // Solve AX + BY = GCD(A, B) and get optimal X, Y
-        vector<int> result = extended_gcd(A, B);
-        for (int val : result) {
-            cout << val << " ";
-        }
-        cout << "\n";
+        // Output: gcd and the chosen (x, y)
+        cout << g << " " << x << " " << y << "\n";
     }
     return 0;
 }
@@ -100,19 +105,29 @@ int main() {
 
 
 
+
+
+
+//recursive
+// Extended Euclidean Algorithm (recursive)
+// Returns gcd(a, b), and integers x and y such that: a*x + b*y = gcd(a, b)
+
+tuple<long long, long long, long long> get_gcd(long long a, long long b) {
+    if (b == 0) return {a, 1, 0};     // Base case
+    auto [g, x1, y1] = get_gcd(b, a % b);   // Recursive call : get [a*x1 + b*y1 = gcd(a,b)]
+    long long x = y1;               // Backtrack to get current x and y
+    long long y = x1 - (a / b) * y1;
+    return {g, x, y};      // Return GCD and coefficients
+}
+
 //
 ✅ Step-by-Step Visual Example (with actual values):
-
 gcd(30, 12)
-We want:
-30·x + 12·y = gcd(30, 12)
-
-
+We want:30·x + 12·y = gcd(30, 12)
 🔁 Step 1: Recursive Breakdown
 We use the relation:
 gcd(a, b) = gcd(b, a % b)
 So:
-
 gcd(30, 12)  
 → gcd(12, 6)  
 → gcd(6, 0) = 6
@@ -121,62 +136,109 @@ Now backtrack using Extended Euclidean steps:
 🔁 Step 2:
 gcd(6, 0) = 6
 → So, x = 1, y = 0
-
-
 That is:
 6·1 + 0·0 = 6 ✅
 🔁 Step 3: Back to gcd(12, 6)
 We previously had:
-
 a = 12, b = 6
 → a % b = 0
 → x1 = 1, y1 = 0 (from last step)
 Apply:
-
 x = y1 = 0  
 y = x1 - (a / b) * y1  
   = 1 - (12 / 6) * 0  
   = 1
-
-
 12·0 + 6·1 = 6 ✅
 🔁 Step 4: Back to gcd(30, 12)
 Now:
 a = 30, b = 12  
 → a % b = 6  
 → x1 = 0, y1 = 1 (from last step)
-Apply:
-
-makefile
-Copy
-Edit
 x = y1 = 1  
 y = x1 - (a / b) * y1  
   = 0 - (30 / 12) * 1  
   = -2
 Check:
-
-Copy
-Edit
 30·1 + 12·(-2) = 6 ✅
+
 📌 Final Result:
-makefile
-Copy
-Edit
 gcd(30, 12) = 6  
 x = 1  
 y = -2
 📊 Visual Summary
-Step	a	b	gcd	x	y
-1	6	0	6	1	0
-2	12	6	6	0	1
-3	30	12	6	1	-2
+Step	a	b	gcd	 x	y
+1	    6   0    6	 1  0
+2	   12   6    6	 0  1
+3	   30   12   6	 1 -2
 
 Each step adjusts x, y using:
-
-ini
-Copy
-Edit
 x = y1  
 y = x1 - (a / b) * y1
+
+
+//why   long long x = x0 + k * (B / g); ,long long y = y0 - k * (A / g); 
+//the core conceptual question behind the Extended Euclidean Algorithm’s general solution:
+
+Why are all integer solutions to
+Ax+By=gcd(A,B)
+of the form:
+  𝑥=𝑥0+k⋅𝐵/𝐷,𝑦=𝑦0-k.𝐴/𝐷
+where D=gcd(A,B) and
+(𝑥0,𝑦0) is one particular solution?
+
+Let’s break it down.
+✅ 1. What does the Extended Euclidean Algorithm do?
+It finds one particular solution (𝑥0,𝑦0),to:
+            𝐴𝑥0+𝐵𝑦0=𝐷=gcd(𝐴,𝐵)
+This means we now know one valid integer solution.
+But there are infinitely many integer pairs (x,y) that satisfy this equation.
+
+✅ 2. What happens if we add another solution?
+Let’s suppose there’s another solution (x,y) such that:
+                Ax+By=D
+We want to know:
+How is this new pair (x,y) related to the original (𝑥0,𝑦0)?
+
+Subtract the two equations:
+
+Ax+By=D ------eq(1)
+−(Ax0+By0=D) ------eq(2)
+Subtracting:
+        A(x−x0)+B(y−y0)=0
+This means:
+        A(x−x0)=−B(y−y0)
+So:
+        𝐴(𝑥−𝑥0)+𝐵(𝑦−𝑦0)=0⇒𝐴(𝑥−𝑥0)=−𝐵(𝑦−𝑦0)
+
+This is the homogeneous equation (right-hand side is 0), and its solutions describe the "shifts"
+from the original solution that still satisfy the equation.
+
+✅ 3. Solving the homogeneous part
+From: A(x−x0)=−B(y−y0) ----eq(3)
+  We want integer solutions.
+Let:
+  𝑥−𝑥0 = 𝑘⋅𝐵/𝐷, 𝑦−𝑦0 = −𝑘⋅𝐴/𝐷 
+Then:
+    x=x0+k⋅ D/B
+    y=y0−k⋅ D/A
+And this will always satisfy:
+    Ax+By=D
+
+✅ 4. Why divide by D?
+Because if:
+    D=gcd(A,B)
+Then both 
+𝐴/𝐷  and 𝐵/𝐷 are integers, and this is the smallest unit of change you can use to stay within the solution space.
+
+Any larger step would skip some valid integer solutions.
+
+🔚 Summary
+| Concept                         | Why it’s true                                                  |
+| ------------------------------- | -------------------------------------------------------------- |
+| A x + B y = D                   | We get one solution (x0, y0)                                   |
+| All other solutions             | Come from shifting  B/D, A/D                                   |
+| x = x0 + k.{B}/{D}              | Adding multiples of B/D to stay on the solution line           |
+| y = y0 - k.{A}/{D}              | Subtracting matching shifts in y                               |
+| Why k ∈ ℤ                       | Because we want all integer solutions                          |
+
 
