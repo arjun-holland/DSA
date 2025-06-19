@@ -1,0 +1,61 @@
+/*
+Problem statement
+Given an array/list 'ARR' of integers and an integer 'LIMIT'. You are supposed to return the length of the longest subarray for which the absolute difference between the maximum and minimum element is less than or equal to the 'LIMIT'.
+
+Note :
+An array ‘B’ is a subarray of an array ‘A’ if ‘B’ that can be obtained by deletion of, several elements(possibly none) from the start of ‘A’ and several elements(possibly none) from the end of ‘A’. 
+Detailed explanation ( Input/output format, Notes, Images )
+Constraints :
+1 <= 'T' <= 50
+1 <= 'N' <= 10^4
+0 <= 'ARR[i]' <= 10^5
+0 <= 'LIMIT' <= 10^5
+
+Where 'ARR[i]' denotes the ith elements of the given array/list.
+Time Limit: 1 sec
+
+Sample Input 1 :
+2
+5 2
+3 6 5 4 1
+4 1
+7 2 5 4
+Sample Output 1 :
+3 
+2
+*/
+
+#include <bits/stdc++.h> 
+using namespace std;
+
+int getLongestSubarrayLength(vector<int> &arr, int limit)
+{
+	int n = arr.size();
+	int i = 0, j = 0, res = 0;
+
+	deque<int> maxDeque, minDeque;
+
+	while (i < n) {
+		while (!maxDeque.empty() && arr[i] > maxDeque.back())   	// Maintain decreasing maxDeque
+			maxDeque.pop_back();
+		maxDeque.push_back(arr[i]);
+  
+		while (!minDeque.empty() && arr[i] < minDeque.back())   // Maintain increasing minDeque
+			minDeque.pop_back();
+		minDeque.push_back(arr[i]);
+
+		while (!maxDeque.empty() && !minDeque.empty() && 
+		       maxDeque.front() - minDeque.front() > limit) {    // Shrink window if condition breaks
+			if (maxDeque.front() == arr[j])
+				maxDeque.pop_front();
+			if (minDeque.front() == arr[j])
+				minDeque.pop_front();
+			j++; // shrink window from the left
+		}
+
+		res = max(res, i - j + 1);
+		i++;
+	}
+
+	return res;
+}
