@@ -1,0 +1,79 @@
+/*
+Problem Statement
+There are N squares arranged in a row from left to right. Initially, all squares are painted white.
+
+Process Q queries in order. The i-th query gives an integer Ai between 1 and N, inclusive, and 
+performs the following operation:
+
+Flip the color of the 
+Ai-th square from the left. Specifically, if the Ai-th square from the left is painted white, paint it black;
+if it is painted black, paint it white.
+Then, find the number of intervals of consecutively painted black squares.
+
+Here, an interval of consecutively painted black squares is a pair of integers (l,r) (1≤l≤r≤N) that satisfy all of the following:
+
+The l-th, (l+1)-th, …, r-th squares from the left are all painted black.
+Either l=1, or the (l−1)-th square from the left is painted white.
+Either r=N, or the (r+1)-th square from the left is painted white.
+
+Constraints
+1≤N,Q≤5×10^5
+
+Sample Input 1
+5 7
+2 3 3 5 1 5 2
+Sample Output 1
+1
+1
+1
+2
+2
+1
+1
+*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, q;
+    cin >> n >> q;
+    vector<int> d(q);
+    for (int i = 0; i < q; i++) cin >> d[i];
+
+    set<int> black; // Store indices of black squares
+    int ans = 0;
+
+    for (int i = 0; i < q; i++) {
+        int cb = d[i];
+
+        bool left = black.count(cb - 1);
+        bool right = black.count(cb + 1);
+
+        if (black.count(cb)) {
+            // Black to White: remove
+            if (!left && !right) {   //neighbours not present
+                ans--;              // Single black block removed
+            } else if (left && right) {   //neighbours present
+                ans++; // One interval becomes two
+            }
+            // If left || right: part of a bigger interval, just shrink — no change
+            black.erase(cb);
+        } else {
+            // White to Black: insert
+            if (!left && !right) {     //neighbours not present
+                ans++; // New interval created
+            } else if (left && right) {     //neighbours present
+                ans--; // Merge two intervals into one
+            }
+            // If left || right: attach to existing — no change
+            black.insert(cb);
+        }
+
+        cout << ans << '\n';
+    }
+
+    return 0;
+}
