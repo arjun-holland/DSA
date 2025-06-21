@@ -1,15 +1,13 @@
 /*
 You are given an m x n integer array grid where grid[i][j] could be:
-
 1 representing the starting square. There is exactly one starting square.
 2 representing the ending square. There is exactly one ending square.
 0 representing empty squares we can walk over.
 -1 representing obstacles that we cannot walk over.
-Return the number of 4-directional walks from the starting square to the ending square, that walk over every non-obstacle square exactly once.
+Return the number of 4-directional walks from the starting square to the ending square, 
+that walk over every non-obstacle square exactly once.
 
- 
-
-Example 1:
+Example :
 Input: grid = [[1,0,0,0],[0,0,0,0],[0,0,2,-1]]
 Output: 2
 Explanation: We have the following two paths: 
@@ -20,22 +18,27 @@ Explanation: We have the following two paths:
 class Solution {
 public:
     int n,m,res=0;
-    vector<pair<int,int>> dir = {{1,0},{-1,0},{0,1},{0,-1}};
+    vector<pair<int,int>> dir = {{1,0},{-1,0},{0,1},{0,-1}}; //grid movement directions
+    
     void solve(vector<vector<int>>& g,int i,int j,int c,int &es){
         if(i<0 || i>=n || j < 0 || j >= m || g[i][j] == -1)return;
         if(g[i][j] == 2){
-            if(c == es){
+            if(c == es){  //if we are in final position and we covered all the '0' cells
                 res++;
             }
             return;
         }
+        
         if(g[i][j] == 0)c++;
-        for(auto d : dir){      
-            g[i][j] = -1;      
+
+        //backtracking
+        for(auto d : dir){         
+            g[i][j] = -1;    //mark the grid as visited
             solve(g,i+d.first,j+d.second,c,es);
-            g[i][j] = 0;
+            g[i][j] = 0;       // make the grid as unvisited
         }
     }
+    
     int uniquePathsIII(vector<vector<int>>& grid) {     
         n = grid.size();
         m = grid[0].size();
@@ -43,10 +46,10 @@ public:
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j] == 0){
-                    es++;
+                    es++;      //no.of cells with '0'
                 }else if(grid[i][j] == 1){
-                    sx = i;
-                    sy = j;
+                    sx = i;    //grid start x coordinate
+                    sy = j;    //grid start y coordinate
                 }
             }
         }
