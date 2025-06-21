@@ -1,0 +1,36 @@
+/*
+Problem statement
+Ninja has been given ‘N’ stars. Ninja has to make a triangle using these stars.
+The ‘i’th’ level of a triangle contains a ‘i’ number of stars.
+
+Can you help Ninja to make a triangle as large as possible using these stars?
+
+For example:
+Let the number of stars is 6.
+Then we can make a triangle of maximum height 3.
+
+Note:
+If the number of stars is 7 in the above example, then also the maximum height of the triangle is 3. 
+This is because to make a triangle of height 4 we need at least 10 stars. So in this case (N = 7) to we will return 3.
+*/
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int ninjaAndTriangle(int n) {
+    int low = 1, high = n, ans = 0;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        long long totalStars = 1LL * mid * (mid + 1) / 2;
+        
+        if (totalStars <= n) {
+            ans = mid;
+            low = mid + 1; // try a larger height
+        } else {
+            high = mid - 1; // try a smaller height
+        }
+    }
+
+    return ans;
+}
