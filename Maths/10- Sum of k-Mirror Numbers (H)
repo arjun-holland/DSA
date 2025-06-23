@@ -75,7 +75,7 @@ public:
 
         // Keep searching until we find n such numbers
         while(n > 0){
-            int half_len = (L + 1) / 2;   // Half length of the full palindrome for both,even(2):(2+1)/2 = 1, odd(1):1+1/2=1 
+            int half_len = (L + 1) / 2;   //10^0 = 1 // Half length of the full palindrome for both,even(2):(2+1)/2 = 1, odd(1):1+1/2=1 
             
             // Generate palindromes using their half-parts
             long long min_num = pow(10, half_len - 1);  // Smallest number with half_len digits //if half_len=3 then 10^2 == 100 (Min 3 length nmumber)
