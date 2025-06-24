@@ -18,6 +18,8 @@ Constraints:
 */
 
 
+//whenever we want the answer with by maintaining order with some constraintsthen we have to use the STACK
+
 class Solution {
 public:
     string maxSubseq(string& s, int k) {
