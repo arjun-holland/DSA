@@ -1,0 +1,49 @@
+/*
+Given a string s consisting of lowercase English letters and an integer k, your task is to remove exactly k characters from the string.
+The resulting string must be the largest possible in lexicographical  order, while maintain the relative order of the remaining characters.
+
+Examples:
+Input: s = "ritz", k = 2
+Output: tz 
+Explaination: By removing two characters in all possible ways, we get: "ri", "rt", "rz", "it", "iz", and "tz". Among these, "tz" is lexicographically largest string.
+Input: s = "zebra", k = 3
+
+Output: zr 
+
+Explaination: Removing "e", "b", and "a" results in "zr", which is lexicographically largest string.
+
+Constraints:
+1 ≤ s.size() ≤ 10^5
+0  ≤  k < s.size()
+*/
+
+
+class Solution {
+public:
+    string maxSubseq(string& s, int k) {
+        int n = s.size();
+        int keep = n - k;  // number of characters to keep
+        vector<int> freq(26, 0);
+        for (char c : s) freq[c - 'a']++;
+
+        string ans = "";
+        for (char c : s) {
+            freq[c - 'a']--;
+
+            // Remove smaller characters from end while k removals remain
+            while (!ans.empty() && ans.back() < c && k > 0) {
+                ans.pop_back();
+                k--;
+            }
+
+            // If we still need characters to fill subsequence, add current char
+            if ((int)ans.size() < keep) {
+                ans.push_back(c);
+            } else {
+                // Skip current character to remove it
+                k--;
+            }
+        }
+        return ans;
+    }
+};
