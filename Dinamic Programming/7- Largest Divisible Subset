@@ -1,0 +1,78 @@
+/*
+Given an array arr[] of positive integers. Your task is to find the largest subset such that for every pair of elements (x, y) in the subset, 
+either x divides y or y divides x.
+Note : If multiple subsets of the same maximum length exist, return the one that is lexicographically greatest, after sorting 
+the subset in ascending order.
+
+Input: arr[] = [1, 16, 7, 8, 4]
+Output: [1, 4, 8, 16]
+Explanation: The largest divisible subset is [1, 4, 8, 16], where each element divides the next one. 
+This subset is already the lexicographically greatest one.
+
+Constraint:
+1 ≤ arr.size() ≤ 10^3
+1  ≤ arr[i] ≤ 10^9
+*/
+
+//recurssion
+class Solution {
+  public:
+    vector<int> solve(vector<int>& arr,int i,int last){
+        //base case
+        if(i==arr.size()) return {};
+      
+        //recursive case
+        auto take=(last==-1 || arr[i]%arr[last]==0) ? solve(arr,i+1,i,dp) :vector<int>{};
+        if(last==-1 || arr[i]%arr[last]==0) take.insert(take.begin(),arr[i]);
+        auto nottake=solve(arr,i+1,last);
+        
+        return (nottake.size()>take.size() || (nottake.size()==take.size() && nottake>take ))? nottake : take;
+    }
+    vector<int> largestSubset(vector<int>& arr) {
+        int n=arr.size();
+        sort(arr.begin(),arr.end());
+        return solve(arr,0,-1);
+        
+    }
+};
+
+
+
+//DP + MEMOIZATION
+class Solution {
+public:
+    // 'last' is the index of the previous number included in the subset (or -1 if none)
+    // 'dp[i][last+1]' is used to memoize the result for state (i, last)
+    vector<int> solve(vector<int>& arr, int i, int last, vector<vector<vector<int>>>& dp) {
+        // ✅ Base case: end of array reached
+        if (i == arr.size()) return {};
+
+        // ✅ Return already computed state (memoization)
+        if (!dp[i][last + 1].empty()) return dp[i][last + 1];
+
+        // ✅ Option 1: take current number if divisible by last taken number
+        auto take = (last == -1 || arr[i] % arr[last] == 0)
+            ? solve(arr, i + 1, i, dp)
+            : vector<int>{}; // else empty (can't take it)
+
+        // If we're taking it, insert arr[i] at front
+        if (last == -1 || arr[i] % arr[last] == 0)
+            take.insert(take.begin(), arr[i]);
+
+        // ✅ Option 2: don't take current number
+        auto nottake = solve(arr, i + 1, last, dp);
+
+        // ✅ Choose better option: longer subset OR lexicographically smaller if same length
+        return dp[i][last + 1] = 
+            (nottake.size() > take.size() || 
+             (nottake.size() == take.size() && nottake > take))
+            ? nottake : take;
+    }
+
+    vector<int> largestSubset(vector<int>& arr) {
+        int n = arr.size();
+        sort(arr.begin(), arr.end());      // Sorting ensures divisibility works from small to large
+        vector<vector<vector<int>>> dp(n, vector<vector<int>>(n + 1));    // 3D DP table
+        return solve(arr, 0, -1, dp);    // Start from index 0, with no previous number
+    }
+};
