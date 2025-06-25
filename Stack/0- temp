@@ -1,0 +1,26 @@
+✅ When Stack is Used Here
+
+Because the problem is:
+-Greedy: You want to build the "best" result (like lexicographically largest string).
+-Order-sensitive: You must keep the relative order of characters.
+-And you need to go back and remove past decisions (characters), when you see a better one later.
+-A stack is perfect for this because:
+-You can easily "undo" past choices (via pop) if you realize a better character comes later.
+-You can maintain the correct order by building the answer from left to right (top of the stack is the latest).
+-It supports greedy removal in constant time from the end (LIFO).
+
+🔍 How to Spot Stack Pattern in Other Problems
+Here’s how you know a stack might be the right tool:
+✅ You must maintain order of elements.
+✅ You sometimes need to remove previous items based on future input.
+✅ You are looking for the "nearest bigger/smaller" element (like in histogram problems).
+✅ You’re building a result while "compressing" or simplifying a sequence (e.g., removing duplicates, simplifying paths).
+✅ You need to match pairs (like brackets, tags, etc.)
+
+🔁 Common Problem Types That Use Stack
+Monotonic Stack Problems (e.g. Next Greater Element, Histogram Area)
+Greedy + Stack (like this one — removing digits/characters to maximize a result)
+Balanced Parentheses / Matching Brackets
+Infix to Postfix Conversion
+Simplifying file paths (../)
+Evaluating expressions
