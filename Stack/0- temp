@@ -24,3 +24,41 @@ Balanced Parentheses / Matching Brackets
 Infix to Postfix Conversion
 Simplifying file paths (../)
 Evaluating expressions
+
+
+
+✅ Stack Pattern Cheat Sheet
+📌 When to Use a Stack
+Ask yourself:
+🔁 Do I need to track previous elements to make a decision about the current one?
+🧹 Do I need to remove or undo past choices based on a future value?
+🧭 Is relative order important?
+🧮 Am I solving a "nearest bigger/smaller" problem (next greater, previous smaller)?
+🧬 Do I need to maintain a monotonic sequence (increasing/decreasing)?
+
+🔍 Stack Keywords in Problem Statements
+If a problem includes:
+“Remove characters/elements to get the best answer”
+“Maintain order but optimize”
+“Find previous/next greater/smaller”
+“Matching parentheses/brackets”
+“Simplify or reduce a path/string”
+“Undo/redo or simulate memory”
+
+🔧 Core Stack Actions
+| Action    | What It Means                          |
+| --------- | -------------------------------------- |
+| `push(x)` | Add a new item to the result/structure |
+| `pop()`   | Undo last choice if it no longer fits  |
+| `top()`   | Compare current item to last kept      |
+
+
+🔁 Real Stack Problem Examples
+| Problem                        | Description                         |
+| ------------------------------ | ----------------------------------- |
+| Remove K Digits                | Greedy removal to minimize number   |
+| Largest Rectangle in Histogram | Monotonic stack to compute area     |
+| Next Greater Element           | Use stack to track next larger      |
+| Valid Parentheses              | Match opening and closing           |
+| Simplify Path (Linux-style)    | Collapse "../" or duplicate slashes |
+
