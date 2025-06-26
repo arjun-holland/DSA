@@ -1,0 +1,92 @@
+/*
+Given two sorted 0-indexed integer arrays nums1 and nums2 as well as an integer k, 
+return the kth (1-based) smallest product of nums1[i] * nums2[j] where 0 <= i < nums1.length and 0 <= j < nums2.length.
+ 
+
+Example:
+Input: nums1 = [2,5], nums2 = [3,4], k = 2
+Output: 8
+Explanation: The 2 smallest products are:
+- nums1[0] * nums2[0] = 2 * 3 = 6
+- nums1[0] * nums2[1] = 2 * 4 = 8
+The 2nd smallest product is 8.
+
+Constraints:
+1 <= nums1.length, nums2.length <= 5 * 10^4
+-105 <= nums1[i], nums2[j] <= 10^5
+1 <= k <= nums1.length * nums2.length
+nums1 and nums2 are sorted.
+*/
+
+
+//BRUTE FORCE 
+class Solution {
+public:
+    long long kthSmallestProduct(vector<int>& nums1, vector<int>& nums2, long long k) {
+        vector<long long> ans;
+        for(int i=0;i<nums1.size();i++){
+            for(int j=0;j<nums2.size();j++){
+                ans.push_back((long long)nums1[i]*nums2[j]);
+            }
+        }
+        sort(ans.begin(),ans.end());
+        return ans[k-1];
+    }
+};
+
+//OPRIMAL
+class Solution {
+public:
+    // Helper function to count how many products with nums2[i] and x1 are <= v
+    int f(vector<int>& nums2, long long x1, long long v) {
+        int n2 = nums2.size();
+        int left = 0, right = n2 - 1;
+
+        // Binary search to find number of elements in nums2 that satisfy x1 * nums2[i] <= v
+        while (left <= right) {
+            int mid = (left + right) / 2;
+            // Check if product is <= v based on the sign of x1
+            if ((x1 >= 0 && nums2[mid] * x1 <= v) || (x1 < 0 && nums2[mid] * x1 > v)) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        // For positive x1, return count of valid products
+        // For negative x1, logic is reversed due to the sign of multiplication
+        if (x1 >= 0) {
+            return left;
+        } else {
+            return n2 - left;
+        }
+    }
+
+    // Main function to find the k-th smallest product of elements from nums1 and nums2
+    long long kthSmallestProduct(vector<int>& nums1, vector<int>& nums2, long long k) {
+        int n1 = nums1.size();
+        // Set binary search bounds based on possible product range
+        long long left = -1e10, right = 1e10;
+
+        // Binary search to find the smallest product such that there are at least k products <= it
+        while (left <= right) {
+            long long mid = (left + right) / 2;
+            long long count = 0;
+
+            // Count number of products <= mid
+            for (int i = 0; i < n1; i++) {
+                count += f(nums2, nums1[i], mid);
+            }
+
+            // Adjust binary search range based on count
+            if (count < k) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        // 'left' is the smallest product for which there are at least k products <= it
+        return left;
+    }
+};
