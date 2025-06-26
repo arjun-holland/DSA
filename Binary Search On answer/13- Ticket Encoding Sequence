@@ -1,0 +1,49 @@
+/*
+We want to find a continuous block of houses where we can collect the same amount from each house, 
+and that amount multiplied by the number of houses gives the maximum donation total.
+*/
+
+Strategy:
+Let's binary search on the donation amount x (from 1 to 100).
+For a fixed x, check if there's a continuous subarray of length k such that all houses in it have ≥ x, and x * k is maximal.
+
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+bool isPossible(const vector<int>& a, int x, int& maxLength) {
+    int current = 0, best = 0;
+    for (int val : a) {
+        if (val >= x) {
+            current++;
+            best = max(best, current);
+        } else {
+            current = 0;
+        }
+    }
+    maxLength = best;
+    return best > 0;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int& x : a) cin >> x;
+
+    int low = 1, high = 100, answer = 0;    
+    while (low <= high) {
+        int mid = (low + high) / 2;
+        int length = 0;
+        if (isPossible(a, mid, length)) {
+            answer = max(answer, mid * length);
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+    cout << answer << endl;
+    return 0;
+}
