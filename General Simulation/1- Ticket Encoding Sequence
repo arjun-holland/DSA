@@ -1,0 +1,83 @@
+/*
+You are working at a ticketing company that generates unique ticket codes for various events. You have given a number N and your task is to print the Nth ticket code. The ticket codes are generated based on a specific encoding sequence. The encoding sequence follows the recursive formula as described below:
+
+The ticket code for the first ticket (ticket #1) is "A."
+Now, to generate rth ticket you have to take an r-1 th ticket and create a new encoding by writing down the frequency followed by a digit.
+for example Ticket#(r-1) = "1121A" (Two 1, One 2, One 1, One A) so Ticket#(r) = "2112111A"
+
+Examples:
+Input: 4
+Output: 311A
+
+Explanation:
+Ticket #1: "A"
+Ticket #2: Use "A" => one A => "1A"
+Ticket #3: Use "1A" => one 1 + one A => "111A"
+Ticket #4: Use "111A" => three 1 + one A => "311A"
+Input: 3
+Output: 111A
+Explanation: 
+Ticket #1: "A"
+Ticket #2: Use "A" => one A => "1A"
+Ticket #3: Use "1A" => one 1 + one A => "111A"
+*/
+
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Function to generate the ticket code
+// for a given N
+string generateTicketCode(int N)
+{
+    // Initialize the first ticket code as "A"
+    string ticketCode = "A";
+
+    for (int i = 2; i <= N; i++) {
+        // Initialize a new ticket code
+        string newTicketCode = "";
+
+        char currentChar = ticketCode[0];     // Initialize the current character
+        int charCount = 0;        // Initialize the character count
+
+        // Loop through the characters in the
+        // previous ticket code
+        
+        for (int j = 0; j < ticketCode.length(); j++) {
+            if (ticketCode[j] == currentChar) {
+                // Increment character count if the character is the same
+                charCount++;
+            }
+            else {
+                // If a different character is encountered, add the character count and current character to the new ticket code
+                newTicketCode  += to_string(charCount) + currentChar;
+
+                currentChar = ticketCode[j];     // Update the current character
+                charCount = 1;    // Reset character count to 1
+            }
+        }
+
+        // Add the character count and current  character to the new ticket code  for the last character group
+        newTicketCode += to_string(charCount) + currentChar;
+        
+        // Update the ticket code  the next iteration
+        ticketCode = newTicketCode;
+    }
+
+    return ticketCode;
+}
+
+// Drivers code
+int main()
+{
+    int N = 4;
+
+    // Generate the ticket code for N
+    string ticketCode = generateTicketCode(N);
+
+    // Output the ticket code
+    cout << ticketCode << endl;
+
+    return 0;
+}
