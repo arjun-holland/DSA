@@ -1,0 +1,67 @@
+/*
+Given a string s, your task is to find the longest palindromic substring within s.
+A substring is a contiguous sequence of characters within a string, defined as s[i...j] where 0 ≤ i ≤ j < len(s).
+A palindrome is a string that reads the same forward and backward. More formally, s is a palindrome if reverse(s) == s.
+
+Note: If there are multiple palindromic substrings with the same length, return the first occurrence of the longest palindromic substring from left to right.
+
+Examples :
+Input: s = “forgeeksskeegfor” 
+Output: “geeksskeeg”
+Explanation: There are several possible palindromic substrings like “kssk”, “ss”, “eeksskee” etc. But the substring “geeksskeeg” is the longest among all.
+Input: s = “Geeks” 
+Output: “ee”
+Explanation: "ee" is the longest palindromic substring of "Geeks". 
+Input: s = “abc” 
+Output: “a”
+Explanation: "a", "b" and "c" are longest palindromic substrings of same length. So, the first occurrence is returned.
+Constraints:
+1 ≤ s.size() ≤ 10^3
+s consist of only lowercase English letters.
+*/
+
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+
+class Solution {
+  public:
+    int n,m;
+    int t[1001][1001];
+    int solve(string &s1,string &s2,int i,int j){
+        if(i >= n || j >= m)return 0;
+        
+        if(t[i][j] != -1)return t[i][j];
+        
+        if(s1[i] == s2[j]){
+            return t[i][j] = 1+solve(s1,s2,i+1,j+1);
+        }
+        return t[i][j] = max(solve(s1,s2,i+1,j),solve(s1,s2,i,j+1));
+    }
+    int lcs(string &s1, string &s2) {
+        // code here
+        n = s1.length();
+        m = s2.length();
+        memset(t,-1,sizeof(t));
+        return solve(s1,s2,0,0);
+    }
+};
+
+
+
+//{ Driver Code Starts.
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        string s1, s2;
+        cin >> s1 >> s2; // Take both the strings as input
+        Solution ob;
+        cout << ob.lcs(s1, s2) << endl; // Call the lcs function
+        cout << "~\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
