@@ -1,0 +1,156 @@
+/*
+In a Binary Search Tree (BST), an Inorder Successor of a node is defined as the node with the smallest key greater than the key of the input node (see examples below). 
+Given a node inputNode in a BST, you’re asked to write a function findInOrderSuccessor that returns the Inorder Successor of inputNode.
+If inputNode has no Inorder Successor, return null.
+
+Binary tree
+        20
+       /  \
+     9     25
+    / \    
+   5  12  
+      / \        
+     11   14        
+
+In this diagram, the inorder successor of 9 is 11 and the inorder successor of 14 is 20.
+
+Example:
+
+In the diagram above, for inputNode whose key = 11
+Your function would return:
+The Inorder Successor node whose key = 12
+
+Constraints:
+[time limit] 5000ms
+[input] Node inputNode
+[output] Node
+*/
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+   int key;
+   Node *left;
+   Node *right;
+   Node *parent;
+};
+
+// Helper function that allocates a new Node 
+Node* newNode( int key )
+{
+   Node* n = new Node;
+   n->key = key;
+   n->left = nullptr;
+   n->right = nullptr;
+   n->parent = nullptr;
+   return n;
+}
+
+//  Given a binary search tree and a number, inserts a new Node with
+//  the given number in the correct place in the tree. Returns the new
+//  root pointer which the caller should then use 
+Node *insert( Node *root, int key )
+{
+   // 1) If the tree is empty, return a new single Node
+   if( root == nullptr )
+      return newNode( key );
+   Node *temp;
+
+   // 2) Otherwise, recur down the tree
+   if( key < root->key )
+   {
+      temp = insert( root->left, key );
+      root->left = temp;
+      temp->parent = root;
+   } else
+   {
+      temp = insert( root->right, key );
+      root->right = temp;
+      temp->parent = root;
+   }
+   // Return the (unchanged) Node pointer
+   return root;
+}
+
+// Return a pointer to a Node in the BST by its key.
+// Use this fuction when you need a Node to test your 
+// findInOrderSuccessor function on
+Node *getNodeByKey( Node *root, int key )
+{
+   Node *currentNode = root;
+   while( currentNode )
+   {
+      if( key == currentNode->key )
+         return currentNode;
+
+      if( key < currentNode->key )
+         currentNode = currentNode->left;
+      else
+         currentNode = currentNode->right;
+   }
+   return nullptr;
+}
+
+
+void solvebelow(Node* r, Node*& ans, int& dst, int tar) {
+    if (r == nullptr) return;
+
+    // Only consider nodes greater than the target (in-order successor definition)
+    if (r->key > tar && (r->key - tar) < dst) {
+        dst = r->key - tar;
+        ans = r;
+    }
+
+    // Continue exploring both sides (left preferred for closer successors)
+    solvebelow(r->left, ans, dst, tar);
+    solvebelow(r->right, ans, dst, tar);
+}
+
+
+//write your function
+Node* findInOrderSuccessor(Node* inputNode) {
+    Node* ans = nullptr;
+    Node* root = inputNode;
+
+    // Go to the root of the tree
+    while (root->parent != NULL) {
+        root = root->parent;
+    }
+
+    int dst = INT_MAX, tar = inputNode->key; //tar : target
+
+    // Start solving from root (not from t), so we can check entire tree
+    solvebelow(root, ans, dst, tar);
+    return ans;
+}
+
+// Comment out main() before running tests
+int main() {
+  return 0;
+}
+
+
+or 
+
+
+Node* findInOrderSuccessor(Node *inputNode) {
+    // CASE 1: Node has right child → successor is the minimum in right subtree
+    if (inputNode->right != nullptr) {
+        Node* curr = inputNode->right;
+        while (curr->left != nullptr) {
+            curr = curr->left;
+        }
+        return curr;
+    }
+
+    // CASE 2: No right child → go up until you find a node that is left child of its parent
+    Node* ancestor = inputNode->parent;
+    Node* curr = inputNode;
+    while (ancestor != nullptr && curr == ancestor->right) {
+        curr = ancestor;
+        ancestor = ancestor->parent;
+    }
+    return ancestor;
+}
