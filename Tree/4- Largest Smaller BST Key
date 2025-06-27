@@ -1,0 +1,107 @@
+/*
+Given a root of a Binary Search Tree (BST) and a number num, implement an efficient function findLargestSmallerKey that finds the largest key in the tree that is smaller than num. 
+If such a number doesn't exist, return -1. Assume that all keys in the tree are nonnegative.
+Analyze the time and space complexities of your solution.
+For example:
+
+For num = 17 and the binary search tree below:
+
+        20
+       /  \
+     9     25
+    / \    
+   5  12  
+      /  \         
+     11   14         
+
+
+Your function would return:
+14 since it’s the largest key in the tree that is still smaller than 17.
+
+Constraints:
+[time limit] 5000ms
+[input] Node rootNode
+[output] integer
+*/
+
+
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+  int key;
+  Node *left;
+  Node *right;
+  Node *parent;
+};
+
+// Helper function that allocates a new Node 
+Node* newNode( int key )
+{
+   Node* n = new Node;
+   n->key = key;
+   n->left = nullptr;
+   n->right = nullptr;
+   n->parent = nullptr;
+   return n;
+}
+
+//  Given a binary search tree and a number, inserts a new Node with
+//  the given number in the correct place in the tree. Returns the new
+//  root pointer which the caller should then use 
+Node *insert( Node *root, int key )
+{
+   // 1) If the tree is empty, return a new single Node
+   if( root == nullptr )
+      return newNode( key );
+
+   Node *temp;
+
+   // 2) Otherwise, recur down the tree
+   if( key < root->key )
+   {
+      temp = insert( root->left, key );
+      root->left = temp;
+      temp->parent = root;
+   } else
+   {
+      temp = insert( root->right, key );
+      root->right = temp;
+      temp->parent = root;
+   }
+   // Return the (unchanged) Node pointer
+   return root;
+}
+
+
+void inorder(Node* r,int& res,int target){
+    if(r == NULL)return;
+    
+    if(r->left != NULL){  //l
+        inorder(r->left,res,target);
+    }
+    if(r->key < target){
+        res = max(res,r->key); // 14
+    }
+    if(r->right != NULL){   // r
+        inorder(r->right,res,target);
+    }
+}
+
+//Built your function
+int findLargestSmallerKey(Node *rootNode, int num) 
+{
+    Node* t = rootNode;
+    int res = INT_MIN;
+    inorder(t,res,num);  // num  = 17
+
+    if(res == INT_MIN)return -1;
+    return res;
+}
+
+// Comment out main() before running tests
+int main() {
+  return 0;
+} 
