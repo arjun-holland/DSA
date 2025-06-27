@@ -39,7 +39,8 @@ public:
         queue<string> q;
         q.push("");
         while (!q.empty()) {
-            string curr = q.front(); q.pop();
+            string curr = q.front();
+            q.pop();
             for (char ch = 'a'; ch <= 'z'; ++ch) {
                 string next = curr + ch;
                 if (isK(next, s, k)) {
@@ -52,15 +53,27 @@ public:
     }
 
     bool isK(string sub, string t, int k) {
-        int count = 0, i = 0;
+        int count = 0; // How many times we found sub as a subsequence
+        int i = 0;     // Pointer for current position in sub
+
+        // Go through each character in t
         for (char ch : t) {
+            // If it matches the current character in sub
             if (ch == sub[i]) {
-                if (++i == sub.size()) {
-                    i = 0;
-                    if (++count == k) return true;
+                i++; // Move to the next character in sub
+
+                // If we matched the whole sub string
+                if (i == sub.size()) {
+                    count++; // One full match found
+                    i = 0;   // Restart to look for next match
+                    // If we matched it k times, return true
+                    if (count == k)
+                        return true;
                 }
             }
         }
+
+        // After going through t, if count < k, return false
         return false;
     }
 };
