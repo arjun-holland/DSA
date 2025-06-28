@@ -1,0 +1,88 @@
+/*
+Given a grid of size n*m (n is the number of rows and m is the number of columns in the grid) consisting of 'W's (Water) and 'L's (Land). Find the number of islands.
+Note: An island is either surrounded by water or the boundary of a grid and is formed by connecting adjacent lands horizontally or vertically or diagonally i.e., in all 8 directions.
+
+Examples:
+Input: grid[][] = [['L', 'L', 'W', 'W', 'W'], ['W', 'L', 'W', 'W', 'L'], ['L', 'W', 'W', 'L', 'L'], ['W', 'W', 'W', 'W', 'W'], ['L', 'W', 'L', 'L', 'W']]
+Output: 4
+Explanation:
+The image below shows all the 4 islands in the grid.
+ 
+Input: grid[][] = [['W', 'L', 'L', 'L', 'W', 'W', 'W'], ['W', 'W', 'L', 'L', 'W', 'L', 'W']]
+Output: 2
+Expanation:
+The image below shows 2 islands in the grid.
+ 
+Constraints:
+1 ≤ n, m ≤ 500
+grid[i][j] = {'L', 'W'}
+*/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+  public:
+    vector<pair<int,int>> directions = {{-1,0},{1,0},{0,-1},{0,1},{1,1},{-1,-1},{-1,+1},{+1,-1}};
+    
+    void landCheck(vector<vector<char>>& grid,int i,int j,vector<vector<bool>>& v){
+        v[i][j] = true;
+        queue<pair<int,int>> q;
+        q.push({i,j});
+        while(!q.empty()){
+            int r = q.front().first;
+            int c = q.front().second;
+            q.pop();
+            for(auto d : directions){
+                int r_ = r + d.first;
+                int c_ = c + d.second;
+                if(r_ >= 0 && r_ < grid.size() && c_ >= 0 && c_ < grid[0].size() && grid[r_][c_] == 'L' && v[r_][c_] == false){
+                    v[r_][c_] = true;
+                    q.push({r_,c_});
+                }
+            }
+        }
+    }
+    
+    int countIslands(vector<vector<char>>& grid) {
+        int ans = 0;
+        int n = grid.size();
+        int m = grid[0].size();
+        vector<vector<bool>> visited(n,vector<bool>(m,false));
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(grid[i][j] == 'L' && visited[i][j] == false){
+                    ans++;
+                    landCheck(grid,i,j,visited);
+                }
+            }    
+        }
+        return ans;
+    }
+};
+
+
+//{ Driver Code Starts.
+int main() {
+    int tc;
+    cin >> tc;
+    while (tc--) {
+        int n, m;
+        cin >> n >> m;
+        vector<vector<char>> grid(n, vector<char>(m, '#'));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> grid[i][j];
+            }
+        }
+        Solution obj;
+        int ans = obj.countIslands(grid);
+        cout << ans << '\n';
+
+        cout << "~"
+             << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
