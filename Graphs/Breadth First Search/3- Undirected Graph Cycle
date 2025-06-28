@@ -1,0 +1,68 @@
+/*
+Given an undirected graph with V vertices and E edges, represented as a 2D vector edges[][], where each entry edges[i] = [u, v] denotes an edge between vertices u and v, determine whether the graph contains a cycle or not.
+
+Examples:
+Input: V = 4, E = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 3]]
+     (1)———-(2)
+      |   /  |
+      | /    |
+     (0)    (3)
+Output: true
+Explanation: 
+1 -> 2 -> 0 -> 1 is a cycle.
+
+Input: V = 4, E = 3, edges[][] = [[0, 1], [1, 2], [2, 3]]
+     (1)———(2)
+      |     |
+      |     |
+     (0)    (3)
+Output: false
+Explanation: 
+ 
+No cycle in the graph.
+Constraints:
+1 ≤ V ≤ 105
+1 ≤ E = edges.size() ≤ 105
+
+*/
+
+
+class Solution {
+  public:
+    bool checker(vector<bool>& visited, unordered_map<int, vector<int>>& mp, int u) {
+        queue<pair<int, int>> q;
+        q.push({-1, u});
+        visited[u] = true;
+        while (!q.empty()) {
+            int parent = q.front().first;
+            int node = q.front().second;
+            q.pop();        // Don't forget to pop!
+
+            for (int neighbor : mp[node]) {
+                    if (!visited[neighbor]) {
+                        visited[neighbor] = true;
+                        q.push({node, neighbor});
+                    } else if (neighbor != parent) {
+                        return true;        // We've encountered a visited node that's not the parent — cycle!
+                    }
+                }
+            }
+            return false;
+    }
+    bool isCycle(int V, vector<vector<int>>& edges) {
+        unordered_map<int,vector<int>> mp;    //build the adjL
+        for(auto e : edges){
+            int u = e[0];
+            int v = e[1];
+            mp[u].push_back(v);  //as undirected, u -> V
+            mp[v].push_back(u);  // v -> u
+        }
+        vector<bool> visited(V,false);
+        for(int i=0 ; i<V; i++){
+            if(!visited[i]){
+                if(checker(visited,mp,i))return true;
+            }
+        }
+        return false;
+    }
+};
