@@ -1,0 +1,54 @@
+✅ Topological Sort: Algorithm & When to Use It
+📌 What is Topological Sort?
+Topological Sorting is linear ordering of vertices in a Directed Acyclic Graph (DAG) such that for every directed edge u → v, vertex u comes before v in the ordering.
+
+Only valid for DAGs!
+If there's a cycle, topological sort is not possible.
+
+🔧 When to Use Topological Sort
+Use it when:
+-You want to schedule tasks based on dependencies
+-You're solving build systems, task scheduling, compilation order
+-In course prerequisite problems (Course 0 → Course 1, etc.)
+
+Dependency resolution (package managers)
+
+🧠 Topological Sort: Kahn’s Algorithm (BFS-based)
+Here’s the algorithm your code already implements, which is Kahn's algorithm:
+
+🔄 Kahn's Algorithm (Topological Sort using BFS)
+Input: Directed graph (adjacency list or edge list)
+Output: Topologically sorted order of nodes (if DAG)
+
+🔤 Algorithm Steps:
+-Build Adjacency List adj[u].push_back(v)
+-Calculate Indegree of every node
+    -For each edge u → v, do indegree[v]++
+-Push all nodes with indegree = 0 into a queue
+-While the queue is not empty:
+    -Pop from queue → call it node
+    -Add node to result
+    -For all neighbors v of node, do:
+    -indegree[v]--
+    -If indegree[v] == 0, push v into the queue
+After loop:
+If result.size() != V, there's a cycle → topological sort not possible.
+
+⏱️ Time & Space Complexity
+Operation	Complexity
+Building Graph	O(V + E)
+BFS Traversal	O(V + E)
+Space (graph + queue)	O(V + E)
+
+🔍 Example:
+Given edges:
+edges = {
+  {5, 0},
+  {5, 2},
+  {4, 0},
+  {4, 1},
+  {2, 3},
+  {3, 1}
+}
+One possible topological sort:
+5 4 2 3 1 0
