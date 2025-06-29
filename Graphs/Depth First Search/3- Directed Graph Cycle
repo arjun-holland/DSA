@@ -1,0 +1,68 @@
+/*
+Given a Directed Graph with V vertices (Numbered from 0 to V-1) and E edges, check whether it contains any cycle or not.
+The graph is represented as a 2D vector edges[][], where each entry edges[i] = [u, v] denotes an edge from verticex u to v.
+
+Examples:
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 0], [2, 3]]
+   (1) ───▶ (2) ───▶ (3)
+    ▲         ▲         
+    |         │ 
+    │         |
+   (0) ◀ ────-┘
+
+Output: true
+Explanation: The diagram clearly shows a cycle 0 → 2 → 0
+Input: V = 4, edges[][] = [[0, 1], [0, 2], [1, 2], [2, 3]
+
+Output: false
+Explanation: no cycle in the graph
+Constraints:
+1 ≤ V, E ≤ 105
+u ≠ v
+*/
+
+
+/*
+❌ In Directed Graphs: Parent Check Does Not Work
+❗ Why?
+In directed graphs, the direction matters — so simply checking "visited and not parent" is not sufficient.
+
+✅ Correct Way: Use Recursion Stack (aka inRecursion[])
+In a directed graph, a cycle is detected when you reach a visited node that is still in the recursion call stack:
+*/
+
+class Solution {
+  public:
+    bool isCycleDFS(unordered_map<int,vector<int>>& adj, int u, vector<bool>& visited, vector<bool>& inRecursion) {
+        visited[u] = true;
+        inRecursion[u] = true;
+
+        for(int &v : adj[u]) {  //neighbours of current node
+            if(visited[v] == false && isCycleDFS(adj, v, visited, inRecursion))   //if not visited, then we check for cycle in DFS
+                return true;
+            else if(inRecursion[v] == true)  //is that niode is in stack 
+                return true;
+        }
+        inRecursion[u] = false;
+        return false;
+    }
+
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        unordered_map<int,vector<int>> adjL;
+        for(auto e : edges){
+            int u = e[0];
+            int v = e[1];
+            adjL[u].push_back(v);  //as directed graph
+        }
+
+        vector<bool> visited(V, false);
+        vector<bool> inRecursion(V, false);
+        
+        for(int i = 0; i<V; i++) {
+            if(!visited[i] && isCycleDFS(adjL, i, visited, inRecursion))
+                return true;
+        }
+        return false;
+    }
+};
+
