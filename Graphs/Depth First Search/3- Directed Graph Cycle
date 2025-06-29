@@ -66,3 +66,50 @@ class Solution {
     }
 };
 
+
+
+
+✅ Topological sort ( Kahn’s Algorithm ) for Cycle Detection (Directed Graphs)
+If the graph has a cycle, then the topological sort will not include all nodes.
+
+
+class Solution {
+  public:
+    bool isCyclic(int V, vector<vector<int>> &edges) {
+        unordered_map<int, vector<int>> adj;
+        vector<int> indegree(V, 0);
+
+        // Step 1: Build adjacency list and compute in-degrees
+        for (auto &e : edges) {
+            int u = e[0];
+            int v = e[1];
+            adj[u].push_back(v);
+            indegree[v]++;
+        }
+
+        // Step 2: Push all nodes with indegree 0 into the queue
+        queue<int> q;
+        for (int i = 0; i < V; i++) {
+            if (indegree[i] == 0) q.push(i);
+        }
+
+        // Step 3: Perform BFS
+        int count = 0;
+        while (!q.empty()) {
+            int node = q.front();
+            q.pop();
+            count++;
+
+            for (int neighbor : adj[node]) {
+                indegree[neighbor]--;
+                if (indegree[neighbor] == 0) {
+                    q.push(neighbor);
+                }
+            }
+        }
+
+        // Step 4: If count != V, there is a cycle
+        return count != V;
+    }
+};
+
