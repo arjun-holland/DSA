@@ -7,6 +7,7 @@ If there's a cycle, topological sort is not possible.
 
 🔧 When to Use Topological Sort
 Use it when:
+-Detect cycles in directed graph
 -You want to schedule tasks based on dependencies
 -You're solving build systems, task scheduling, compilation order
 -In course prerequisite problems (Course 0 → Course 1, etc.)
