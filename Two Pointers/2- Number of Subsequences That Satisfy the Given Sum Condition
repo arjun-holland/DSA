@@ -35,27 +35,38 @@ Constraints:
 
 class Solution {
 public:
-    int mod = 1e9+7;
-    int pow(int i,int j){
-        if(j==0)return 1;
-        if(j==1)return i;
-        int hp = pow(i,j/2);
-        int fp = 1ll*hp*hp%mod;
-        if(j % 2 != 0)fp *= i;
+    // Define modulo constant to prevent overflow
+    int mod = 1e9 + 7;
+
+    // Fast modular exponentiation: calculates (i^j) % mod
+    int pow(int i, int j) {
+        if (j == 0) return 1;        // base case: anything^0 = 1
+        if (j == 1) return i % mod;  // base case: power of 1
+        int hp = pow(i, j / 2);      // recursive call to compute half power
+        int fp = 1LL * hp * hp % mod; // square it and take modulo
+        if (j % 2 != 0) fp = 1LL * fp * i % mod; // if exponent is odd, multiply once more
         return fp;
     }
+
+    // Main function to count valid subsequences
     int numSubseq(vector<int>& nums, int target) {
-        sort(nums.begin(),nums.end());
-        int i=0,j=nums.size()-1;
+        sort(nums.begin(), nums.end()); // sort to apply two-pointer logic
+        int i = 0, j = nums.size() - 1; // two pointers: i = left (min), j = right (max)
         long long ans = 0;
-        while(i <= j){
-            if(nums[i]+nums[j] <= target){
-                ans += pow(2,(j-i));
-                i++;
+
+        // Two-pointer approach
+        while (i <= j) {
+            if (nums[i] + nums[j] <= target) {
+                // if min + max <= target, then all subsets between i and j are valid
+                ans += pow(2, (j - i)); // count 2^(j-i) subsets
+                i++; // move left pointer
+            } else {
+                j--; // if sum too big, reduce max by moving right pointer
             }
-            else j--;
         }
-        int res = static_cast<int>(ans%mod);
-        return res;
+
+        // Return result modulo 1e9+7
+        return static_cast<int>(ans % mod);
     }
 };
+
