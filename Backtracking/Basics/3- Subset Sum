@@ -1,0 +1,61 @@
+/*
+Given an array A of n integers, your task is to determine whether there exists a subset of A whose sum is equal to 
+k.
+
+Input
+The first line contains two integers n,k.
+The second line contains n integers Ai.
+
+Output
+Print YES if there exists a subset of A
+whose sum is equal to k; otherwise, print NO.
+
+Constraints
+1≤n≤20.
+1≤Ai,k≤1018.
+
+Example
+Input:
+4 7
+1 2 3 4
+
+Output:
+YES
+*/
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+// i: current index
+// a: array
+// current_sum: current sum accumulated
+// target: sum to reach
+
+bool solve(int i, const vector<int>& a, int current_sum, int target) {
+    if (current_sum == target) return true;
+    if (i >= (int)a.size() || current_sum > target) return false;
+
+    if (solve(i + 1, a, current_sum + a[i], target)) return true;      // Option 1: take current element and move to i+1
+    
+    if (solve(i + 1, a, current_sum, target)) return true;     // Option 2: skip current element (move to i+1)
+
+    return false;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n; cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    int t; cin >> t;
+
+    if (solve(0, a, 0, t)) {
+        cout << "YES\n";
+    } else {
+        cout << "NO\n";
+    }
+}
