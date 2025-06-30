@@ -1,0 +1,97 @@
+/*Print all binary strings of length n.
+
+Input
+One line containing an integer n.
+
+Output
+Print all binary strings of length n.
+The order of printing can be arbitrary.
+Constraints
+1 ≤ n ≤ 10.
+
+Sample Input:
+3
+Output:
+000
+001
+010
+011
+100
+101
+110
+111
+*/
+
+
+//CASE 1:  CREATE NEW COPY OF S AT EVERY RECURSION CALL
+#include <bits/stdc++.h>
+using namespace std;
+
+void Xau_nhi_phan(int n, string s="") {
+    if (s.size() == n) {
+        cout << s << endl;
+        return;
+    }
+
+    Xau_nhi_phan(n, s+"0");
+    Xau_nhi_phan(n, s+"1");
+}
+
+int main() {
+    int n; cin >> n;
+    //string a = "";
+    Xau_nhi_phan(n); 
+    return 0;
+}
+
+   or
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void Xau_nhi_phan(int n, string s) {
+    if (s.size() == n) {
+        cout << s << endl;
+        return;
+    }
+    s.push_back('0');
+    Xau_nhi_phan(n, s);
+    s.pop_back();
+    s.push_back('1');
+    Xau_nhi_phan(n, s);
+}
+int main() {
+    int n; cin >> n;
+    string a = "";
+    Xau_nhi_phan(n,a); 
+    return 0;
+}
+
+
+//CASE 2:  NOT CREATE NEW COPY OF S AT EVERY RECURSION CALL WORKED ON A SINGLE S AND UPDATE IT 
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void Xau_nhi_phan(int n, string& s) {
+    if (s.size() == n) {
+        cout << s << endl;
+        return;
+    }
+
+    s.push_back('0');
+    Xau_nhi_phan(n, s);
+    s.pop_back();
+    
+    s.push_back('1');
+    Xau_nhi_phan(n, s);
+    s.pop_back();
+}
+
+int main() {
+    int n; cin >> n;
+    string a = "";
+    Xau_nhi_phan(n,a); 
+    return 0;
+}
