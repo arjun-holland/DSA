@@ -27,20 +27,20 @@ Output:
 #include <bits/stdc++.h>
 using namespace std;
 
-void Xau_nhi_phan(int n, string s="") {
+void solve(int n, string s="") {
     if (s.size() == n) {
         cout << s << endl;
         return;
     }
 
-    Xau_nhi_phan(n, s+"0");
-    Xau_nhi_phan(n, s+"1");
+    solve(n, s+"0");
+    solve(n, s+"1");
 }
 
 int main() {
     int n; cin >> n;
     //string a = "";
-    Xau_nhi_phan(n); 
+    solve(n); 
     return 0;
 }
 
@@ -49,21 +49,21 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 
-void Xau_nhi_phan(int n, string s) {
+void solve(int n, string s) {
     if (s.size() == n) {
         cout << s << endl;
         return;
     }
     s.push_back('0');
-    Xau_nhi_phan(n, s);
+    solve(n, s);
     s.pop_back();
     s.push_back('1');
-    Xau_nhi_phan(n, s);
+    solve(n, s);
 }
 int main() {
     int n; cin >> n;
     string a = "";
-    Xau_nhi_phan(n,a); 
+    solve(n,a); 
     return 0;
 }
 
@@ -74,24 +74,24 @@ int main() {
 #include <bits/stdc++.h>
 using namespace std;
 
-void Xau_nhi_phan(int n, string& s) {
+void solve(int n, string& s) {
     if (s.size() == n) {
         cout << s << endl;
         return;
     }
 
     s.push_back('0');
-    Xau_nhi_phan(n, s);
+    solve(n, s);
     s.pop_back();
     
     s.push_back('1');
-    Xau_nhi_phan(n, s);
+    solve(n, s);
     s.pop_back();
 }
 
 int main() {
     int n; cin >> n;
     string a = "";
-    Xau_nhi_phan(n,a); 
+    solve(n,a); 
     return 0;
 }
