@@ -1,0 +1,51 @@
+/*
+Print all strings of length n consisting of three characters A, B, and C, where no two adjacent characters are the same.
+For example, the string ABBC is not valid because it contains two adjacent B characters.
+
+Input
+One line containing an integer n.
+Output
+Print all valid strings satisfying the condition. The order of printing can be arbitrary.
+
+Constraints
+1 ≤ n ≤ 10.
+
+Sample
+Input:
+2
+Output:
+AB
+BA
+BC
+CB
+AC
+CA
+*/
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+void solve(int n, string& s) {
+    if ((int)s.size() == n) {
+        cout << s << '\n';
+        return;
+    }
+
+    for (char c : {'A', 'B', 'C'}) {
+        if (!s.empty() && s.back() == c) continue;  //check if cur is equal to previous char
+        s.push_back(c);
+        solve(n, s);
+        s.pop_back();
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int n; cin >> n;
+    string s = "";
+    solve(n, s);
+    return 0;
+}
