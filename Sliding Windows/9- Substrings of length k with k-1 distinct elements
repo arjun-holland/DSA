@@ -1,0 +1,74 @@
+/*
+Given a string s consisting only lowercase alphabets and an integer k. Find the count of all substrings of length k which have exactly k-1 distinct characters.
+
+Examples:
+
+Input: s = "abcc", k = 2
+Output: 1
+Explaination: Possible substring of length k = 2 are,
+ab : 2 distinct characters
+bc : 2 distinct characters
+cc : 1 distinct characters
+Only one valid substring so, count is equal to 1.
+Input: "aabab", k = 3
+Output: 3
+Explaination: Possible substring of length k = 3 are, 
+aab : 2 distinct charcters
+aba : 2 distinct characters
+bab : 2 distinct characters
+All these substring are valid so, the total count is equal to 3.
+Constrains:
+1 ≤ s.size() ≤ 105
+2 ≤ k ≤ 27
+*/
+
+
+class Solution {
+  public:
+    int substrCount(string &s, int k) {
+        int ans = 0;
+        int i = 0, j = 0, n = s.length();
+
+        // Sliding window boundaries: [j, i]
+        unordered_map<char, int> mp;  // Tracks frequency of characters in the current window
+
+        while (i < n) {
+            mp[s[i]]++;   // Add current character to map (right end of window)
+
+            // Case 1: Exactly k-1 unique characters
+            if (mp.size() == k - 1) {
+                if ((i - j + 1) == k) {    // Check if window size is exactly k
+                    ans++;        // Valid substring found
+                    mp[s[j]]--;   // Move left pointer forward to shrink window
+                    if (mp[s[j]] == 0) mp.erase(s[j]);  // Remove char if its count is 0
+                    j++;
+                } else {
+                    while ((i - j + 1) > k) {       // Window size > k, so shrink it
+                        mp[s[j]]--;
+                        if (mp[s[j]] == 0) mp.erase(s[j]);
+                        j++;
+                    }
+
+                    // After shrinking, check again for valid substring
+                    if ((i - j + 1) == k && mp.size() == k - 1) {
+                        ans++;
+                        mp[s[j]]--;
+                        if (mp[s[j]] == 0) mp.erase(s[j]);
+                        j++;
+                    }
+                }
+            }
+
+            // Case 2: More than k-1 unique characters, must shrink from left
+            else if (mp.size() > k - 1) {
+                mp[s[j]]--;
+                if (mp[s[j]] == 0) mp.erase(s[j]);
+                j++;
+            }
+
+            i++;  // Expand window from the right
+        }
+
+        return ans;
+    }
+};
