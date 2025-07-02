@@ -1,0 +1,72 @@
+ Find Sum of Range  [l……….r] where(l<=r) using Prefix sum. 
+
+Brute Force:- For each l and r, start our i pointer from l and i will go till r and for each i, 
+we will update our sum by doing sum = sum + arr[i].Finally, print this sum.
+
+Pseudo Code:- https://ideone.com/cSDWLN
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+int bruteForceSum(const vector<int>& nums, int l, int r) {
+    int sum = 0;
+    for (int i = l; i <= r; ++i) {
+        sum += nums[i];
+    }
+    return sum;
+}
+
+int main() {
+    vector<int> nums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+    int l = 3, r = 7; // Example range [l, r]
+    cout << "Brute Force Sum: " << bruteForceSum(nums, l, r) << endl;
+
+    return 0;
+}
+Time Complexity - O(N*Q) 
+For each query of l and r, we will call this getSum(), so Time Complexity will be O(n*q) where, q is the size of queries array containing different l and r values.
+
+Space Complexity - O(1)
+
+
+Optimised Approach:- 
+For given array, construct a prefix array of size n, and prefix[i] = prefix[i-1] + arr[i]. After creating this prefix Array.
+For any given l and r, 
+Sum of the elements in arr in the Range of [l … r] = Prefix[r] - prefix[l-1]
+
+Pseudo Code:- https://ideone.com/QaBpAq
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> prefixSum(const vector<int>& nums) {
+    int n = nums.size();
+    vector<int> prefix(n + 1, 0);
+    for (int i = 1; i <= n; ++i) {
+        prefix[i] = prefix[i - 1] + nums[i];
+    }
+    return prefix;
+}
+
+int optimizedSum(const vector<int>& prefix, int l, int r) {
+    return prefix[r] - prefix[l - 1];
+}
+
+int main() {
+    vector<int> nums = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    vector<int> prefix = prefixSum(nums);
+    int l = 3, r = 7; // Example range [l, r]
+    cout << "Optimized Sum: " << optimizedSum(prefix, l, r) << endl;
+
+    return 0;
+}
+
+Time Complexity - O(N+Q) 
+O(n) for creating Prefix Array
+O(q) for Traversing Queries 
+Space Complexity - O(N) Because of Prefix Array
+
