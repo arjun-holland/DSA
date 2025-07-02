@@ -1,0 +1,67 @@
+Count All ((i,j) pairs such that b[i] - b[j] == k (count of such pairs.) [i<j] 
+
+
+Brute Force Approach:-
+
+Just Run 2 Nested For loops and for each i, start the j pointer from i+1 because (j>i).
+Now check the difference between arr[i] and arr[j]
+Diff = arr[i] - arr[j]
+If this Diff == k, we will increase the count of valid pairs. Cnt++
+
+Pseudo Code:- https://ideone.com/aJtexO
+
+#include <iostream>
+#include <vector>
+int countPairsBruteForce(const std::vector<int>& b, int k) {
+    int count = 0;
+    int n = b.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n; ++j) {
+            if (b[i] - b[j] == k) {
+                ++count;
+            }
+        }
+    }
+    return count;
+}
+int main() {
+    std::vector<int> b = {1, 5, 3, 4, 2};
+    int k = 2;
+    std::cout << "Count of pairs: " << countPairsBruteForce(b, k) << std::endl;
+    return 0;
+}
+
+Time Complexity:- O(N^2)
+Space Complexity:- O(1)
+
+
+Optimised Approach:- 
+Instead of Running 2 Nested For loops, we will create a Hashmap to Store the Occurences of the Elements
+which we have encountered in the past. At each index i, we will calculate the Required Element, = (arr[i]+k), we wil check if it is present in hashmap, we will do cnt = cnt + freq[requiredElement]. We will update the frequency for current element in hashmap.
+
+Pseudo Code:- https://ideone.com/bS7uLK
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+int countPairsOptimized(const std::vector<int>& b, int k) {
+    int count = 0;
+    unordered_map<int, int> freqMap;
+    for (int j = 0; j < b.size(); ++j) {
+        int target = b[j] + k;
+        if (freqMap.find(target) != freqMap.end()) {
+            count += freqMap[target];
+        }
+        freqMap[b[j]]++;
+    }
+    return count;
+}
+int main() {
+    std::vector<int> b = {1, 5, 3, 4, 2};
+    int k = 2;
+    std::cout << "Count of pairs: " << countPairsOptimized(b, k) << std::endl;
+    return 0;
+}
+
+Time Complexity:- O(N)
+Space Complexity:- O(N)
