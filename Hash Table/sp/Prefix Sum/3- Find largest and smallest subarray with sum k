@@ -1,0 +1,119 @@
+//Brute Force Approach:-
+We will use 2 Nested for loop and where i will start from index 1 and it will end at index N. 
+similarly J will start from i it will end at N and I denotes the starting point of any subarray and J will denote the ending point of any subarray. 
+
+Now we will check if the sum of the elements present in the current sub array is equal to K we will update the maximum length with the current sub array's length
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+pair<int, int> largestSubarraySumK(const vector<int>& nums, int k) {
+    int maxLen = 0;
+    pair<int, int> result = {-1, -1};
+    for (int i = 0; i < nums.size(); ++i) {
+        int currentSum = 0;
+        for (int j = i; j < nums.size(); ++j) {
+            currentSum += nums[j];
+            if (currentSum == k && (j - i + 1) > maxLen) {
+                maxLen = j - i + 1;
+                result = {i + 1, j + 1};  // 1-based index of resulting subarray
+            }
+        }
+    }
+    return result;
+}
+
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 5, -1, 6};
+    int k = 9;
+    pair<int, int> result = largestSubarraySumK(nums, k);
+    if (result.first != -1) {
+        cout << "Largest subarray with sum " << k << " is from index " << result.first << " to " << result.second << endl;
+    } else {
+        cout << "No subarray with sum " << k << endl;
+    }
+    return 0;
+}
+
+
+
+//Optimised Approach:-
+Use the Hashmap and for every j, we will calculate i using formula p[i-1] = p[j] - k.
+Now we will check in map for the index where p[i-1] has come. 
+We will calculate current Length using j-i+1 and compare this length with Max and Min length and Update them if necessary.
+
+//pseudo code
+input(n)
+input(k)
+input(arr)
+map<int, int> mp;
+map<int, int> mp2;
+mp[0] = 0;
+int pSum = 0;
+int maxLength = 0;
+int minLength = INT_MAX;
+
+for(int j=1;j<=n;j++){
+	pSum = pSum + arr[j];	
+	int x = ps- k;
+	if(mp.find(x) != mp.end()){		
+		int i = mp[x]+1; //1 based index
+		int curLength = j-i+1;		
+		if(curLength > maxLength){
+			maxLength = curLength;
+		}		
+	}	
+	if(mp2.find(x) != mp2.end()){		
+		int i = mp2[x]+1;
+		int curLength = j-i+1;		
+		if(curLength < minLength){
+			minLength = curLength;
+		}		
+	}	
+	if(mp.find(ps) == mp.end()){
+  	mp[ps] = j;	
+	  mp2[ps] = j;
+   }	
+}
+print(maxLength);
+print(minLength);
+
+
+
+/*
+Given an array arr[] containing integers and an integer k, your task is to find the length of the longest 
+subarray where the sum of its elements is equal to the given value k. If there is no subarray with sum equal to k, return 0.
+
+Examples:
+Input: arr[] = [10, 5, 2, 7, 1, -10], k = 15
+Output: 6
+Explanation: Subarrays with sum = 15 are [5, 2, 7, 1], [10, 5] and [10, 5, 2, 7, 1, -10]. 
+The length of the longest subarray with a sum of 15 is 6.
+*/
+
+class Solution {
+  public:
+    int longestSubarray(vector<int>& a, int k) {
+    
+        unordered_map<int, int> prefixSum;
+        int sum = 0;
+        int maxLen = 0;
+        for (int i = 0; i < a.size() ; i++) {
+            sum += a[i];
+            if (sum == k) {    // Check if the current sum is equal to k
+                maxLen = i + 1;
+            }
+            if (prefixSum.find(sum - k) != prefixSum.end()) {   // If (sum - k) exists in the map, we have found a subarray
+                maxLen = max(maxLen, i - prefixSum[sum - k]);
+            }
+            if (prefixSum.find(sum) == prefixSum.end()) {   // Add the current sum to the map if it's not already present
+                prefixSum[sum] = i; //sum -> index
+            }
+        }
+        return maxLen;
+    }
+};
+
+
+
