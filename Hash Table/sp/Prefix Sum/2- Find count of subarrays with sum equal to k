@@ -38,6 +38,35 @@ Brute Force Approach 2 -
 Time Complexity - O(N*N)
 Space Complexity - O(N)
 
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n, k;
+    cin >> n;
+    vector<int> arr(n + 1);  // Using 1-based indexing
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
+    }
+    cin >> k;
+    int count = 0;
+    vector<int> prefix_sum(n + 1, 0);  // Prefix sum array
+    // Compute the prefix sums
+    for (int j = 1; j <= n; j++) {
+        prefix_sum[j] = prefix_sum[j - 1] + arr[j];
+    }
+    // Iterate over each index j and find the number of valid subarrays ending at j
+    for (int j = 1; j <= n; j++) {
+        for (int i = 0; i < j; i++) {  // Iterate over all possible starting points
+            if (prefix_sum[i] == prefix_sum[j] - k) {
+                count++;
+            }
+        }
+    }
+    cout << "The number of subarrays with sum equal to " << k << " is: " << count << endl;
+    return 0;
+}
 
 
 
