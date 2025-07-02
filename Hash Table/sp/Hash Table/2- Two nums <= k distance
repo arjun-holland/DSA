@@ -41,11 +41,6 @@ If this Distance <= k, we have found a valid pair. We will return true. Otherwis
 
 Pseudo code - https://ideone.com/ZCkYoo
 
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-using namespace std;
-
 bool containsNearbyDuplicateOptimized(const std::vector<int>& nums, int k) {
     unordered_map<int, int> numIndices;
     for (int i = 0; i < nums.size(); ++i) {
