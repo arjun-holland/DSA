@@ -1,0 +1,76 @@
+We are given an Array of Numbers. We have to find and print any Number with Maximum Frequency and Minimum Frequency.
+
+Example Testcase:-
+Arr = [3, 2, 3, 2, 4, 3]
+
+Frequencies of Elements of Array are:-
+3 - 3
+2 - 2
+4 - 1
+
+Maximum Frequency:- Element is 3, Frequency is 3
+Minimum Frequency:- Element is 4, Frequency is 1
+
+//Brute Force Approach:-
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int n;
+    int arr[n];
+    input(arr);
+    int maxiFreq = INT_MIN, maxiElement, miniFreq = MAX_INT, miniElement;
+    
+    for(int i=1;i<=n;i++){
+      for(int j=i;j<=n;j++){
+        if(arr[i] == arr[j]){
+          cnt++;
+        }  
+      }
+      if(maxCount < cnt){
+        cnt = maxCount;
+        maxElement = arr[i];
+      }  
+      if(minCount < cnt){
+        cnt = minCount;
+        minElement = arr[i];
+      }
+    }
+    print(MaxElemnt, MaxCount);
+    print(MinElemnt, MinCount);
+}
+Brute Force Approach will work in O(N^2) because of 2 Nested For Loops
+
+//Optimized Approach:- Use Hashmap to Store the Frequencies of Elements where key will be the Array Element and Value will be the Frequency of Array Element and Update our Maximum and Minimum Frequencies Accordingly.
+#include <iostream>
+using namespace std;
+
+int main() 
+{
+    int n;
+    int arr[n+1];
+    input(arr);
+    unordered_map<int, int> mp;
+    int maxiFreq = INT_MIN, maxiElement, miniFreq = MAX_INT, miniElement;
+    
+    for(int i=1;i<=n;i++){
+      if(mp.find(arr[i]) == mp.end()){
+        mp[arr[i]] = 1;
+      }
+      else{
+        mp[arr[i]] = mp[arr[i]] + 1;
+      }
+
+      if(maxiFreq < mp[arr[i]]){
+        maxiFreq = mp[arr[i]];
+        maxiElement = arr[i];
+      }
+      if(miniFreq > mp[arr[i]]){  
+        miniFreq = mp[arr[i]];
+        miniElement = arr[i];
+      }
+    }
+    print(maxiFreq, maxiElement);
+    print(miniFreq, miniElement);
+}
