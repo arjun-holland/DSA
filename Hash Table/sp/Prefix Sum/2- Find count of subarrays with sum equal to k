@@ -1,0 +1,78 @@
+Find count of number of subarrays with sum ==  k 
+
+Brute force approach 1:-
+For Every Index j, We will count the number of Valid Subarrays which have Sum as K and Ending at index j.
+Time Complexity - O(N*N)
+Space Complexity - O(1)
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n, k;
+    cin >> n;
+    vector<int> arr(n + 1);  // Using 1-based indexing
+    for (int i = 1; i <= n; i++) {
+        cin >> arr[i];
+    }
+    cin >> k;
+    int count= 0;
+    // Brute-force approach
+    for (int j = 1; j <= n; j++) {
+        int current_sum = 0;
+        for (int i = j; i >= 1; i--) {
+            current_sum += arr[i];
+            if (current_sum == k) {
+                count++;
+            }
+        }
+    }
+    cout << "The number of subarrays with sum equal to " << k << " is: " << count << endl;
+    return 0;
+}
+
+
+
+Brute Force Approach 2 -
+Time Complexity - O(N*N)
+Space Complexity - O(N)
+
+
+
+
+
+Optimised Approach:-
+Maintain the Prefix sum array and for every index J we will calculate X which will
+be equal to sum of elements till index j - k (X = P[j]-k). Now, do cnt = cnt + freq[x]
+And update freq of current sum as freq[currentSum]++
+Time Complexity - O(N)
+Space Complexity - O(N)
+
+Pseudo Code - https://ideone.com/sEtny0
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+int countSubarraysOptimized(vector<int>& arr, int k) {
+    unordered_map<int, int> prefixSumCount;
+    int sum = 0, count = 0;
+    prefixSumCount[0] = 1;
+    for (int num : arr) {
+        sum += num;
+        if (prefixSumCount.find(sum - k) != prefixSumCount.end()) {
+            count += prefixSumCount[sum - k];
+        }
+        prefixSumCount[sum]++;
+    }
+    return count;
+}
+int main() {
+    vector<int> arr = {1, 2, 3, 4, 5};
+    int k = 5;
+    cout << "Number of subarrays with sum " << k << ": " << countSubarraysOptimized(arr, k) << endl;
+    return 0;
+}
+
