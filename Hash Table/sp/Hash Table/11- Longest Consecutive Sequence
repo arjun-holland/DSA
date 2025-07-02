@@ -1,0 +1,71 @@
+/*
+Given an unsorted array of integers nums, return the length of the longest consecutive elements sequence.
+You must write an algorithm that runs in O(n) time.
+
+Example 1:
+Input: nums = [100,4,200,1,3,2]
+Output: 4
+Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
+
+Example 2:
+Input: nums = [0,3,7,2,5,8,4,6,0,1]
+Output: 9
+
+Example 3:
+Input: nums = [1,0,1,2]
+Output: 3
+ 
+Constraints:
+0 <= nums.length <= 10^5
+-109 <= nums[i] <= 10^9
+*/
+
+//with hash_map
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_map<int,bool> parent,checked;
+        for(auto e : nums){   //put every ele in parent
+            parent[e] = true;
+        }
+        int ans =  0;
+        
+        for(auto e : nums){
+            if(parent[e-1] == false  && checked[e] == false){  //if that e is starting and not checked
+                int curLen  = 0;
+                int start = e;
+                while(parent[start] == true){
+                    curLen++;
+                    checked[start] = true;
+                    start++;
+                }
+                ans = max(ans,curLen);
+            }
+        }
+        return ans;
+    }
+};
+
+
+//with hash_set
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+        unordered_set<int> s(nums.begin(), nums.end()); // Store all numbers in a set
+        int ans = 0;
+
+        for (int n : s) { // Iterate directly over the set to avoid duplicate checks
+            if (s.find(n-1) == s.end()) { // Start only if it's the first number in a sequence
+                int currentNum = n;
+                int cs = 1;//current sum
+
+                while (s.count(currentNum + 1)) { // Count the length of the sequence
+                    currentNum++;
+                    cs++;
+                }
+                ans = max(ans, cs); // Update max consecutive sequence length
+            }
+        }
+        return ans;
+    }
+};
