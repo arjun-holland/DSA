@@ -1,0 +1,61 @@
+Two Sum
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+
+Example:
+Input: nums = [2,7,11,15], target = 9
+Output: [0,1]
+Explanation: Because nums[0] + nums[1] == 9, we return [0, 1].
+
+Constraints:
+2 <= nums.length <= 10^4
+-109 <= nums[i] <= 10^9
+-109 <= target <= 10^9
+Only one valid answer exists.
+
+//Hashing
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> indexMap;    // element -> index
+        int n = nums.size();
+
+        for (int i = 0; i < n; i++) {
+            int remaining = target - nums[i];
+
+            if (indexMap.find(remaining) != indexMap.end()) {
+                return {indexMap[remaining], i};
+            }
+
+            indexMap[nums[i]] = i; // Always add after checking
+        }
+        return {-1, -1}; // No valid pair found
+    }
+};
+Time Complexity = O(n) // overall
+Space Complexity = O(n)
+
+
+//withouut Hashing
+vector<int> twoSumTwoPointer(vector<int> nums, int target) {
+    vector<pair<int, int>> valIndex;
+    for (int i = 0; i < nums.size(); ++i) {
+        valIndex.push_back({nums[i], i});
+    }
+    sort(valIndex.begin(), valIndex.end());
+
+    int left = 0, right = nums.size() - 1;
+    while (left < right) {
+        int sum = valIndex[left].first + valIndex[right].first;
+        if (sum == target) {
+            return {valIndex[left].second, valIndex[right].second};
+        } else if (sum < target) {
+            ++left;
+        } else {
+            --right;
+        }
+    }
+    return {-1, -1}; // No valid pair found
+}
+
