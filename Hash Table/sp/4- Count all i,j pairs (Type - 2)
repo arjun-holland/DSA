@@ -1,0 +1,73 @@
+Count all i,j pairs where i<j and abs(b[i]-b[j]) = k [k>=0] 
+
+Brute Force Approach:-
+Use 2 Nested For Loops and for every i, start j from i+1, because j>i(given in problem). 
+Check if Absolute Difference between b[i] and b[j] == k, cnt++. Finally Print this Count of All Valid Pairs.
+
+Pseudo Code:- https://ideone.com/xdoLF6
+#include <iostream>
+#include <vector>
+#include <cmath>
+using namespace std;
+
+int countPairs(vector<int>& b, int k) {
+    int count = 0;
+    int n = b.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = i+1; j < n; ++j) {
+            if (abs(b[i] - b[j]) == k) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+int main() {
+    vector<int> b = {1, 7, 5, 9, 2, 12, 3};
+    int k = 2;
+    cout << "Number of pairs: " << countPairs(b, k) << endl;
+    return 0;
+}0
+Time Complexity - O(n^2)
+Space Complexity - O(1)
+
+Optimised Approach:- 
+Just fixing b[j] and for every b[j] count the frequency of how many times b[i] has come.
+B[i] will be calculated using following 2 formulas:-
+
+B[i] = b[j] + k
+B[i] = b[j] - k
+Pseudo Code:- https://ideone.com/4Hd8Ws
+
+#include <iostream>
+#include <unordered_map>
+#include <vector>
+
+using namespace std;
+
+int countPairsWithDifferenceK(const vector<int>& b, int k) {
+    unordered_map<int, int> freq;
+    int count = 0;
+    for (int j = 0; j < b.size(); ++j) {
+        if (freq.find(b[j] - k) != freq.end()) {
+            count += freq[b[j] - k];
+        }
+        if (k != 0 && freq.find(b[j] + k) != freq.end()) { // to avoid double counting when k = 0
+            count += freq[b[j] + k];
+        }
+        freq[b[j]]++;
+    }
+
+    return count;
+}
+
+int main() {
+    vector<int> b = {1, 3, 5, 4, 2};
+    int k = 2;
+    cout << countPairsWithDifferenceK(b, k) << endl; // Output should be the number of pairs with difference k
+    return 0;
+}
+
+
+Time Complexity - O(n)
+Space Complexity - O(n)
