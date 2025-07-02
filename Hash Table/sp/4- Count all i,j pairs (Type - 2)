@@ -35,8 +35,8 @@ Optimised Approach:-
 Just fixing b[j] and for every b[j] count the frequency of how many times b[i] has come.
 B[i] will be calculated using following 2 formulas:-
 
-B[i] = b[j] + k
-B[i] = b[j] - k
+B[i] = b[j] + k   //5 3 2 where k = 2
+B[i] = b[j] - k   //3 5 2 where k = 2
 Pseudo Code:- https://ideone.com/4Hd8Ws
 
 #include <iostream>
