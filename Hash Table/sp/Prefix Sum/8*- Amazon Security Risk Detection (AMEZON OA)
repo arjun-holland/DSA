@@ -1,0 +1,116 @@
+🛡️ Amazon Security Risk Detection – Subarray Remainder Check
+📘 Problem Statement
+Amazon is launching a revolutionary security feature that incorporates an advanced antivirus program, adept at identifying and halting potential threats. 
+This framework manages n active programs, each with a unique Program Identifier (PID).
+The antivirus program evaluates the overall security risk of the system using a specialized algorithm.
+
+🔍 Algorithm Description
+The algorithm analyzes contiguous subarrays of Program Identifiers (PIDs) represented by the array pid[].
+For each subarray:
+-It calculates the sum of the PIDs.
+-Then divides this sum by a constant k.
+-The remainder is computed.
+-The subarray is considered malicious if:remainder == number of programs in the subarray
+The total number of malicious subarrays is defined as the overall security risk level.
+
+Returns:
+  A long representing the number of malicious subarrays found in the system.
+
+📌 Notes
+Remainder is defined as the remaining part after performing division.
+Example: 13 % 5 = 3
+A subarray is a continuous portion of an array, maintaining the original order.
+Example: For [5, 7, 9, 11] → valid subarrays: [5], [7, 9], [9, 11], [5, 7, 9], etc.
+
+ Example:
+Input:
+n = 4
+pid = [1, 3, 2, 4]
+k = 4
+Output:
+2
+🔎 Explanation:
+Subarray [1]: sum = 1, remainder = 1, length = 1 → malicious ✅
+Subarray [2, 4]: sum = 6, remainder = 2, length = 2 → malicious ✅
+Subarray [3, 2]: sum = 5, remainder = 1 ≠ 2 → not malicious ❌
+✅ Total malicious subarrays: 2
+
+✅ Constraints
+1 ≤ n ≤ 2×10^5
+1 ≤ pid[i] ≤ 10^9
+1 ≤ k ≤ 10^9
+
+//BRUTE FORCE
+for (int i = 0; i < n; i++) {  //for ever index of array
+    int sum = 0;
+    for (int j = i; j < n; j++) {  //compute from i to end of array
+        sum += pid[j];
+        int len = j - i + 1;
+        if (sum % k == len) {
+            count++;
+        }
+    }
+}
+T.C : O(n^2)
+S.C : O(1)
+
+//optimnal
+Easier version :-> Good subarray -> sum[i….j] = j-i+1
+Analysis :-> p[j] - p[i-1] = j-i+1 
+:-> p[j] = sum(1….j); 
+:-> p[j]-j ⇒ p[i-1]-i+1  then [i….j] we can calculate the count of good subarrays ending at index j is good; 
+
+-> Logic :- https://www.jdoodle.com/ia/1I48 
+
+TC - O(N);
+-> Takes O(N) size space; 
+C++ - https://ideone.com/zGa5OY 
+
+//CODE 
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+#define fo(i, start, end) for (ll i = start; i <= end; i++)
+#define pfo(i, end, start) for (ll i = end; i >= start; i--)
+
+int main(){
+	ll n;
+	cin>>n;
+	ll b[n+1]={0};ll p[n+1]={0};
+	fo(i,1,n){
+		cin>>b[i];
+    p[i]=p[i-1]+b[i];
+	}
+  ll c = 0 ; 
+ 
+	unordered_map <ll,ll> freq; 
+  freq[0]++;
+	fo(j,1,n){
+		ll y = p[j] - j; 
+		if(freq.find(y)!=freq.end()){
+			c = c + freq[y];
+		}
+		freq[p[j]-j]++;
+	}
+	cout<<c;
+	return 0;
+}
+
+
+Real version :-> Modulo Formula :->
+-> (a + b)%k = (a%k + b%k)%k;
+-> (a - b)%k = (a%k - b%k + k)%k; 
+
+-> We have to find the count of subarrays such that  sum[i……j]%k==(j-i+1)
+-> (p[j] - p[i-1])%k = j-i+1 
+-> (p[j]%k - p[i-1]%k + k)%k = j-i+1
+
+-> Can be re-written as(‘i’ on one side; ‘j’ on other side;) :->
+-> (p[j]%k - j + k)%k == (p[i-1]%k -i + 1 + k)%k
+-> For safety purpose; we add %k everywhere; 
+
+-> (p[j]%k -j%k + k)%k == (p[i-1]%k -i%k + 1%k + k)%k 
+(If k==1 return 0 in code given below ok) 
+C++ - https://ideone.com/WUm4Jr 
+
+
