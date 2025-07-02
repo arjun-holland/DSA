@@ -1,0 +1,60 @@
+Check if there are any two Equal numbers in an array at a distance less than or equal to k
+
+Brute Force :- Just Use 2 For loops and check if distance between any 2 Equal elements is less than or equal to k, print(yes), otherwise, we will print (no)
+Pseudo Code - https://ideone.com/4Df8eb
+
+#include <iostream>
+#include <vector>
+
+bool containsNearbyDuplicateBruteForce(const std::vector<int>& nums, int k) {
+    int n = nums.size();
+    for (int i = 0; i < n; ++i) {
+        for (int j = i + 1; j < n && j <= i + k; ++j) {
+            if (nums[i] == nums[j]) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+int main() {
+    std::vector<int> nums = {1, 1, 3, 1, 2, 3};
+    int k = 2;
+    if (containsNearbyDuplicateBruteForce(nums, k)) {
+        std::cout << "There are two equal numbers within distance " << k << std::endl;
+    } else {
+        std::cout << "No two equal numbers found within distance " << k << std::endl;
+    }
+    return 0;
+}
+
+
+
+
+Optimised using Hashmaps:- 
+
+For every element, we need to check only the last Occurence or the Last index where this element has occurred before. 
+We can use a hashmap which will tell us the Last occurrence where this element has occurred. 
+We just need to calculate the distance between current Occurence and Last Occurence of Current Element.
+If this Distance <= k, we have found a valid pair. We will return true. Otherwise, We will return false because we are now sure that we have not found any valid pair of equal elements whose distance btw them is <= k.
+
+Pseudo code - https://ideone.com/ZCkYoo
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+using namespace std;
+
+bool containsNearbyDuplicateOptimized(const std::vector<int>& nums, int k) {
+    unordered_map<int, int> numIndices;
+    for (int i = 0; i < nums.size(); ++i) {
+        if (numIndices.find(nums[i]) != numIndices.end() && i - numIndices[nums[i]] <= k) {
+            return true;
+        }
+        numIndices[nums[i]] = i;
+    }
+    return false;
+}
+
+   
