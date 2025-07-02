@@ -37,21 +37,24 @@ Constraints:
 
 
 class Solution {
-  public:
-    long subarrayXor(vector<int> &arr, int k) {
-     int r =0;
-     unordered_map<int,int> mp;
-     int prefixXOR = 0;
-       mp[0] = 1;
-       for(int i=0;i<arr.size();i++){
-         
-         prefixXOR ^= arr[i];
-         if(mp.find(prefixXOR ^ k) != mp.end()){
-             r += mp[prefixXOR ^ k];
-         }
-         mp[prefixXOR]++;
-       }
-     return r;
+public:
+int r = 0;
+unordered_map<int, int> mp;
+int prefixXOR = 0;
+mp[0] = 1;  // Important: prefixXOR == k at start
+
+for (int i = 0; i < arr.size(); i++) {
+    prefixXOR ^= arr[i];     // Compute XOR from 0 to i
+
+    // If (prefixXOR ^ k) has been seen before, then there exists a subarray ending at i whose XOR is k
+    if (mp.find(prefixXOR ^ k) != mp.end()) {
+        r += mp[prefixXOR ^ k];
     }
+
+    // Store current prefixXOR
+    mp[prefixXOR]++;
+}
+return r;
+
 };
 
