@@ -1,0 +1,155 @@
+Brute Force Approach:-
+Use 2 Nested For loops, i will denote starting point of subarray and j will denote point of subarray,
+now we will check if sum of elements of current subarray is equal to k, 
+we will compare its length with maxSize and minSize and update the count Accordingly
+Pseudo Code - https://ideone.com/ZADHIE
+
+#include <iostream>
+#include <vector>
+#include <climits>
+using namespace std;
+
+int countShortestSubarraysWithSumK(vector<int>& nums, int k) {
+    int n = nums.size();
+    int minLength = INT_MAX, count = 0;
+
+    for (int start = 0; start < n; start++) {
+        int sum = 0;
+        for (int end = start; end < n; end++) {
+            sum += nums[end];
+            if (sum == k) {
+                int length = end - start + 1;
+                if (length < minLength) {
+                    minLength = length;
+                    count = 1;
+                } else if (length == minLength) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+
+int countLargestSubarraysWithSumK(vector<int>& nums, int k) {
+    int n = nums.size();
+    int maxLength = 0, count = 0;
+
+    for (int start = 0; start < n; start++) {
+        int sum = 0;
+        for (int end = start; end < n; end++) {
+            sum += nums[end];
+            if (sum == k) {
+                int length = end - start + 1;
+                if (length > maxLength) {
+                    maxLength = length;
+                    count = 1;
+                } else if (length == maxLength) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+int main() {
+    vector<int> nums = {1, 2, 3, 4, 2, 5};
+    int k = 5;
+    cout << "Shortest subarrays with sum " << k << ": " << countShortestSubarraysWithSumK(nums, k) << endl;
+    cout << "Largest subarrays with sum " << k << ": " << countLargestSubarraysWithSumK(nums, k) << endl;
+    return 0;
+}
+
+
+
+
+Optimised Approach:-
+First Calculate size of Largest subarray and Smallest Subarray with sum of Elements as k using Maps.
+Now, just calculate the count of those subarrays which have size as calculated above and sum of elements as k.
+
+Pseudo Code - https://ideone.com/1bS2xC
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <climits>
+using namespace std;
+
+pair<int, int> findSubarraySizes(int n, int k, const vector<int>& arr) {
+    unordered_map<int, int> mp;
+    unordered_map<int, int> mp2;
+    mp[0] = 0;
+    int pSum = 0;
+    int maxLength = 0;
+    int minLength = INT_MAX;
+
+    for (int j = 1; j <= n; j++) {
+        pSum += arr[j - 1];
+        int x = pSum - k;
+
+        if (mp.find(x) != mp.end()) {
+            int i = mp[x] + 1;
+            int curLength = j - i + 1;
+            if (curLength > maxLength) {
+                maxLength = curLength;
+            }
+        }
+
+        if (mp2.find(x) != mp2.end()) {
+            int i = mp2[x] + 1;
+            int curLength = j - i + 1;
+            if (curLength < minLength) {
+                minLength = curLength;
+            }
+        }
+
+        if (mp.find(pSum) == mp.end())
+            mp[pSum] = j;
+
+        mp2[pSum] = j;
+    }
+
+    return {maxLength, minLength};
+}
+
+//sliding windows to count no.of targetlength subarrays
+int countSubarraysWithLength(int n, int k, const vector<int>& arr, int targetLength) {
+    if (targetLength == 0) return 0;
+    int count = 0;
+    int windowSum = 0;
+
+    for (int j = 0; j < targetLength; j++) {
+        windowSum += arr[j];
+    }
+
+    if (windowSum == k) {
+        count++;
+    }
+
+    for (int j = targetLength; j < n; j++) {
+        windowSum += arr[j] - arr[j - targetLength];
+        if (windowSum == k) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    int n = 6;
+    int k = 5;
+    vector<int> arr = {1, 2, 3, 4, 2, 5};
+
+    auto [maxLength, minLength] = findSubarraySizes(n, k, arr);
+    int maxCount = countSubarraysWithLength(n, k, arr, maxLength);
+    int minCount = countSubarraysWithLength(n, k, arr, minLength);
+
+    cout << "Max Length: " << maxLength << " Count: " << maxCount << endl;
+    cout << "Min Length: " << minLength << " Count: " << minCount << endl;
+
+    return 0;
+}
+
+
+
