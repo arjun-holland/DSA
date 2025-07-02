@@ -1,0 +1,56 @@
+/*
+Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates).
+You may return the answer in any order.
+
+Example 1:
+Input: words = ["bella","label","roller"]
+Output: ["e","l","l"]
+
+Example 2:
+Input: words = ["cool","lock","cook"]
+Output: ["c","o"]
+ 
+Constraints:
+1 <= words.length <= 100
+1 <= words[i].length <= 100
+words[i] consists of lowercase English letters.
+*/
+
+
+class Solution {
+public:
+    vector<string> commonChars(vector<string>& words) {
+        unordered_map<char, int> minimumFrequencyOverAll;
+
+        // Initialize all lowercase characters with a large number
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            minimumFrequencyOverAll[ch] = 1000;
+        }
+
+        // Process each word
+        for (auto word : words) {
+            unordered_map<char, int> frequency;
+
+            // Count character frequency in the current word
+            for (auto ch : word) {
+                frequency[ch]++;
+            }
+
+            // Update the global minimum frequency
+            for (char ch = 'a'; ch <= 'z'; ch++) {
+                minimumFrequencyOverAll[ch] = min(minimumFrequencyOverAll[ch], frequency[ch]);
+            }
+        }
+
+        // Prepare result
+        vector<string> result;
+        for (char ch = 'a'; ch <= 'z'; ch++) {
+            int count = minimumFrequencyOverAll[ch];
+            for (int i = 0; i < count; i++) {
+                result.push_back(string(1, ch));
+            }
+        }
+
+        return result;
+    }
+};
