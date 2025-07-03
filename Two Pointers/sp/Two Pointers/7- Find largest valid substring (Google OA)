@@ -1,0 +1,54 @@
+Find the largest valid substring - Valid string is a string where any pair of characters have diff<=k
+
+-> A substring is only valid if max char [i……i] and min char [i…..j] 
+-> max - min <=k 
+-> Find the largest substring such that max char - min  char <= k -> follows monotonous nature. 
+
+    // Exactly same as find the largest subarray whose sum <= k
+-> if max - min <=k -> j++ 
+-> max - min > k -> i++ 
+
+//OPTMIIZED : TWO POINTERS
+//TC - O(2*N.) = O(N.)
+#include <iostream>
+#include <set>
+#include <string>
+using namespace std;
+typedef long long int ll;
+
+int main() {
+    ll n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    
+    multiset<char> g;         // Multiset to keep track of characters in the current window
+    ll p = 0;                 // Maximum valid substring length
+
+    // Sliding window using two pointers
+    for (int i = 0, j = 0; j < n; j++) {
+        g.insert(s[j]);       // Insert the current character into the multiset
+
+        // Calculate the difference between the largest and smallest characters
+        ll diff = *g.rbegin() - *g.begin();  // ASCII difference
+
+        // Shrink the window while the difference exceeds k
+        while (diff > k) {
+            g.erase(g.find(s[i]));             // Remove the leftmost character from the multiset
+            i++;                           // Move the left pointer
+            if (!g.empty()) {
+                diff = *g.rbegin() - *g.begin();  // Update the difference
+            }
+        }
+        
+        // Calculate the length of the current valid substring
+        ll length = j - i + 1;
+        p = max(p, length);
+    }
+    cout << p << endl;  // Output the maximum length
+    return 0;
+}
+
+
+
+
