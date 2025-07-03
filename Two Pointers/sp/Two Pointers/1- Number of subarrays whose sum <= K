@@ -1,0 +1,59 @@
+Number of subarrays whose sum <= K (All numbers in the array>=0) 
+
+-> [2 1 1 5 8] 
+K = 4
+There are 6 subarrays whose sum<=K :- [0…0] , [0….1] , [0….2] ,[1…1],[2..2],[1….2] 
+
+//Brute Force:- 
+Try out every possible subarry and check if it gives the sum or not.
+TC - O(N^2)
+SC - O(1)
+
+int main() {
+    ll n;cin>>n;
+    ll k;cin>>k;
+    ll b[n];
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
+    }ll count = 0 ;
+    
+    for(ll i=0;i<n;i++){
+        ll sum = 0 ; 
+        for(ll j=i;j<n;j++){
+            sum = sum + b[j];
+            if(sum<=k){
+                count++;
+            }else{
+                break;
+            }
+        }
+    }
+    cout<<count;
+    return 0;
+}
+
+//Efficient:- 
+TC - O(2N) : Each index value is visited at most two times
+SC - O(1)
+int main() {
+    ll n;cin>>n;
+    ll k;cin>>k;
+    ll b[n];
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
+    }ll count = 0 ;
+    
+    ll sum = 0 ;
+    for (int i = 0, j = 0; j < n; j++) {
+            sum = sum + b[j];      
+            while (sum>k){          //move the i pointer index
+                sum = sum - b[i];
+                i++;
+            }
+            count += (j - i + 1);    //count += the length of the array 
+    }
+    cout<<count;
+    return 0;
+}
+
+
