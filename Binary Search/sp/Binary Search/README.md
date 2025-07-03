@@ -92,3 +92,27 @@ You can also use the built-in function in C++ STL:
 #include <algorithm>
 bool found = binary_search(arr.begin(), arr.end(), target);
 ```
+---
+# upper_bound() and lower_bound()
+
+| Function        | Meaning                                 | Returns        |
+| --------------- | --------------------------------------- | -------------- |
+| `lower_bound()` | First position where value **≥ target** | Iterator/index |
+| `upper_bound()` | First position where value **> target** | Iterator/index |
+```
+Input:
+vector<int> nums = {1, 3, 3, 5, 8, 8, 10};
+int target = 8;
+🔍 Visual Index View:
+Index:     0   1   2   3   4   5   6
+Values:    1   3   3   5   8   8   10
+                          ↑   ↑
+                        LB=4 UB=6
+lower_bound(nums.begin(), nums.end(), 8)
+Finds first index where value ≥ 8 → returns index 4
+
+upper_bound(nums.begin(), nums.end(), 8)
+Finds first index where value > 8 → returns index 6
+```
+
+
