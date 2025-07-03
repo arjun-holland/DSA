@@ -1,0 +1,51 @@
+Given an array of all integers>=0 -> find the largest subarray whose sum is <= k 
+
+//Brute Force :-
+Check all the subarrays if sum of a subarray<=k -> note down its length. Maximum of all of them is the answer 
+TC - O(N^2.)
+Takes O(1) size.
+
+//PSEUDO CODE FOR BRUTE FORCE
+
+-> n. k 
+-> b[n+1];
+for(i=1;i<=n;i++){ r = 0 
+    for(j=i;j<=n;j++){
+        r = r + b[j] 
+        //r ==== sum[i.....j]
+        if(r<=k){
+            l = abs(j-i+1)
+            p = max(p,l)
+        }
+    }
+}
+print(p)
+
+//OPTIMAL
+TC - O(2*N) = O(N)
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main() {
+    ll n;
+    cin>>n;
+    ll k;cin>>k;
+    ll b[n];
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
+    }
+    ll p = 0 ;
+    ll sum = 0 ;
+    for (int i = 0, j = 0; j < n; j++) {
+            sum = sum + b[j]; //[............]
+            while (sum>k){
+                sum = sum - b[i];
+                i++;
+            }
+            ll length = (j-i+1) ; //sum[i.....j] <= k -> checking its length. 
+            p = max(p,length);
+    }
+    cout<<p;
+    return 0;
+}
+
