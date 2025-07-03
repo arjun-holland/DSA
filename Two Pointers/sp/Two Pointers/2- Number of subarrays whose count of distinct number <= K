@@ -1,0 +1,66 @@
+ Number of subarrays whose count of distinct number <= K 
+
+ //BRUTE FORCE 
+ As we need to track the number of distinct numbers present in a subaru we should use definitely the hash table because then we can directly handl ethe duplicate elements.
+ 
+ #include <bits/stdc++.h>a tool where that disappear is pres
+using namespace std;
+typedef long long int ll;
+ 
+int main() {
+    ll n;cin>>n;
+    ll k;cin>>k;
+    ll b[n];
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
+    }ll count = 0 ;
+    
+    for(ll i=0;i<n;i++){
+        unordered_map <ll,ll> g ;  
+        for(ll j=i;j<n;j++){
+            g[b[j]]++;
+            ll d = g.size();
+            if(d<=k){
+                count++;
+            }
+        }
+    }
+    cout<<count;
+    return 0;
+}
+
+
+//OPTIMAL
+Here we are using that single hash table in order to track the size of the subarray whenever that size of the subarray 
+I mean elements in the hash table is greater than the required size 
+we need to reduce that size so we need to move the check pointer in that condition
+
+typedef long long int ll;
+int main() {
+    ll n;cin>>n;
+    ll k;cin>>k;
+    ll b[n];
+    for(ll i=0;i<n;i++){
+        cin>>b[i];
+    }ll count = 0 ;
+ 
+    ll sum = 0 ;
+    unordered_map <ll,ll> g ; 
+    for (int i = 0, j = 0; j < n; j++) {
+            g[b[j]]=g[b[j]]+1;
+            ll d = g.size();
+            while (d>k){
+                g[b[i]] = g[b[i]] - 1;
+                if(g[b[i]]==0){
+                    g.erase(b[i]);
+                }
+                i++;
+                
+                d = g.size();
+                
+            }
+            count += (j - i + 1);
+    }
+    cout<<count;
+    return 0;
+}
