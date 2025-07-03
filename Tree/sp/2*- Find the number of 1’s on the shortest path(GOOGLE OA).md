@@ -20,7 +20,7 @@ Node:     1  2  3  4  5
 Answer:   1  1  2  3  2
 ```
 
-# solution
+# solution : BFS (Level Wise Traversal)
 ```
 #include <bits/stdc++.h>    // Includes all standard C++ libraries
 using namespace std;
@@ -86,4 +86,58 @@ int main() {
     return 0 ;  // Program ends
 }
 ```
+---
+# DFS
+```
+#include <bits/stdc++.h>
+using namespace std;
 
+void dfs(int node, int parent, int count, vector<int> &b, vector<vector<int>> &G, vector<int> &answer) {
+    count += b[node];        // Add current node's value (0 or 1)
+    answer[node] = count;    // Store answer for current node
+
+    for (int child : G[node]) {
+        if (child != parent) {       // Don't go back to parent
+            dfs(child, node, count, b, G, answer);
+        }
+    }
+}
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<vector<int>> G(n + 1);    // Adjacency list
+    for (int i = 0; i < n - 1; i++) {
+        int x, y;
+        cin >> x >> y;
+        G[x].push_back(y);
+        G[y].push_back(x);
+    }
+
+    vector<int> b(n + 1);            // Node values (0 or 1)
+    for (int i = 1; i <= n; i++) {
+        cin >> b[i];
+    }
+
+    vector<int> answer(n + 1, 0);
+    dfs(1, 0, 0, b, G, answer);      // Start DFS from node 1
+
+    for (int i = 1; i <= n; i++) {
+        cout << answer[i] << '\n';
+    }
+
+    return 0;
+}
+
+```
+
+# Diff ways of taking vector in cpp
+```
+| Expression                   | Meaning               | No. of Vectors | Usage Example        |
+| ---------------------------- | --------------------- | -------------- | -------------------- |
+| `vector<int> G[10];`         | Array of 10 vectors   | 10             | `G[2].push_back(4);` |
+| `vector<vector<int>> G(10);` | Vector of 10 vectors  | 10             | `G[2].push_back(4);` |
+| `vector<int> G(10);`         | One vector of size 10 | 1              | `G[2] = 4;`          |
+
+```
