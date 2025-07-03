@@ -1,0 +1,117 @@
+Problem Statement:
+Given an array of n integers aᵢ. Let's say that a segment of this array a[l..r] (1 ≤ l ≤ r ≤ n) is good if the difference between the maximum and minimum elements
+on this segment is at most k.Your task is to find the number of different good segments.
+
+Input:
+The first line contains integers n and k (1 ≤ n ≤ 10⁵, 0 ≤ k ≤ 10¹⁸).
+The second line contains integers aᵢ (1 ≤ aᵢ ≤ 10¹⁸).
+
+Example:
+Input  
+7 3  
+2 6 4 3 6 8 9  
+Output  
+16
+
+✅ Goal:
+Count the number of subarrays (segments) where the maximum - minimum ≤ k.
+
+✅ Approach (Optimized Sliding Window using Two Pointers and Multiset):
+-Use two pointers: i (left) and j (right) to represent the window.
+-Keep a multiset, deque, or two heaps to track the max and min of the current window efficiently.
+-Initialize i = 0.
+-Iterate j from 0 to n-1:
+-Insert a[j] into a data structure that allows fast min and max lookup.
+-While max - min > k, move i forward and remove a[i] from the data structure.
+-The number of good segments ending at index j is (j - i + 1) because all subarrays [i..j], [i+1..j], ..., [j..j] are valid.
+-Add (j - i + 1) to the answer at each step.
+
+//BY USING MULTISET
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+ll countGoodSegments(const vector<ll>& arr, ll k) {
+    multiset<ll> window;
+    int i = 0;
+    ll ans = 0;
+    for (int j = 0; j < arr.size(); ++j) {
+        window.insert(arr[j]);
+        
+        // Shrink the window from the left if max - min > k
+        while (*window.rbegin() - *window.begin() > k) {
+            window.erase(window.find(arr[i]));
+            ++i;
+        }
+        
+        // All subarrays ending at j and starting from i to j are valid
+        ans += (j - i + 1);
+    }
+    return ans;
+}
+
+int main() {
+    int n;
+    ll k;
+    cin >> n >> k;
+    vector<ll> arr(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+    cout << countGoodSegments(arr, k) << endl;
+    return 0;
+}
+✅ Total Time Complexity = O(n log n)
+✅ Space Complexity = O(n)
+
+
+
+
+//MONOTONIC DEQUE
+#include <iostream>
+#include <deque>
+#include <vector>
+using namespace std;
+typedef long long ll;
+
+ll countGoodSegments(const vector<ll>& arr, ll k) {
+    deque<int> min_dq, max_dq;
+    int i = 0;
+    ll ans = 0;
+
+    for (int j = 0; j < arr.size(); ++j) {
+        while (!min_dq.empty() && arr[min_dq.back()] >= arr[j])     // Maintain min deque
+            min_dq.pop_back();
+        min_dq.push_back(j);
+
+        while (!max_dq.empty() && arr[max_dq.back()] <= arr[j])        // Maintain max deque
+            max_dq.pop_back();
+        max_dq.push_back(j);
+
+        // Shrink window if invalid
+        while (arr[max_dq.front()] - arr[min_dq.front()] > k) {
+            if (min_dq.front() == i) min_dq.pop_front();
+            if (max_dq.front() == i) max_dq.pop_front();
+            ++i;
+        }
+
+        // All subarrays ending at j and starting from i to j are valid
+        ans += (j - i + 1);
+    }
+
+    return ans;
+}
+
+int main() {
+    int n;
+    ll k;
+    cin >> n >> k;
+    vector<ll> arr(n);
+    for (int i = 0; i < n; ++i) cin >> arr[i];
+    cout << countGoodSegments(arr, k) << endl;
+    return 0;
+}
+✅ Time and Space Complexity:
+Time: O(n) — each index is added and removed from deque at most once.
+Space: O(n) — to store min_dq, max_dq, and input.
+
