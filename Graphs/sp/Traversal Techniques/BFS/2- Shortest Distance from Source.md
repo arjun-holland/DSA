@@ -25,6 +25,11 @@ When to Use Dijkstra's Algorithm and BFS
 - Need the shortest path from a source to all nodes.
 - BFS is only correct for unweighted graphs (all edges have same cost).
 HERE all edges have same cost so use BFS
+
+Conclusion :
+Because in the BFS algorithm we travel things in level wise form so each node which we visit for the first time is always at the shortest distance from the source node = 1(root) ; so the level array gives us the answer of the distance of each node from node 1 automatically. 
+
+BFS can always be used to find the shortest path related stuff if your graph is un-weighted. 
 ```
 ---
 ```
