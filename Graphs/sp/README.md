@@ -36,6 +36,10 @@ B 1 0 1
 C 0 1 0
 ✅ Quick edge lookup: O(1)
 ❌ Space-heavy: O(V²)
+Space.-> O(N&N)
+Use Matrix:-> If nodes are less and edges are way too many then use matrix; it called as dense graph. 
+1<=N<=100
+1<=M<=1000000
 ```
 ### 1. **Adjacency List**
 - An array/list of lists or hash maps, where each vertex stores a list of connected vertices.
@@ -47,6 +51,11 @@ graph = {
 }
 ✅ Space-efficient: O(V + E)
 ✅ Faster traversal
+Time.-> O(N).
+Space.-> O(N+2*M) :-> O(N+M)
+Adjacent List -> N and M are kind of equivalent to each other :->
+1<=N,M<=100000
+
 ```
 
 ### 🛠️ Graph Traversal Algorithms
