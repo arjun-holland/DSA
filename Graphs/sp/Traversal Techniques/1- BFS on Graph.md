@@ -6,6 +6,7 @@ It uses a **queue** to keep track of nodes to visit.
 ---
 
 ## code
+# With Adjacency List
 ```
 #include <bits/stdc++.h>
 using namespace std;
@@ -54,6 +55,57 @@ int main() {
         // Visit all unvisited neighbors
         for (int neighbor : G[current]) {
             if (!visited[neighbor]) {
+                visited[neighbor] = 1;
+                level[neighbor] = level[current] + 1;
+                q.push(neighbor);
+            }
+        }
+    }
+
+    return 0;
+}
+```
+# With Adjacency Matrix
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n, m;
+    cin >> n >> m;  // n = number of nodes, m = number of edges
+
+    // Adjacency matrix (initialize with 0s)
+    int G[1001][1001] = {0}; // Adjust size as needed (max 1000 nodes)
+
+    // Read edges (undirected)
+    for (int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        G[u][v] = 1;
+        G[v][u] = 1;
+    }
+
+    // BFS initialization
+    int source = 1;  // Starting node (change as needed)
+    vector<int> visited(n + 1, 0);
+    vector<int> level(n + 1, 0);
+    queue<int> q;
+
+    visited[source] = 1;
+    level[source] = 0;
+    q.push(source);
+
+    // Perform BFS
+    while (!q.empty()) {
+        int current = q.front();
+        q.pop();
+
+        // Output current node and its level
+        cout << "Node: " << current << ", Level: " << level[current] << "\n";
+
+        // Visit all neighbors
+        for (int neighbor = 1; neighbor <= n; neighbor++) {
+            if (G[current][neighbor] == 1 && visited[neighbor] == 0) {
                 visited[neighbor] = 1;
                 level[neighbor] = level[current] + 1;
                 q.push(neighbor);
