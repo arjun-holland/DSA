@@ -9,50 +9,61 @@ It uses a **queue** to keep track of nodes to visit.
 ```
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long int ll ; 
+
+// Type alias for long long integers
+typedef long long int ll;
 
 int main() {
-    int n ; 
-    cin>> n ; 
-    int m ;
-    cin>> m ; 
-    vector <int> G[n+5] ; 
-    
-    int i = 1 ; 
-    while(i<=m){
-        int x,y;
-        cin>>x>>y;
+    int n, m;
+    cin >> n >> m; // n = number of nodes, m = number of edges
+
+    // Adjacency list for graph representation
+    vector<int> G[n + 1];
+
+    // Reading edges (undirected)
+    for (int i = 0; i < m; i++) {
+        int x, y;
+        cin >> x >> y;
         G[x].push_back(y);
         G[y].push_back(x);
-        i++;
     }
-    
-    
-    int source = 1 ;     // Start traversal from source 
-    int used[n+5] = {0};   //to make sure that node is used 
-    int level[n+5] = {0} ; 
-    queue <int> q ; 
-    
-    q.push(source);         //push source into the queue q
-    used[source] = 1 ;      //mark source node as visited
-    level[source] = 0 ;     //source node is always at 0-level
 
-    while(!q.empty()) {        
-        int removed = q.front();
-        cout<<removed<<" ";
+    // BFS from source node (you can change the source)
+    int source = 1;
+
+    // Arrays to track visited status and level (distance from source)
+    vector<int> visited(n + 1, 0);
+    vector<int> level(n + 1, 0);
+
+    // Queue for BFS
+    queue<int> q;
+
+    // Initialization
+    visited[source] = 1;
+    level[source] = 0;
+    q.push(source);
+
+    // Perform BFS
+    while (!q.empty()) {
+        int current = q.front();
         q.pop();
-        cout<<level[removed]<<"\n"; 
- 
-        for(auto u : G[removed]){   //neighbours nodes of removed node
-            if(used[u]==0) { 
-                q.push(u); 
-                used[u] = 1 ;
-                level[u] = level[removed] + 1 ; 
+
+        // Print node and its level
+        cout << "Node: " << current << ", Level: " << level[current] << "\n";
+
+        // Visit all unvisited neighbors
+        for (int neighbor : G[current]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = 1;
+                level[neighbor] = level[current] + 1;
+                q.push(neighbor);
             }
-        }        
+        }
     }
-    return 0 ; 
+
+    return 0;
 }
+
 ```
 
 
