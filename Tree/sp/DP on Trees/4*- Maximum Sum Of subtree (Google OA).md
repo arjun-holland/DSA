@@ -76,7 +76,7 @@ int main(){
     ll answer = -100000000000000;    
     i = 1 ;
     while(i<=n){
-        answer=max(answer,sum[i]);    //get trhe maximum subarray sum
+        answer = max(answer,sum[i]);    //get the maximum subarray sum
         i++;
     }
     cout<<(answer); 
