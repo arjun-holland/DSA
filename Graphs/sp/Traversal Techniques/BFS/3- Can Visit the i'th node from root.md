@@ -74,3 +74,8 @@ int main() {
 
     return 0;
 }
+```
+- Solution : Do BFS algorithm and declare initiate all lvl [i] = -1 ; now do the stuff 
+- And finally whenever lvl[i] = -1 ; it means u cannot visit that as bfs algo was not able to find any path/shortest path to reach that node
+- (u can use the visited array in same manner ; it is easier ; if visited[i] = 0 ; it means ith node can never be visited from the source node 1 )
+
