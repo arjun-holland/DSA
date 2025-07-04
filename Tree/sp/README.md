@@ -9,6 +9,11 @@ A **tree** is a hierarchical data structure made of **nodes**, starting from a s
 - Each node holds a **value/data**.
 - It may have **children** (sub-nodes).
 - Trees do not contain **cycles** (unlike graphs).
+
+or
+```
+Undirected acyclic graph with single connected component is a TREE
+```
 ---
 
 ```
