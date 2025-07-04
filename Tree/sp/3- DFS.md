@@ -1,6 +1,4 @@
-# 🌳 Tree DFS & DP Tricks — By Tanvir Singh
-
-This repository summarizes 2 years of key learnings and tricks for solving Tree DFS and DP problems. It includes concepts, laws, problem-solving approaches, and code templates in **C++, Java, and Python**.
+# 🌳 Tree DFS 
 
 ---
 
@@ -47,26 +45,6 @@ int main() {
 
 ---
 
-## 🌿 What DFS on Tree Looks Like?
-
-### ✅ Trick 1: Boundary Traversal
-- Do a boundary traversal from **left to right** — this gives the **DFS order**.
-
-### ✅ Observation 1
-- You **start** and **end** at **node 1** in DFS.
-
----
-
-## 🧠 DP on Trees — How to Think?
-
-### ✅ Trick 1: Bottom-Up Calculation
-- Always **start from the bottom nodes**.
-- Only go up once all child nodes are processed.
-
-### 🧠 Tanvir Singh's Law:
-> The answer to a node can only be calculated **after** the answers for its children have been calculated.
-
----
 
 ## 🏔️ Problem: Find Height of Each Node
 
@@ -116,7 +94,7 @@ void DFS(int node, vector<int> G[]) {
 
 //We can write the above function DFS with these
 //void dfs(int node, int parent) {
-//    height[node] = 0; // Leaf node base case when node itself counts as zero  , edges heights
+//    height[node] = 0; // leaf Node itself counts as height = 0 (node-based)
 
 //    for (int child : tree[node]) {
 //        if (child == parent) continue; // Don't go back up
@@ -126,7 +104,7 @@ void DFS(int node, vector<int> G[]) {
 //}
 
 //void dfs(int node, int parent) {
-//    height[node] = 1; // Node itself counts as height=1 (node-based)
+//    height[node] = 1; // leaf Node itself counts as height = 1 (node-based)
 
 //    for (int child : tree[node]) {
 //        if (child == parent) continue;
