@@ -30,7 +30,9 @@ Understanding -> Given a Tree of “N” nodes and “N-1” edges; each node ha
                                         / \
                                        10   8
             Ans: 10 + 5 = 15
-
+use the level wise traversal to find the max sum at ith node 
+TC :- O(N)
+SC:- O(N)
 ```
 # solution
 ```
