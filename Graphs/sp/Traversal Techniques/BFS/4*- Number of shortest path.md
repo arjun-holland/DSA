@@ -8,6 +8,15 @@ Because the graph is unweighted, every edge has the same "cost" or "distance"—
 - Explore the graph level by level, starting from the source.
 - Record the level (or distance) of each node from the source.
 - Track how many distinct ways we can reach a node with the minimum level.
+
+             root
+               |   \
+               |     \
+             parent   parent-brother
+               |     /     |
+               |   /       |
+            child -------own-child
+From the above diagram we are getting that there are three paths are present from `root` to `child` but the shortest paths are only two.
 ```
 # 🔁 How It Works:
 Initially, we set the number of ways to reach the source node as 1.
