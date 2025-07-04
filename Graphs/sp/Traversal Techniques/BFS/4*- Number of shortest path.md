@@ -10,13 +10,22 @@ Because the graph is unweighted, every edge has the same "cost" or "distance"—
 - Track how many distinct ways we can reach a node with the minimum level.
 
              root
-               |   \
+               |    \
                |     \
              parent   parent-brother
                |     /     |
                |   /       |
             child -------own-child
 From the above diagram we are getting that there are three paths are present from `root` to `child` but the shortest paths are only two.
+
+        (1)  [1]way
+         |
+        (2)  [1]
+       /   \
+[1] (3)    (4) [1]
+       \   /
+        (5)  [2]
+
 ```
 # 🔁 How It Works:
 Initially, we set the number of ways to reach the source node as 1.
@@ -73,7 +82,7 @@ int main() {
                 q.push(neighbor);
             }
             else if (visited[neighbor] == true && level[neighbor] == level[current] + 1) {    // Already visited, and another shortest path found
-                ways[neighbor] += ways[current];
+                ways[neighbor] += ways[current];      //we update child's  ways when path is same from its parent level
             }else {
                 // we find the path but it is longest path so do not include it to answer
             }
