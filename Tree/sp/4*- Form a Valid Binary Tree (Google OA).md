@@ -1,4 +1,4 @@
-# 🧾 Problem Statement (Rewritten Clearly):
+# 🧾 Problem Statement :
 ```
 Given an undirected acyclic graph (i.e., a tree), where each node has at most 3 neighbors,
 Find a vertex such that if you root the tree at this vertex, the resulting tree will be a valid binary tree.
