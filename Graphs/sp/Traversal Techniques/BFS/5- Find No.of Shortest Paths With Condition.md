@@ -19,6 +19,7 @@ Your task is to find for each node ‘i’ ; find the number of the shortest pat
      \   /
      (5)[5]
 For (5)-node even two shortest paths exist , the ans is only one because only one path with max valusof 5 present
+- So in order to count the 5's Iam using a separate vector for it to track the max 5's at the i'th node
 ```
 
 # solution
