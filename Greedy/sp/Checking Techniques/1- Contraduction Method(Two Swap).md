@@ -85,3 +85,12 @@ int main() {
     return 0;
 }
  ```
+
+
+# summary 
+```
+- After we have a particular statement (from the question observing) then get result by solving that statement which we thought
+- and now we have to modify that statement (Attack like swaping) and so that we are getting another result of that modified statement
+- now check if your initial result is Satisfiable to the given question comparing to the your modified result
+- then your initial statement is correct otherwise your statement is wrong.
+```
