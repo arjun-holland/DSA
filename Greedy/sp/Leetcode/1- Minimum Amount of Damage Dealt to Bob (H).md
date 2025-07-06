@@ -38,6 +38,7 @@ public:
         // Calculate threat level for each enemy: (time_to_kill / damage[i])
         for (int i = 0; i < n; i++) {
             double time_to_kill = ceil((double)health[i] / power);
+            //even we get the time to kill (how long that enimy alive), we kill  based on the damage point to , like enimy with more damage point in will die in less time that that enimy has to die first
             threat[i] = {time_to_kill / damage[i], i};
         }
         
