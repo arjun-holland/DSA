@@ -56,6 +56,7 @@ int main() {
     dp[1] = abs(ar[1] - ar[0]);
 
     for (int i = 2; i < n; i++) {
+    //We can jump to current stone from previous 2 stone only
         dp[i] = min(
             abs(ar[i] - ar[i - 1]) + dp[i - 1],
             abs(ar[i] - ar[i - 2]) + dp[i - 2]
