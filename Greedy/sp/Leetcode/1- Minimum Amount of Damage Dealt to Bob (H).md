@@ -62,3 +62,37 @@ public:
     }
 };
 ```
+
+# 🧠 Why Use Greedy with time_to_kill / damage[i]?
+```
+The code does this:
+`double time_to_kill = ceil(health[i] / (double)power);`
+double threat_score = time_to_kill / damage[i];
+This gives us a "damage efficiency score" — how long it takes to stop 1 unit of damage from an enemy.
+Lower score = high damage, low health (fast kill, high threat) → kill earlier
+Higher score = low damage, high health (slow to kill, less threat) → kill later
+
+By sorting enemies by this score and killing lowest score first, Bob:
+
+Eliminates the most dangerous per second enemies quickly, and
+
+Reduces cumulative damage as fast as possible.
+```
+
+# 🔁 Intuition With Time Flow:
+Each second:
+- All alive enemies deal damage
+- Bob can only reduce health of one enemy
+- So the longer you leave high-damage enemies alive, the more damage they stack.
+Killing:
+- Enemy A (5 seconds to kill, 10 dps) = 50 total damage
+- Enemy B (2 seconds to kill, 2 dps) = 4 total damage
+Clearly, Bob should kill A before B.
+- But if A had very high health and low damage, and B had low health and high damage, you might flip the choice.
+- That’s what the time_to_kill / damage[i] ratio quantifies — it helps Bob choose enemies that are:
+- "Easiest to kill per damage they deal"
+
+# ✅ Why This Greedy Works:
+This greedy approach works because:
+- The problem has optimal substructure — the remaining problem after killing one enemy is the same type of problem.
+- And it satisfies the greedy choice property — making the locally optimal choice (kill the most threatening enemy now) leads to the globally optimal solution.
