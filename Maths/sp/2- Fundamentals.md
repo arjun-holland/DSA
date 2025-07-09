@@ -19,6 +19,9 @@ This document provides essential **combinatorial formulas and insights** commonl
 > If **internal ordering matters**, multiply by `r!`:
 ### ✅ Formula :  nPr = [n! / (r! * (n - r)!)]*r!
 
+![image](https://github.com/user-attachments/assets/c6fcd284-3afb-4166-ae3f-e1f32eb8a0bb)
+
+
 ### 📌 Example:
 - Choosing and arranging 3 books from a shelf of 5: 5C3 * 3! = number of permutations
 
