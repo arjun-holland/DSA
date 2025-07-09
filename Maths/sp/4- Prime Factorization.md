@@ -71,6 +71,7 @@ int main() {
 
     return 0;
 }
+T.C : O(sqrt N)
 ```
 # ✅ Summary
 | After loop | Meaning                         | What to do           |
