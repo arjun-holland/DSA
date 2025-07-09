@@ -2,6 +2,7 @@
 Efficiently generates all prime numbers between a given range [L, R] using a two-step method:
 - Generate all primes from 1 to R using the Sieve of Eratosthenes
 - Use binary search (lower_bound) to extract only the primes ≥ L
+
 ![image](https://github.com/user-attachments/assets/29db59f3-a873-43cd-a430-afc51b1bb2e6)
 
 # Example
