@@ -46,3 +46,11 @@ public:
 };
 
 ```
+
+| Situation          | left    | right   | Return  | Meaning                  |
+| ------------------ | ------- | ------- | ------- | ------------------------ |
+| Found `p` in left  | p       | nullptr | p       | propagate p upward       |
+| Found `q` in right | nullptr | q       | q       | propagate q upward       |
+| Found both         | p       | q       | root    | LCA found                |
+| Found neither      | nullptr | nullptr | nullptr | No match in this subtree |
+
