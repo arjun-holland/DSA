@@ -80,6 +80,8 @@ x1 + x2 + x3 + ... + xk = n
 
 **Problem**:  
 Given two sequences of sizes `N` and `M`, how many ways can you interleave them **without changing the order** within each?
+or
+Given two linear sequences of size N and M; find the number of ways to generate a sequence of N+M size; such that order of both the sequences remain the same; 
 
 ### ✅ Formula:
 (N + M) C M
@@ -109,6 +111,9 @@ Where:
 - `MOD = 10^9 + 7` (a large prime)
 
 ### ✅ Precomputation Template (C++-like Logic)
+![image](https://github.com/user-attachments/assets/8f3b4241-65b4-48ff-ac88-59f0b97e9728)
+
+![image](https://github.com/user-attachments/assets/8dae856b-9feb-4b33-86c1-00b72458c5a2)
 
 ```cpp
 const int MOD = 1e9 + 7;
