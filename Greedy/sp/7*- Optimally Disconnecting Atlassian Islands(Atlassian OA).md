@@ -37,7 +37,19 @@ We simulate this as follows:
 
 ![image](https://github.com/user-attachments/assets/799380d2-aa8e-4719-966d-dbbb0e77d686)
 
+```
+     (Disconnected nodes sum) * ((Total nodes sum) - (Disconnected nodes sum))
+i.e:  y * (x - y) where x is constant
+      => yx - y^2
+  This is a quadratic function in (y), opening downward (since -y² is the dominating term).
+  So the curve is a parabola with a maximum at y = x/2.
+```
+![image](https://github.com/user-attachments/assets/552e1c8e-427c-4eca-9f68-f84424dd363f)
+
 ![image](https://github.com/user-attachments/assets/a5150593-4948-40b3-9d8d-cec372420414)
+
+
+![image](https://github.com/user-attachments/assets/bc2bfa78-95ea-4f0d-86c4-0a81ead7eb30)
 ```
 🔵 What’s the graph trying to tell you?
     It draws a hill (like a mountain 🏔️):
