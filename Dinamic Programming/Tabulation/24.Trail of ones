@@ -1,0 +1,44 @@
+/*
+Given an integer n, the task is to count the number of binary strings of length n that contains at least one pair of consecutive 1's.
+Note: A binary string is a sequence made up of only 0's and 1's.
+
+Examples:
+Input: n = 2
+Output: 1
+Explanation: There are 4 strings of length 2, the strings are 00, 01, 10, and 11. Only the string 11 has consecutive 1's.
+Input: n = 3
+Output: 3
+Explanation: There are 8 strings of length 3, the strings are 000, 001, 010, 011, 100, 101, 110 and 111. The strings with consecutive 1's are 011, 110 and 111.
+Input: n = 5
+Output: 19
+Explanation: There are 19 strings having at least one pair of consecutive 1's.
+
+Constraints:
+2 ≤ n ≤ 30
+*/
+
+class Solution {
+  public:
+    int countConsec(int n) {
+        // total strings (2^n) without modulo
+        long long totalStrings = 1LL << n; //gives the 2^n value << as performs the multiplication
+        
+        /* or
+        long long totalStrings = 1;
+        for (int i = 0; i < n; ++i) {
+            totalStrings = (totalStrings * 2);
+        }
+        */
+        
+        // Binary strings with no consecutive 1's
+        vector<long long> dp(n + 1, 0);
+        dp[0] = 1;      //no.of strings of length 0 without consecutive 1's as empty string does not have any consecutive 1's 
+        dp[1] = 2;      //no.of strings of length 1 without consecutive 1's as string with len 1 does not have any consecutive 1's (0, 1)
+
+        for (int i = 2; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+
+        return (int)(totalStrings - dp[n]);
+    }
+};
