@@ -1,0 +1,30 @@
+/*
+Given a number represented as a string s (which may be very large), check whether it is divisible by 13 or not.
+
+Examples:
+Input : s = "2911285"
+Output : true
+Explanation: 2911285 / 13 = 223945, which is a whole number with no remainder.
+
+Constraints:
+1 ≤  s.size()  ≤ 10^5
+*/
+
+class Solution {
+  public:
+    bool divby13(string &s) {
+        int remainder = 0;
+        for (char c : s) {
+            remainder = (remainder * 10 + (c - '0')) % 13;
+        }
+        return remainder == 0;
+    }
+};
+
+/*
+🧠 How It Works:
+Processes the number one digit at a time.
+Maintains only the remainder mod 13, never storing the full number.
+Uses this math property:
+(a * 10 + b) % m == ((a % m) * 10 + b) % m
+*/
