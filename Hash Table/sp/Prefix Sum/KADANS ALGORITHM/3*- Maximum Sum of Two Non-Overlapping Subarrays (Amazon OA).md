@@ -1,8 +1,8 @@
-🔍 Problem Statement
+# 🔍 Problem Statement
 Given an integer array nums, find two non-overlapping subarrays such that their total sum is maximum.
 Each subarray can be empty (i.e., sum = 0), and the subarrays must not overlap.
 
-💡 Intuition
+# 💡 Intuition
 1.We need to find two disjoint segments such that:
       Total = max(left subarray) + max(right subarray)
 2.The challenge is ensuring non-overlap. So, we:
@@ -17,14 +17,14 @@ We precompute:
       prefixMaxSum[i] = best subarray ending at or before i
       suffixMaxSum[i] = best subarray starting at or after i
 
-🛠️ Approach
+# 🛠️ Approach
 Use a variation of Kadane's Algorithm to compute max subarray sums from left and right.
 At each point i, store the best sum so far from prefix and suffix.
 Combine the best left and right subarrays that do not overlap.
 
 Return the maximum of all such combinations.
 
-✅ Code in cpp
+# ✅ Code in cpp
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -72,12 +72,12 @@ int main() {
     return 0;
 }
 
-✅ Time & Space Complexity
+# ✅ Time & Space Complexity
 Time: O(n)
 Space: O(n) for prefix and suffix arrays
 
 
-//dry run
+# dry run
 a = [1, -2, 3, 4, -1, 2]
 
 leftMax = [1, 1, 3, 7, 7, 8]
