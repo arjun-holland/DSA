@@ -1,6 +1,7 @@
 # 📦 Minimum Steps to Equalize Box Piles (Amazon OA)
 ## 🔍 Problem Statement
-![Uploading image.png…]()
+
+<img width="840" height="545" alt="image" src="https://github.com/user-attachments/assets/d8356c53-48f8-44fa-a669-cde14e628735" />
 
 ```
 Alex has n piles of boxes with varying heights. In each step, Alex can remove any number of boxes from the tallest pile to
