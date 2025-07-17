@@ -1,5 +1,7 @@
 # 📦 Minimum Steps to Equalize Box Piles (Amazon OA)
 ## 🔍 Problem Statement
+![Uploading image.png…]()
+
 ```
 Alex has n piles of boxes with varying heights. In each step, Alex can remove any number of boxes from the tallest pile to
 reduce its height to match the next tallest pile.
