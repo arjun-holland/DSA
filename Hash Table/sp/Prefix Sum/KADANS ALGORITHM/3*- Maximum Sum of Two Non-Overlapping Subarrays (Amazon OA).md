@@ -27,6 +27,7 @@ Combine the best left and right subarrays that do not overlap.
 Return the maximum of all such combinations.
 ```
 # ✅ Code in cpp
+```
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -73,7 +74,7 @@ int main() {
          << maxTwoNonOverlappingSubarraysSum(nums) << endl;
     return 0;
 }
-
+```
 # ✅ Time & Space Complexity
 ```
 Time: O(n)
