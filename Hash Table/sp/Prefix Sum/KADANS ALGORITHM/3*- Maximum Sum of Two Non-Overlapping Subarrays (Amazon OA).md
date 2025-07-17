@@ -3,6 +3,7 @@ Given an integer array nums, find two non-overlapping subarrays such that their 
 Each subarray can be empty (i.e., sum = 0), and the subarrays must not overlap.
 
 # 💡 Intuition
+```
 1.We need to find two disjoint segments such that:
       Total = max(left subarray) + max(right subarray)
 2.The challenge is ensuring non-overlap. So, we:
@@ -16,14 +17,15 @@ Keep track of the maximum G[i] for all valid i.
 We precompute:
       prefixMaxSum[i] = best subarray ending at or before i
       suffixMaxSum[i] = best subarray starting at or after i
-
+```
 # 🛠️ Approach
+```
 Use a variation of Kadane's Algorithm to compute max subarray sums from left and right.
 At each point i, store the best sum so far from prefix and suffix.
 Combine the best left and right subarrays that do not overlap.
 
 Return the maximum of all such combinations.
-
+```
 # ✅ Code in cpp
 #include <bits/stdc++.h>
 using namespace std;
@@ -73,11 +75,13 @@ int main() {
 }
 
 # ✅ Time & Space Complexity
+```
 Time: O(n)
 Space: O(n) for prefix and suffix arrays
-
+```
 
 # dry run
+```
 a = [1, -2, 3, 4, -1, 2]
 
 leftMax = [1, 1, 3, 7, 7, 8]
@@ -87,3 +91,4 @@ Try all splits:
 - leftMax[0] + rightMax[1] = 1 + 7 = 8
 - leftMax[2] + rightMax[3] = 3 + 6 = 9 ✅
 - leftMax[3] + rightMax[4] = 7 + 5 = 12 ✅ (best)
+```
