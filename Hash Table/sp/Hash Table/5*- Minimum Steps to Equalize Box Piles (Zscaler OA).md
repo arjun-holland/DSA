@@ -1,5 +1,6 @@
-📦 Minimum Steps to Equalize Box Piles (Amazon OA)
-🔍 Problem Statement
+# 📦 Minimum Steps to Equalize Box Piles (Amazon OA)
+## 🔍 Problem Statement
+```
 Alex has n piles of boxes with varying heights. In each step, Alex can remove any number of boxes from the tallest pile to
 reduce its height to match the next tallest pile.
 Determine the minimum number of steps required to make all piles equal in height.
@@ -9,27 +10,33 @@ Determine the minimum number of steps required to make all piles equal in height
 
 Returns:
     long: the minimum number of steps required to make all piles the same height
-
-📘 Constraints
+```
+## 📘 Constraints
+```
 1 ≤ n ≤ 2×10^5
 1 ≤ boxesInPiles[i] ≤ 2×10^6
+```
  
-✅ Sample Input
+## ✅ Sample Input
+```
 5
 4 5 5 2 4
 Which forms:
 boxesInPiles = [4, 5, 5, 2, 4]
-📤 Sample Output
+```
+## 📤 Sample Output
 6
-🧾 Explanation
+## 🧾 Explanation
+```
 Step-by-step breakdown:
 Lower both 5s to 4 → [4, 4, 4, 2, 4] -> 2 steps
 Lower three 4s to 2 → [2, 2, 2, 2, 2] -> 4 steps
 Lower four 2s to match smallest 2 → all equal
 ✅ Final array = [2, 2, 2, 2, 2]
 ✅ Total Steps = 6
-
-//Brute force solution :-> 
+```
+## //Brute force solution :-> 
+```
 -> Find largest element of array and second largest element of array -> O(N.) 
 -> Let say largest element is at index “i” -> b[i] = second largest 
 -> Keep doing this until all array elements become equal 
@@ -43,9 +50,9 @@ while(u==0){
 
   -> if all array elements are equal u = 1  
 }
-
-//Optimal way:
-
+```
+## //Optimal way:
+```
 int main() {
     int n;
     cin >> n;     // Input size of the array (excluding b[0])   as 1 based index
@@ -84,6 +91,7 @@ int main() {
 
     return 0;
 }
+```
 
 TC - O(N*logn) -> SortedMap 
 Takes O(N.) size space. 
