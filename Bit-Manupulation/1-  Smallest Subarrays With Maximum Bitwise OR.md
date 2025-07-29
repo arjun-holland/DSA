@@ -116,6 +116,9 @@ Importand Insights:
 <img width="1134" height="256" alt="image" src="https://github.com/user-attachments/assets/337b1014-1502-477f-b201-46ae2ebad9d1" />
 <img width="933" height="174" alt="image" src="https://github.com/user-attachments/assets/81e35acd-fa2a-44e1-9535-32a3039cd614" />
 
+# Dry - Run
+<img width="1113" height="618" alt="image" src="https://github.com/user-attachments/assets/0128b8e2-aacb-4d8f-96fd-37f9437e4f86" />
+
 
 # Optimized - Code
 ```
