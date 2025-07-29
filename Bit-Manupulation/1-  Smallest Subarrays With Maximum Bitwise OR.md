@@ -13,24 +13,24 @@
 
 ```
 Observation:
-We need to calcuate the bitwise OR from i to n-1
-      arr : x y x z m --- n
-      ind : 0 1 2 3 4 ----n-1
-if i = 0 then we need bitwise OR from [0 to n-1]
-if i = 1 then we need bitwise OR from [1 to n-1]
-|
-|
-if i = n-1 then we need bitwise OR from [n-1 to n-1]
-The Above pattern can be solved in Suffix array technique
+      We need to calcuate the bitwise OR from i to n-1
+            arr : x y x z m --- n
+            ind : 0 1 2 3 4 ----n-1
+      if i = 0 then we need bitwise OR from [0 to n-1]
+      if i = 1 then we need bitwise OR from [1 to n-1]
+      |
+      |
+      if i = n-1 then we need bitwise OR from [n-1 to n-1]
+      The Above pattern can be solved in Suffix array technique
 
-Index      :  0     1     2     3     4
-nums[i]    : [ x  |  y  |  x  |  z  |  m ]
-
-suffixOR[] : [x|y|x|z|m,
-                 y|x|z|m,
-                      x|z|m,
-                          z|m,
-                             m]
+      Index      :  0     1     2     3     4
+      nums[i]    : [ x  |  y  |  x  |  z  |  m ]
+      
+      suffixOR[] : [x|y|x|z|m,
+                       y|x|z|m,
+                            x|z|m,
+                                z|m,
+                                   m]
 
 ```
 <img width="1169" height="625" alt="image" src="https://github.com/user-attachments/assets/c114c44a-520c-4978-9062-7f0cc4573278" />
