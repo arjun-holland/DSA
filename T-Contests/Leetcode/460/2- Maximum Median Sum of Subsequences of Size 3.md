@@ -1,4 +1,4 @@
-// ✅ LeetCode Problem 3627: Maximum Median Sum of Subsequences of Size 3
+// ✅ LeetCode Problem 3627: Maximum Median Sum of Subsequences of Size 3 
 
 ---
 // 🔗 Submission: [https://leetcode.com/problems/maximum-number-of-subsequences-after-one-inserting/submissions/1716438576/](https://leetcode.com/problems/maximum-median-sum-of-subsequences-of-size-3/submissions/1716203290/)
