@@ -1,4 +1,4 @@
-# Sumbission Link
+# Sumbission Link 
 https://leetcode.com/problems/minimum-score-after-removals-on-a-tree/submissions/1716486968/?envType=daily-question&envId=2025-07-24
 
 # Problem
