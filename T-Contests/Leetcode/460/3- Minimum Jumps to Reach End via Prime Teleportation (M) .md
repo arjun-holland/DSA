@@ -1,4 +1,4 @@
-//Submission : https://leetcode.com/problems/minimum-jumps-to-reach-end-via-prime-teleportation/submissions/1716463290/
+//Submission : https://leetcode.com/problems/minimum-jumps-to-reach-end-via-prime-teleportation/submissions/1716463290/ 
 
 # Problem
 <img width="1206" height="469" alt="image" src="https://github.com/user-attachments/assets/9578e9df-a582-4ff0-8274-0d53b5730818" />
