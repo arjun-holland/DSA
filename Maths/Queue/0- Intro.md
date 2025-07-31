@@ -40,3 +40,13 @@ int main() {
     return 0;
 }
 ```
+
+<img width="911" height="628" alt="image" src="https://github.com/user-attachments/assets/1e7f2b5f-a2ea-4d6a-90dc-aff65f1786de" />
+<img width="975" height="497" alt="image" src="https://github.com/user-attachments/assets/545d5659-7d4e-4e6b-a886-79bf51fe6134" />
+<img width="789" height="388" alt="image" src="https://github.com/user-attachments/assets/eb66b995-7287-4534-a1c8-a3fa7171af79" />
+
+---
+<img width="809" height="280" alt="image" src="https://github.com/user-attachments/assets/5547ede3-c1c5-43b0-8f17-ae2dab88809b" />
+
+
+
