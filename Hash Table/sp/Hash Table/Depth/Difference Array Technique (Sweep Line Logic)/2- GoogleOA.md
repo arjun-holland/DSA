@@ -15,7 +15,7 @@ As range is present we can use the Difference Array technique
       |  |___ <= 10^5 then use array
       |
       |________ <= 10^9 then use the Map
-
+ 
 ```
 Example:
 
