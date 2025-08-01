@@ -38,6 +38,16 @@
 
 ```
 
+# Intuition
+```
+Take the difference of freq of vowel and consonent as (v-c)
+ |    |   | 
+ |    |   |______If that giev +ve number then vowels are more than consonents
+ |    |__________If that gives -ve number then consonents are more then vowels
+ |_______________If that is equal then vowels and consonents are same
+
+```
+
 # Optimal Code
 ```
 #include <unordered_map>
