@@ -3,6 +3,10 @@
 <img width="453" height="745" alt="image" src="https://github.com/user-attachments/assets/ee8a16d1-4965-4a02-bc7c-c08781a0a814" />
 
 # Intuition
+<img width="1062" height="530" alt="image" src="https://github.com/user-attachments/assets/f534649c-0192-4d4e-874e-3fcbd539fa98" />
+<img width="1058" height="508" alt="image" src="https://github.com/user-attachments/assets/670d236b-81fc-42f6-b275-1bd3877e849e" />
+
+
 The question also says we need to find the length of the subsequences whose ele is same which can be also asked as,
 <img width="1163" height="354" alt="image" src="https://github.com/user-attachments/assets/c6645ec3-92e6-48ee-8abf-b1cbc74d5c63" />
 Understanding.....
@@ -81,5 +85,110 @@ int main() {
     }
 
     cout << ans << endl;
+}
+```
+
+
+# To get only the smallest possible value
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    int k;
+    cin >> k;
+
+    map<int, int> freq;
+
+    for(int i = 0; i < n; i++) {
+        int l = a[i] - k;
+        int r = a[i] + k;
+
+        freq[l] += 1;
+        freq[r + 1] -= 1;
+    }
+
+    int curr = 0, maxOverlap = 0;
+    int start = -1, end = -1;
+    bool tracking = false;
+
+    for (auto& [point, delta] : freq) {
+        curr += delta;
+
+        if (curr > maxOverlap) {
+            maxOverlap = curr;
+            start = point;
+            tracking = true;
+        } else if (curr < maxOverlap && tracking) {
+            end = point - 1;
+            tracking = false;
+        }
+    }
+
+    if (end == -1) end = freq.rbegin()->first; // in case the max interval runs to the end
+
+    cout << maxOverlap << endl;
+    cout << start << endl;  // Smallest value all elements can become
+}
+
+```
+
+
+# To get all the elements which can we common for longest subsequence
+```
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+
+    vector<int> a(n);
+    for (int& x : a) cin >> x;
+
+    int k;
+    cin >> k;
+
+    map<int, int> freq;
+    for (int x : a) {
+        freq[x - k]++;
+        freq[x + k + 1]--;
+    }
+
+    int curr = 0, maxOverlap = 0;
+    int start = -1;
+    vector<pair<int, int>> maxRanges;
+
+    for (auto& [point, delta] : freq) {
+        curr += delta;
+
+        if (curr > maxOverlap) {
+            maxOverlap = curr;
+            maxRanges.clear();
+            start = point;
+        } else if (curr < maxOverlap && start != -1) {
+            maxRanges.emplace_back(start, point - 1);
+            start = -1;
+        } else if (curr == maxOverlap && start == -1) {
+            start = point;
+        }
+    }
+
+    if (start != -1)
+        maxRanges.emplace_back(start, freq.rbegin()->first);
+
+    cout << maxOverlap << "\n";
+
+    for (auto& [l, r] : maxRanges)
+        for (int i = l; i <= r; i++)
+            cout << i << " ";
+    
+    cout << endl;
 }
 ```
