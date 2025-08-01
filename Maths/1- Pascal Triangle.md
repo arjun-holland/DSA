@@ -75,3 +75,34 @@ class Solution {
 
         // Return the generated Pascal's triangle
         return ans;*/
+
+# Code
+```
+class Solution {
+public:
+    int value(int r,int c){
+        int n = 1;
+        for(int i=0;i<c;i++){
+            n = n * (r-i);
+            n = n / (i+1);
+        }
+        return n;
+    }
+    vector<int> row(int n){
+        vector<int> r;
+        for(int i = 1; i <= n; i++){
+            int e = value(n-1,i-1);
+            r.push_back(e);
+        }
+        return r;
+    }
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+        for(int i = 1; i <= numRows; i++){
+            vector<int> r = row(i);
+            ans.push_back(r);
+        }
+        return ans;
+    }
+};
+```
