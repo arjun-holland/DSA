@@ -79,20 +79,16 @@ vector<int> solve(vector<int> a) {
 int main() {
     int n;
     cin >> n;
-
     vector<int> a(n);
     for (auto &x : a) {
         cin >> x;
     }
-
     vector<int> res = solve(a);
-
     // Output the result array
     for (int x : res) {
         cout << x << " ";
     }
     cout << "\n";
-
     return 0;
 }
 ```
@@ -101,3 +97,119 @@ int main() {
 
 You can run the original code online here:  
 [JDoodle Online Compiler](https://www.jdoodle.com/ga/2seu5K8zO%2BREj6u1yvPWKw%3D%3D)
+
+
+# intuition
+
+## Gnerally
+<img width="800" height="453" alt="image" src="https://github.com/user-attachments/assets/351df747-cf17-4696-9323-6022c349f563" />
+
+## Observation
+<img width="998" height="467" alt="image" src="https://github.com/user-attachments/assets/5ca9355e-5290-495a-a87a-549fece2f657" />
+```
+suffix_mex[] is a monotonic function (increasing or decreasing function)
+                        |
+                        |
+       that means GREEDY can be applied on this
+                        |
+                        |
+       that means Two pointers can be applied on this
+```
+<img width="932" height="460" alt="image" src="https://github.com/user-attachments/assets/ba18dbf2-cf6d-424e-948e-58664e508074" />
+<img width="982" height="490" alt="image" src="https://github.com/user-attachments/assets/0d79e9e9-e4ba-45ff-9e3d-e0b36a78c177" />
+<img width="982" height="472" alt="image" src="https://github.com/user-attachments/assets/247f022b-4d60-4a33-98ad-4f0eae977ba3" />
+<img width="970" height="460" alt="image" src="https://github.com/user-attachments/assets/d618d8c4-9b2a-428d-aa34-477efccfc29d" />
+<img width="949" height="463" alt="image" src="https://github.com/user-attachments/assets/b55d1690-8337-47e3-bcc8-a1bd09d5c252" />
+<img width="881" height="449" alt="image" src="https://github.com/user-attachments/assets/68dcf474-63a4-435a-b030-d9d561da35f2" />
+<img width="909" height="463" alt="image" src="https://github.com/user-attachments/assets/9dbffaf4-b296-4fcd-bcca-97b0065ac40b" />
+<img width="909" height="464" alt="image" src="https://github.com/user-attachments/assets/ed60f7cd-98c1-4336-8262-94674f6ff703" />
+
+
+# Optimal Code
+```
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+vector<int> optimized_mex_partition(vector<int>& a) {
+    int n = a.size();
+
+    // Step 1: Compute suffix MEX array
+    // suffix[i] = MEX of the subarray a[i..n-1]
+    vector<int> suffix(n);
+    set<int> seen;                   // To keep track of elements seen so far from the end
+    int curr_mex = 0;
+
+    for (int i = n - 1; i >= 0; --i) {
+        seen.insert(a[i]);           // Add current element to the set
+        while (seen.count(curr_mex)) // Find the current smallest missing number
+            curr_mex++;
+        suffix[i] = curr_mex;        // Store current MEX
+    }
+    
+    // Step 2: Compute suffix1 array
+    // suffix1[i] tells us the length of the segment starting at i that has MEX equal to suffix[i]
+    vector<int> freq(2 * n + 5, 0);   // Frequency array to count occurrences
+    vector<int> suffix1(n);
+    int j = n - 1;
+
+    freq[a[n - 1]]++;                // Start from the last element
+    suffix1[n - 1] = n - 1;          // By default, segment starts and ends at the last element
+    //ans[i] = j such that suffix[i] = mex[a[i],....,a[j]] 
+
+    for (int i = n - 2; i >= 0; i--) {
+        freq[a[i]]++;                // Include current element in the frequency count
+
+        if (suffix[i] != suffix[i + 1]) {
+            // If MEX changes, start a new segment
+            suffix1[i] = suffix1[i + 1];
+        } else {
+            // If MEX doesn't change, try to shorten the segment
+            int u = 0;
+            while (u == 0 && j >= i) {
+                freq[a[j]]--;           // Remove element from the end
+                if (freq[a[j]] == 0) {
+                    // If removing a[j] would change the MEX, stop and restore it
+                    u = 1;
+                    freq[a[j]]++;
+                } else {
+                    j--;
+                }
+            }
+            suffix1[i] = j;
+        }
+    }
+
+    // Step 3: Compute segment lengths
+    // Convert from endpoint index to actual length of each segment
+    for (int i = n - 1; i >= 0; i--) {
+        suffix1[i] = abs(i - suffix1[i]) + 1;
+    }
+
+    // Step 4: Build the result: the list of MEX values of each segment
+    vector<int> result;
+    int i = 0;
+    while (i < n) {
+        result.push_back(suffix[i]);  // Add the MEX of current segment
+        i += suffix1[i];              // Move to the next segment
+    }
+
+    return result;
+}
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (auto &x : a) cin >> x;
+
+    vector<int> res = optimized_mex_partition(a);
+    for (int x : res) cout << x << " ";
+    cout << "\n";
+    return 0;
+}
+```
+
+## JDoodle Link for optimla code
+You can run the original code online here:  
+https://www.jdoodle.com/ga/o3CXDXkSLg%2FqT7HJpXANuQ%3D%3D
