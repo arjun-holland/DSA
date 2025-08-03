@@ -4,7 +4,30 @@
 <img width="932" height="142" alt="image" src="https://github.com/user-attachments/assets/eb29fb96-022d-418e-8918-54c6182b4fa0" />
 
 # Intuition
+<img width="867" height="375" alt="image" src="https://github.com/user-attachments/assets/b9addb53-0f7d-43df-b6d5-afa0f8bb2a21" />
+<img width="886" height="524" alt="image" src="https://github.com/user-attachments/assets/84cd2857-1e59-4143-a998-33b3225a31bb" />
+<img width="878" height="385" alt="image" src="https://github.com/user-attachments/assets/91cf06bf-277b-49bc-a932-c189d13bf4a7" />
+<img width="893" height="443" alt="image" src="https://github.com/user-attachments/assets/ad6de943-ed60-49b9-9316-1f57517d804c" />
+<img width="904" height="549" alt="image" src="https://github.com/user-attachments/assets/a5f2805a-2d3e-4467-9de6-8557d834ab2c" />
+<img width="877" height="300" alt="image" src="https://github.com/user-attachments/assets/3528056d-dda7-4cdb-a4ad-5567321adfb4" />
 
+---
+<img width="861" height="331" alt="image" src="https://github.com/user-attachments/assets/56eae093-f206-4e94-a108-b035e406a4b6" />
+<img width="853" height="244" alt="image" src="https://github.com/user-attachments/assets/3024f275-fbf5-45d6-af2b-06d7f0c1c6d1" />
+<img width="877" height="649" alt="image" src="https://github.com/user-attachments/assets/417f2b11-1f2e-4026-ad04-cbbbea83210f" />
+<img width="882" height="589" alt="image" src="https://github.com/user-attachments/assets/c695cddb-d10c-4037-b0b1-aeafc0985d0c" />
+<img width="843" height="691" alt="image" src="https://github.com/user-attachments/assets/5e0fd323-8123-43c3-b35a-15a430fbcdf5" />
+<img width="885" height="454" alt="image" src="https://github.com/user-attachments/assets/efa86cee-4928-4bdb-80de-752b8d63b757" />
+<img width="863" height="220" alt="image" src="https://github.com/user-attachments/assets/bba9d871-84ed-4061-abc3-d0c2dcbaa6c5" />
+<img width="878" height="273" alt="image" src="https://github.com/user-attachments/assets/7ec3e0c9-96ee-4ebd-9ecf-e375071ccd53" />
+
+<img width="822" height="464" alt="image" src="https://github.com/user-attachments/assets/ca58964e-8686-4bc1-aa5a-ae09d8cbfe14" />
+
+
+<img width="1600" height="900" alt="image" src="https://github.com/user-attachments/assets/ae59990f-18c9-4d74-a3fd-e5bf3b9b20ff" />
+
+---
+ 
 # Code
 ```
 #include <bits/stdc++.h>
@@ -79,7 +102,7 @@ int main() {
     pfo(val, u , 1) {
     // Define the bounds of intersection square for all cells whose lvl[i][j] >= val
         ll xmin = 1, ymin = 1, xmax = n, ymax = m;
-        ll count = 0; // To count how many cells have inconvenience >= val
+        ll count = 0;        // To count how many cells have inconvenience >= val
 
         // Traverse the entire grid to find all such cells
         fo(i, 1, n) {
