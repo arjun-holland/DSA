@@ -1,5 +1,8 @@
 //Submission : https://leetcode.com/problems/minimum-jumps-to-reach-end-via-prime-teleportation/submissions/1716463290/ 
 
+# Optimal Submission: 
+https://leetcode.com/problems/minimum-jumps-to-reach-end-via-prime-teleportation/submissions/1721630515/
+
 # Problem
 <img width="1206" height="469" alt="image" src="https://github.com/user-attachments/assets/9578e9df-a582-4ff0-8274-0d53b5730818" />
 <img width="1168" height="454" alt="image" src="https://github.com/user-attachments/assets/a1b7fb1b-2dae-4577-aef3-e31cb46ab611" />
@@ -214,5 +217,3 @@ public:
 };
 ```
 
-# Optimal Submission: 
-https://leetcode.com/problems/minimum-jumps-to-reach-end-via-prime-teleportation/submissions/1721630515/
