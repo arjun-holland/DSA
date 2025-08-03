@@ -2,7 +2,7 @@
  
 ---
 // 🔗 Submission: https://leetcode.com/problems/maximum-number-of-subsequences-after-one-inserting/submissions/1716438576/
-
+// Optimal SUbmission : //https://leetcode.com/problems/maximum-number-of-subsequences-after-one-inserting/submissions/1721814952/
 
 # Problem
 <img width="1237" height="308" alt="image" src="https://github.com/user-attachments/assets/209a0c73-52bd-4aed-b37b-ab37ededd780" />
@@ -114,3 +114,39 @@ public:
 
 ```
 
+# Optimla code
+```
+#define ll long long
+class Solution {
+public:
+    long long numOfSubsequences(string s) {
+        int n = s.length();
+        vector<ll> preL(n,0),preLC(n,0);
+        ll l=0,lc=0,ans=0;
+        for(int i=0;i<n;i++){
+            if(s[i] == 'L')l++;
+            else if(s[i] == 'C')lc += l;
+            else if(s[i] == 'T')ans += lc;
+            preL[i] = l;
+            preLC[i] = lc;
+        }
+        vector<ll> sufT(n,0),sufCT(n,0);
+        int t=0,ct=0;
+        for(int i=n-1;i>=0;i--){
+            if(s[i] == 'T')t++;
+            else if(s[i] == 'C')ct += t;
+            sufT[i] = t;
+            sufCT[i] = ct;
+        }
+
+        ll insertL = sufCT[0]+ans;
+        ll insertT = preLC[n-1]+ans;
+        ll insertC = 0;
+        for(int i=0;i<n-1;i++){
+            insertC = max(insertC,preL[i]*sufT[i+1]);
+        }
+        insertC += ans;
+        return max({insertL,insertC,insertT});
+    }
+};
+```
