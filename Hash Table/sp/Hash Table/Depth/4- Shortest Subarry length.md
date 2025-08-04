@@ -4,6 +4,11 @@
 # Intuition
 <img width="1086" height="407" alt="image" src="https://github.com/user-attachments/assets/22866140-8255-4e2b-b690-0996635c512e" />
 <img width="993" height="435" alt="image" src="https://github.com/user-attachments/assets/95067eda-788d-484d-a57b-3baa09c052e7" />
+<img width="1011" height="353" alt="image" src="https://github.com/user-attachments/assets/f24694de-88b1-4015-af95-7d14db105d04" />
+
+
+![WhatsApp Image 2025-08-04 at 09 57 16_3505ba21](https://github.com/user-attachments/assets/55018d5c-df7f-4cfe-96bc-1776d16536bd)
+
 
 # Code
 ```
