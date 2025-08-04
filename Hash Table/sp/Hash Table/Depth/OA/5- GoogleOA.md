@@ -83,6 +83,10 @@ We count how many times we've seen RHS = 2 so far:
 🧮 Final count = 0 + 1 + 2 + 3 = 6
 
 <img width="587" height="252" alt="image" src="https://github.com/user-attachments/assets/5364c73d-d269-4f59-a350-a27a09a8ce81" />
+<img width="747" height="421" alt="image" src="https://github.com/user-attachments/assets/4828e264-85e3-4955-8d05-6bf728732acc" />
+<img width="519" height="239" alt="image" src="https://github.com/user-attachments/assets/95461bc9-5581-481d-add5-0f28ac43aa71" />
+
+
 
 # Code
 Run Here : https://ideone.com/d6yEgf
