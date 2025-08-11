@@ -4,7 +4,7 @@
 # Intuition
 
 ```
-Understanding -  For all pairs (i,j) such that i < j calculate F(i,j) and find sum of all the F(i,j)
+Understanding -  For all pairs (i,j) such that i < j calculate F(i,j) and find sum of all the F(i,j) 
 1 <=N <= 100000 | 1<=B[i]<=100000
 ```
 
