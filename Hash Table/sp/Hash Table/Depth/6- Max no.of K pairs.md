@@ -59,3 +59,36 @@ public:
     }
 };
 ```
+
+## Optimla 2 : two Hashing
+```
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {  // [1 2 3 4] and k = 2
+        unordered_map <int,int> kk,gg; 
+        int i = 0 ; 
+        int n = nums.size();
+        while(i<n){
+            kk[nums[i]]=kk[nums[i]]+1;
+            i=i+1;
+        }
+        int answer = 0 ; 
+        for(i=0;i<n;i++){
+            int number = nums[i] ;    //1
+            int partner = k - number ;   // 4
+            if(gg[number]==0 && gg[partner]==0){
+                if(number==partner){
+                    int yy = kk[number];   // 1 1 1 1 , k = 2 
+                    answer = answer + (yy/2);  // 4/2 => 2 pairs
+                }
+                else{
+                    answer = answer + min(kk[number],kk[partner]);
+                }
+            }
+            gg[number]=1;
+            gg[partner]=1;
+        }
+        return answer ; 
+    }
+};
+```
