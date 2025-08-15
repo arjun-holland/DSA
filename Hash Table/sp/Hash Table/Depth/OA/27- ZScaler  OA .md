@@ -74,6 +74,9 @@ int main() {
 <img width="721" height="111" alt="image" src="https://github.com/user-attachments/assets/d3fe0687-cde3-44aa-9985-3547ea78314f" />
 
 
+<img width="1600" height="980" alt="image" src="https://github.com/user-attachments/assets/987a16bf-fd82-488a-8319-fd4f5a7f0baa" />
+
+
 ```
 #include <bits/stdc++.h>
 using namespace std;
