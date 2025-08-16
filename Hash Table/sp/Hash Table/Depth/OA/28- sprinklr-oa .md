@@ -3,6 +3,14 @@
 
 <img width="326" height="582" alt="image" src="https://github.com/user-attachments/assets/132cd1ac-53a1-4208-bfda-e22ee10ac14c" />
 
+```
+Understanding :-> We are given an array of size “N”; find the number of subarrays which are.-> have the same element at start as well as end ; and the sum of that subarray(excluding the first and last number) = first number = last number 
+
+1<=N<=300000
+1<=c[i]<=1000000000.
+
+```
+
 # Code
 ## Brute Force
 ```
