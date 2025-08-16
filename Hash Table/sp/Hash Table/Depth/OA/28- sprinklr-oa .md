@@ -4,10 +4,7 @@
 <img width="326" height="582" alt="image" src="https://github.com/user-attachments/assets/132cd1ac-53a1-4208-bfda-e22ee10ac14c" />
 
 ```
-Understanding :-> We are given an array of size “N”; find the number of subarrays which are.-> have the same element at start as well as end ; and the sum of that subarray(excluding the first and last number) = first number = last number 
 
-1<=N<=300000
-1<=c[i]<=1000000000.
 
 ```
 
@@ -21,28 +18,32 @@ int main() {
     string s;
     cin >> s;
     int n = s.length();
-    
+
     int q;
     cin >> q;
-    
-    while (q--) {
+
+    while(q--) {
         int l, r;
         cin >> l >> r;
-        l--; r--; // Convert to 0-index
-        
-        int ans = 0;
-        
-        for (int i = l; i <= r; i++) {
-            for (int j = i; j <= r; j++) {
-                if (s[i] == s[j]) ans++;
-            }
+
+        // frequency array for [l..r]
+        vector<int> freq(26, 0);
+
+        for(int i = l-1; i < r; i++) {
+            freq[s[i] - 'a']++;
         }
-        
+
+        int ans = 0;
+        for(int c = 0; c < 26; c++) {
+            ans += (freq[c] * (freq[c] + 1)) / 2;
+        }
+
         cout << ans << endl;
     }
-    
+
     return 0;
 }
+
 ```
 <img width="675" height="199" alt="image" src="https://github.com/user-attachments/assets/90ed1881-a5f1-4d5d-a598-344954ce78d3" />
 
