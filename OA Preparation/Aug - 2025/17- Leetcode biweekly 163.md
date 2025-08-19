@@ -13,6 +13,8 @@
 <img width="915" height="579" alt="image" src="https://github.com/user-attachments/assets/0639748b-b944-4ff2-9d03-06b10c4d326a" />
 <img width="925" height="457" alt="image" src="https://github.com/user-attachments/assets/41e0ffac-2461-4a63-9cc0-587fbfe6872f" />
 <img width="1056" height="521" alt="image" src="https://github.com/user-attachments/assets/c7223101-b29a-4367-9ce6-549a96ed9b5a" />
+
+
 ```
 class Solution {
 public:
@@ -46,7 +48,6 @@ public:
                         for (int y = 0; y < n; ++y) {
                             if (grid[x][y] >= grid[i][j]) {
                                 dp[t][i][j] = min(dp[t][i][j], dp[t-1][x][y]);  // teleport, cost 0
-                                
                             }
                         }
                     }
@@ -68,9 +69,11 @@ public:
         return dp[k][m-1][n-1];
     }
 };
+
 ```
 
 ## OPTIMAL
+
 <img width="1041" height="333" alt="image" src="https://github.com/user-attachments/assets/2152ead6-6015-4030-a960-3a459996449d" />
 <img width="906" height="367" alt="image" src="https://github.com/user-attachments/assets/186681ea-e7f2-4f00-9c4c-456519c2b8ba" />
 <img width="910" height="426" alt="image" src="https://github.com/user-attachments/assets/89ea16b8-361c-4462-8ef6-7ef3aeffb598" />
@@ -80,6 +83,9 @@ public:
 <img width="1028" height="342" alt="image" src="https://github.com/user-attachments/assets/cfaaf4ce-fc75-4757-9136-1b726a3d64c4" />
 <img width="900" height="418" alt="image" src="https://github.com/user-attachments/assets/2b90b1f8-ef28-48e5-a4fb-669e0cb91d61" />
 <img width="759" height="173" alt="image" src="https://github.com/user-attachments/assets/b7bdc1e1-5f03-4998-841b-d6149e033255" />
+
+## IMP Observation
+<img width="1091" height="501" alt="image" src="https://github.com/user-attachments/assets/bdc25ca3-1c69-4dc0-a307-7529037fcdbd" />
 
 ```
 class Solution {
@@ -113,7 +119,7 @@ public:
             int min_prev = INF;
             int idx = 0;
 
-            for (auto &[val, i, j] : cells) {
+            for (auto &[val, i, j] : cells) { //when we go to 2nd cell we dont need to update ind as we have its cost as min_prev if its codet is min
                 // While grid[x][y] >= val, update min from previous teleportable cells
                 while (idx < cells.size() && get<0>(cells[idx]) >= val) {
                     auto &[v, x, y] = cells[idx];
