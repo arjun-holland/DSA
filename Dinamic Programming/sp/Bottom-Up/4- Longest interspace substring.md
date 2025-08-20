@@ -12,7 +12,7 @@ If there are multiple substrings of the longest length, return the one that occu
 word = wedding
 k = 0
 The first occurring longest 0-interspace substring is dd.
-
+ 
 word = ababbacaabbbb
 k = 1
 There are two 1-interspace substrings of length 6: ababb a and aabbbb.
