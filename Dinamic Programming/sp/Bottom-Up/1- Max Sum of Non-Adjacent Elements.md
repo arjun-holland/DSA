@@ -2,7 +2,7 @@
 
 > Understanding this problem builds a rock-solid foundation for mastering **Dynamic Programming (DP)**!  
 > (Trust me, it *clicked* for me with this exact one 😊)
-
+ 
 ---
 
 ## 🧠 Problem Statement
