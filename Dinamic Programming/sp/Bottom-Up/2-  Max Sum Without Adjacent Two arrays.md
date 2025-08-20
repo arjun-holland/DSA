@@ -1,6 +1,6 @@
 # 🔥 Max Sum from Two Arrays Without Adjacent Elements
 
-> A powerful Dynamic Programming (DP) problem that builds deep intuition for handling constraints across **multiple arrays**.  
+> A powerful Dynamic Programming (DP) problem that builds deep intuition for handling constraints across **multiple arrays**.   
 > (This one *clicked* for me, and it’ll help you too! 😊)
 
 ---
