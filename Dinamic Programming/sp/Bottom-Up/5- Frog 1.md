@@ -5,7 +5,7 @@ This repository solves the classic **Frog** problem using **Dynamic Programming*
 ---
 
 ## 📘 Problem Statement
-
+ 
 There are `N` stones, each with a given **height**. A frog starts at stone `1`, and wants to reach stone `N`.
 
 From any stone `i`, the frog can:
