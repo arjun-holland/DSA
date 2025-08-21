@@ -49,7 +49,7 @@ int main() {
 
 # Main Problem INTUITION
 <img width="1762" height="829" alt="image" src="https://github.com/user-attachments/assets/7ab5c4e3-7aa4-4b5a-b8b6-f81ad956637d" />
-![Uploading image.png…]()
+<img width="554" height="147" alt="image" src="https://github.com/user-attachments/assets/5119f16c-ebab-4437-90df-fe691cf2fbb0" />
 
 ```
 -> dp[1][b][c] = select type “b” guy from row 1 and type “c” guy from row n = min answer to do it 
@@ -133,3 +133,6 @@ public:
 };
 
 ```
+
+![Uploading image.png…]()
+
