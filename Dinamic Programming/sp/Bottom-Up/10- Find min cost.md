@@ -60,3 +60,6 @@ int main() {
     return 0 ; 
 }
 ```
+
+<img width="1890" height="881" alt="image" src="https://github.com/user-attachments/assets/4eb3898f-264a-4720-b46f-69bc29442ce5" />
+
