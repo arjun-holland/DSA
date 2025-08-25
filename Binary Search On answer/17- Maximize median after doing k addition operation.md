@@ -7,8 +7,6 @@
 <img width="983" height="606" alt="image" src="https://github.com/user-attachments/assets/ef0992ef-7d01-4d25-adf9-d6ad5b8d4da0" />
 <img width="777" height="224" alt="image" src="https://github.com/user-attachments/assets/97f75ce2-a27b-4b11-b58f-e020f4801d89" />
 
-![WhatsApp Image 2025-08-25 at 23 05 03_af4aef2d](https://github.com/user-attachments/assets/bd9cc954-7dd7-4de2-8e57-4e84bc66a281)
-
 
 # CODE
 ```
