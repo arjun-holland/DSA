@@ -5,6 +5,67 @@
 # Intuition
 <img width="1007" height="571" alt="image" src="https://github.com/user-attachments/assets/476ba355-f60f-4520-a811-57f414efe4db" />
 
+```
+    PROBLEM - AMAZON OA | RANGE UPDATES DYNAMIC | MULTISETS | STRING
+    Amazon data analysts are analyzing a string of length n, called data. 
+    The string is processed through q operations given by a 2D array called queries.
+ 
+    Each query is of one of the following two types:
+ 
+    Type 1: [1, i, x] Given integers i and x, 
+    change the i-th character of data to the x-th lowercase English letter.
+ 
+    Type 2: [2, l, r] Given integers l and r, 
+    determine the number of distinct characters in the substring of data 
+    between the l-th and r-th characters (inclusive).
+ 
+    Example:
+ 
+    Let n = 7, data = "abcccda", q = 5, and 
+    queries = [[2, 1, 5], [1, 3, r], [2, 1, 3], [1, 7, c], [2, 1, 7]]
+ 
+    Then:
+    i = 2, l = 1, r = 5 "abccc" contains 3 kinds of letters: b, c, and a → answer = [3]
+    i = 1, x = 3 → data = "abcccda"
+    i = 2, l = 1, r = 3 "abc" contains 3 kinds of letters: c → answer = [3]
+    i = 1, x = 7 → data = "abcccda"
+    i = 2, l = 1, r = 7 "abcccda" contains 4 kinds of letters: a, b, c, d → answer = [4]
+ 
+    Output - 
+    3
+    3
+    4
+ 
+    Test Cases 
+    Input:
+    1
+    7
+    abccbda
+    5
+    2 3 6
+    1 2 3
+    2 2 4
+    1 1 5
+    2 1 7
+ 
+    Output:
+    3
+    1
+    5
+ 
+    Approach - Make 26 TreeSets to maintain the frequencies of what element occurs in what range and then 
+    if a type 1 query comes then remove the previous index from the characters and update the index in new character
+    in type 2 query do a .floor() on the tree set and then you can find the largest numbers <= r
+    if that number is also >= l then we have to count it 
+    we will do it for all 26 characters. and voila we have got the answer.
+ 
+    // TC -- O( Nlog(N) + Q*26*Log(N)) 
+    //         \____/    \_________/
+    //         building     querying
+ 
+    // SC -- O(26*N)
+```
+
 
 # Optimal CODE
 ```
