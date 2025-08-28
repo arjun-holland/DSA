@@ -5,7 +5,7 @@
 <img width="820" height="658" alt="image" src="https://github.com/user-attachments/assets/e5337c38-890c-459d-81a9-ed5f889fa79f" />
 
 
-# INTUITION
+# INTUITION 
 <img width="867" height="269" alt="image" src="https://github.com/user-attachments/assets/bb8f5a2d-72fb-4704-9a33-e51a5fe36104" />
 <img width="1060" height="548" alt="image" src="https://github.com/user-attachments/assets/daca9328-fd4a-4f72-b80c-8dd270da6805" />
 <img width="924" height="308" alt="image" src="https://github.com/user-attachments/assets/051d3f0d-5273-412c-b241-f4e1a7a37f57" />
