@@ -16,6 +16,13 @@ Similarly 4 odd journeys.
 
 # INTUITION
 
+```
+Here we have to use the 3D- DP, why
+    the 1st dimentional -> to know the current index
+    the 2nd dimentional -> to know the array from which we are taking the value
+    the 3rd dimentional -> to know the parity(even / odd) of the element which we are taking from the array which is shown in 2nd dimentional
+```
+
 ![WhatsApp Image 2025-08-29 at 14 26 38_a5515b31](https://github.com/user-attachments/assets/4ac71788-c897-4037-8cdf-44514714db40)
 
 
