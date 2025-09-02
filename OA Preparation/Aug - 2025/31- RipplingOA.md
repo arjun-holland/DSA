@@ -76,6 +76,13 @@ int main() {
 //SC:O(n)
 ```
 
+```
+Total elements between arr[i1] and arr[j1]     →  arr[j1] - arr[i1] + 1
+Number of val elements in this range           →  j1 - i1 + 1
+Therefore, number of non-val elements          →  (arr[j1] - arr[i1] + 1) - (j1 - i1 + 1)
+                                               =  (arr[j1] - arr[i1]) - (j1 - i1)
+```
+
 
 # BRUTE FORCE : CODE 2
 ```
