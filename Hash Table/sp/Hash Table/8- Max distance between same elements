@@ -1,6 +1,6 @@
 Given an array arr[], the task is to find the maximum distance between two occurrences of an element.
 If no element has two occurrences, then return 0.
-
+ 
 Examples:
 Input: arr[] = [1, 1, 2, 2, 2, 1]
 Output: 5
