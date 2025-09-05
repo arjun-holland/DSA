@@ -55,6 +55,10 @@ while(u==0){
 }
 ```
 ## //Optimal way:
+
+![WhatsApp Image 2025-09-05 at 06 40 52_f8f3e2fe](https://github.com/user-attachments/assets/53264ab6-a150-4867-979d-1c8087c7cd85)
+
+
 ```
 int main() {
     int n;
