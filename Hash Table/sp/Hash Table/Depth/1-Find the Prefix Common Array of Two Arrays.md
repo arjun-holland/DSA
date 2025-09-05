@@ -1,4 +1,4 @@
-# Problem
+# Problem 
 <img width="903" height="268" alt="image" src="https://github.com/user-attachments/assets/c78fe6bc-46a6-4d6a-ad45-bf7cb5580e5e" />
 <img width="839" height="471" alt="image" src="https://github.com/user-attachments/assets/24e8d622-e22f-4178-ac5a-fd742e557d6f" />
 <img width="801" height="189" alt="image" src="https://github.com/user-attachments/assets/cff81584-0504-4205-b4c7-07fba80f9231" />
@@ -10,6 +10,7 @@
 ---
 # Intuition
 <img width="850" height="810" alt="image" src="https://github.com/user-attachments/assets/3c00d0da-961a-47a3-900f-106a60110136" />
+![WhatsApp Image 2025-09-05 at 08 34 44_91d2c2a3](https://github.com/user-attachments/assets/56b7cc21-c164-4f7f-abb1-da39edd00b52)
 
 ---
 
