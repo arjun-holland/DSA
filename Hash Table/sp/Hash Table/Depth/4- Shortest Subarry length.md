@@ -9,6 +9,9 @@
 
 ![WhatsApp Image 2025-08-04 at 09 57 16_3505ba21](https://github.com/user-attachments/assets/55018d5c-df7f-4cfe-96bc-1776d16536bd)
 
+## Understand the Dry Run
+![WhatsApp Image 2025-09-05 at 10 07 23_252882c7](https://github.com/user-attachments/assets/8d438052-53d9-4a45-8a47-fcbec6573a2e)
+
 
 # Code
 ```
