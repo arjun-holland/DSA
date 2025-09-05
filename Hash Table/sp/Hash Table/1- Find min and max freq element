@@ -1,4 +1,4 @@
-We are given an Array of Numbers. We have to find and print any Number with Maximum Frequency and Minimum Frequency.
+We are given an Array of Numbers. We have to find and print any Number with Maximum Frequency and Minimum Frequency 
 
 Example Testcase:- 
 Arr = [3, 2, 3, 2, 4, 3]
