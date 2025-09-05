@@ -14,7 +14,7 @@ Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values
 ```
 Pattern 4 : Prefix Sum + Hashing
             Given : Need Count , Array
-            Problemm : (find array with Need Count of even or odd or array sum ..etc)
+            Problemm : (find count of subarray with Need Count of even or odd ..etc)
             Take map, map[0] = 1 : as map initially contains 0
             Iterate the Array
                    Update the `Total count` according to the constraints
@@ -22,5 +22,17 @@ Pattern 4 : Prefix Sum + Hashing
                     if [Extra Size] present in the map then
                         update the ans with freq of [Extra Size]
                     otherwise update the map with current `Total count`
+
+Pattern 5 : Prefix Sum + Hashing
+            Given : Array
+            Problemm : (find shortet/longest subarray Count sum ..etc)
+            Take map, map[0] = -1 : as map initially contains -1
+            Iterate the Array
+                   Update the `Total count` according to the constraints
+                   (Total count - (Need Count)) = [Extra Size]
+                    if [Extra Size] present in the map then
+                        update the ans with freq of [Extra Size]
+                    otherwise update the map with current `Total count`
+
 ```
 
