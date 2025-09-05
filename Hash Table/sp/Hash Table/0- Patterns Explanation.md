@@ -12,10 +12,11 @@ Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values
 ```
 
 ```
-Pattern 4 : Prefix Sum + Hashing
+Pattern 4 : Prefix Sum + Hashing 
             Given : Need Count , Array
             Problemm : (find count of subarray with Need Count of even or odd ..etc)
-            Take map, map[0] = 1 : as map initially contains 0
+            Take map, map[0] = 1 : map initially contains 0 as when (Total Count - Need Count) = 0 that means that subarray is valid
+                      simply when we count the valid subarrays then map[0] = 1
             Iterate the Array
                    Update the `Total count` according to the constraints
                    (Total count - (Need Count)) = [Extra Size]
@@ -25,14 +26,18 @@ Pattern 4 : Prefix Sum + Hashing
 
 Pattern 5 : Prefix Sum + Hashing
             Given : Array
-            Problemm : (find shortet/longest subarray Count sum ..etc)
-            Take map, map[0] = -1 : as map initially contains -1
-            Iterate the Array
-                   Update the `Total count` according to the constraints
+            Problemm : (find shortet/longest subarray sum ..etc)
+            Take map, map[0] = -1 : Here we need the subarray length when (Total Count - Need Count) = 0 that means that subarray is valid
+                       simply when we length of the subarray then map[0] = -1
+            Iterate the Array(i : 0...n-1)
+                   Update the `Total count` (total count += a[i])
                    (Total count - (Need Count)) = [Extra Size]
                     if [Extra Size] present in the map then
-                        update the ans with freq of [Extra Size]
-                    otherwise update the map with current `Total count`
+                        update the length with the index-value of [Extra Size]
+                                   //longest sum : len = 0, len = max(len,j-i) for max len
+                                   //shortest sum : len = INT_MAX, len = min(len,j-i) for max len
+                    if map does not contain the Total Count then
+                        update the map with current `Total count` and the index i
 
 ```
 
