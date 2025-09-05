@@ -1,7 +1,7 @@
 Count All ((i,j) pairs such that b[i] - b[j] == k (count of such pairs.) [i<j] 
 
 
-Brute Force Approach:-
+Brute Force Approach:- 
 
 Just Run 2 Nested For loops and for each i, start the j pointer from i+1 because (j>i).
 Now check the difference between arr[i] and arr[j]
