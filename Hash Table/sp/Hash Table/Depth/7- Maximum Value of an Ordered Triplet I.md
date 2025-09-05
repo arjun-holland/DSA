@@ -60,3 +60,37 @@ public:
 };
 
 ```
+
+## Optimal Code : O(n^2)
+
+```
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        int n = nums.size();
+
+        vector<int> prefixMax(n), suffixMax(n);
+
+        prefixMax[0] = nums[0];
+        for (int i = 1; i < n; ++i)
+            prefixMax[i] = max(prefixMax[i - 1], nums[i]);
+
+        suffixMax[n - 1] = nums[n - 1];
+        for (int i = n - 2; i >= 0; --i)
+            suffixMax[i] = max(suffixMax[i + 1], nums[i]);
+
+        long long maxValue = 0;
+
+        for (int j = 1; j < n - 1; ++j) {
+            int left = prefixMax[j - 1];   // max nums[i] for i < j
+            int right = suffixMax[j + 1];  // max nums[k] for k > j
+
+            long long value = (long long)(left - nums[j]) * right;
+            maxValue = max(maxValue, value);
+        }
+
+        return maxValue;
+    }
+};
+
+```
