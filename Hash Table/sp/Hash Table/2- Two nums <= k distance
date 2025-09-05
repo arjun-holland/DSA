@@ -1,4 +1,4 @@
-Check if there are any two Equal numbers in an array at a distance less than or equal to k
+Check if there are any two Equal numbers in an array at a distance less than or equal to k 
 
 Brute Force :- Just Use 2 For loops and check if distance between any 2 Equal elements is less than or equal to k, print(yes), otherwise, we will print (no)
 Pseudo Code - https://ideone.com/4Df8eb
