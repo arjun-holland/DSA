@@ -27,8 +27,8 @@ Pattern 4 : Prefix Sum + Hashing
 Pattern 5 : Prefix Sum + Hashing
             Given : Array
             Problemm : (find shortet/longest subarray sum ..etc)
-            Take map, map[0] = -1 : Here we need the subarray length when (Total Count - Need Count) = 0 that means that subarray is valid
-                       simply when we length of the subarray then map[0] = -1
+            Take map, map[0] = -1 : when (Total Count - Need Count) = 0 that means that subarray is valid
+                       simply when we length of the subarray then map[0] = -1, (when 0th index = k, then len = 0-(-1)=1)
             Iterate the Array(i : 0...n-1)
                    Update the `Total count` (total count += a[i])
                    (Total count - (Need Count)) = [Extra Size]
@@ -46,6 +46,14 @@ Pattern 6 : Analyzing The Equations (Prefix Sum, Hasing)
             Given : Equation, Array
             Problem : Find the `max value or Min value, array Size` which satisfy the Equation
             -Reduce the Given Equation Mathematiclly and use that Reduced Equation for further process or
+                    Ex : If We want to maximize: (nums[i]−nums[j])×nums[k] and with the condition: i < j < k
+                                    when we make (nums[i]−nums[j]) maximum it will generate ans max
+                                    ans = 0,maxDiff[1] = nums[0]-nums[1], maVal = max(nums[0],nums[1])
+                                    iterate k = 2...n:
+                                         maxDiff[k] = max(maxDiff[k-1], maxVal - arr[k]) //update the maxDiff                   
+                                         ans = max(ans,maxDiff[k-1]*arr[k])
+                                         maxVal = max(maxVal, arr[k])  //curr ele max max                           
+                        This can be done in O(n) using prefix max and suffix max arrays.                       
             -Analyze the Equaction and use your analytics to reduce the time complexity
                    Ex : If We want to maximize: (nums[i]−nums[j])×nums[k] and with the condition: i < j < k
                                     For each index 𝑗 : (1,n-2) , to make the val max,
