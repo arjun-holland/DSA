@@ -1,4 +1,4 @@
-Count all i,j pairs where i<j and abs(b[i]-b[j]) = k [k>=0] 
+Count all i,j pairs where i<j and abs(b[i]-b[j]) = k [k>=0]  
 
 Brute Force Approach:-
 Use 2 Nested For Loops and for every i, start j from i+1, because j>i(given in problem). 
