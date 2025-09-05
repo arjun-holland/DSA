@@ -41,3 +41,19 @@ Pattern 5 : Prefix Sum + Hashing
 
 ```
 
+```
+Pattern 6 : Analyzing The Equations (Prefix Sum, Hasing)
+            Given : Equation, Array
+            Problem : Find the `max value or Min value, array Size` which satisfy the Equation
+            -Reduce the Given Equation Mathematiclly and use that Reduced Equation for further process or
+            -Analyze the Equaction and use your analytics to reduce the time complexity
+                   Ex : If We want to maximize: (nums[i]−nums[j])×nums[k] and with the condition: i < j < k
+                                    For each index 𝑗 : (1,n-2) , to make the val max,
+                                    we want:
+                                       The maximum nums[i] where i<j
+                                       The maximum nums[k] where j<k
+                                    compute 
+                                      (max_prefix_i − nums[j])×max_suffix_k
+                        This can be done in O(n) using prefix max and suffix max arrays.
+```
+
