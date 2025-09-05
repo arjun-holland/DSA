@@ -1,7 +1,7 @@
 🧾 Problem Statement
 You are given an integer array of size n, and you have to process Q queries.
 Each query contains an element X. For each query, you need to output the frequency of X in the array.
-
+ 
 Constraints:
 All elements in the array and query values X are in the range from 1 to n.
 
