@@ -4,7 +4,7 @@
 <img width="588" height="546" alt="image" src="https://github.com/user-attachments/assets/0d2911e2-f94a-462f-9f1a-7820a21456f1" />
 
 # Intuition
-| x  | Optimal Grouping | Total Ops | Why                            |
+| x  | Optimal Grouping | Total Ops | Why                            | 
 | -- | ---------------- | --------- | ------------------------------ |
 | 1  | ❌ Not possible   | -1        | Cannot remove 1 alone          |
 | 2  | 2                | 1         | One group of 2                 |
