@@ -1,4 +1,4 @@
-# General QUestion
+# General QUestion 
 <img width="794" height="198" alt="image" src="https://github.com/user-attachments/assets/9deb0f1e-c587-4a9b-8c57-46b95eb52ba4" />
 
 # Brute Force
