@@ -68,3 +68,31 @@ Pattern 6 : Analyzing The Equations (Prefix Sum, Hasing)
                   to track the max or min elements present before and after at the i'th index and use them.
 ```
 
+```
+Pattern 7 : Prefix DIfference Hashing Technique
+            Problem : Count Subarrays with Valid condition : freq(a)=freq(b), freq(c)=freq(d), freq(e)=freq(f) .. etc
+
+            Lets us take the problem is find count of subarrays such that freq(a) = freq(b) where array contains only a,b
+            Take the subarray i--j is valid,
+                       that means the freq(a) = freq(b)
+            M1athimatically the freq(a)[i--j] =  freq(b)[i--j]
+                        freqA(j) - freqA(i-1) = freqB(j) - freqB(i-1)
+
+                          we have , freq(a) = freq(b)
+                      freqA(j) - freqA(i-1) = freqB(j) - freqB(i-1)
+                      freqA(j) - freqB(j) = freqA(i-1) - freqB(i-1)  [place the commen terms on one side]
+                      the above equation says that
+           freqA() - freqB() at j'th index = freqA() - freqB() at (i-1)'th index
+           ----------------------------------------------------------------------------------------------------------------------------------------------- 
+           when we want subarrays with freq(A) = freq(B) = freq(C)
+           then  {freqA()-freqB()} && {freqC()-freqB()} at j'th index = {freqA()-freqB()} && {freqC()-freqB()} at (i-1)'th index 
+           -----------------------------------------------------------------------------------------------------------------------------------------------
+           when we want subarrays with freq(A) = freq(B) = freq(C) = freq(D) then 
+            {freqA()-freqB()} && {freqC()-freqB() && {freqD()-freqC()} at j'th index =
+            {freqA()-freqB()} && {freqC()-freqB()  && {freqD()-freqC()} at (i-1)'th index 
+           -----------------------------------------------------------------------------------------------------------------------------------------------
+           when we want subarrays with freq(a) = freq(b) and freq(c) = freq(d) then 
+            {freqA()-freqB()} && {freqD()-freqC()} at j'th index =
+            {freqA()-freqB()} && {freqD()-freqC()} at (i-1)'th index 
+           ------------------------------------------------------------------------------------------------------------------------------------------------- 
+```
