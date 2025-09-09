@@ -3,14 +3,14 @@ Pattern 1 : Using General Hash
             Using hash to know the frequency of particular element
             * Unordered Map 
                 Key Features : Fast average-case lookup, insertion, and deletion: O(1) , No guaranteed order of elements
-                Use Cases :  Frequency counting, Hash-based lookups, Caching / Memoization, Key-value storage where order doesn't matter
+                Use Cases :  Frequency counting, Hash-based lookups, Key-value storage where order doesn't matter
             * Ordered Map
                 Key Features : Maintains sorted order of keys (by default in C++), Lookup, insertion, and deletion: O(log n)        
                 Use Cases : Comparing two maps, Storing sorted data, Range queries, Ordered traversal
 
 Pattern 2 : Hashing + Observation:
             Using hash to know that is the current element exist before in the array or not or
-                                    is to know the frquency of current element which exist before before in the array or not
+                                    is to know the frquency of current element which exist before in the array or not
                                     is the relationship with current element exist before in the array or not
                                     
 Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values 
