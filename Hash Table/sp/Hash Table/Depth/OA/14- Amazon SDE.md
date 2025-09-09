@@ -1,6 +1,6 @@
 # Problem
 <img width="647" height="339" alt="image" src="https://github.com/user-attachments/assets/d8ddffc3-da37-48a3-bfa9-38e499b57a4f" />
-
+ 
 
 # Intuition
 ## Brute Force : - Iterate through all the triplets : T : O(n^3)
@@ -137,7 +137,7 @@ int main() {
 
 ```
 
-# code :+ O(nlog n)
+# code :+ O(nlog n) -> this approach is wrong 
 ```
 as we need only the triplets that means we are dealing witrh subsequences so its better to sort
 ```
