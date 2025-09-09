@@ -65,7 +65,8 @@ Pattern 6 : Analyzing The Equations (Prefix Sum, Hasing)
                                       (max_prefix_i − nums[j])×max_suffix_k
                         This can be done in O(n) using prefix max and suffix max arrays.
 
-            Tip : When we got a equation in three or more then three variable use the prefix , suffix arrays
+Pattern 6.2 : Analyzing The Problem (Prefix Sum, Suffix Sum)
+              Tip: When we got a equation in three or more then three variable use the prefix , suffix arrays
                   to track the max or min elements present before and after at the i'th index and use them.
                                                             or
                    When we need to take the elments from the starting and ending of array use prefix and sufix resfectively
