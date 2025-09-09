@@ -15,6 +15,10 @@ Pattern 2 : Hashing + Observation:
 
 Pattern 2.5 : Hash Concept + Observation:
               Using Hashing to Know that element exist in same array at index 'k' which is after the index 'I'
+              Problemns like : find the count of arrays valid : 0 <= i 'i < j < k < m' m <= n where n is size of array and
+                               a[i]+a[j]+a[k]+a[m] = 0 or some target
+              we can reduce the time complexity from O(n^4) to O(n^2)
+              (EX : 18,19 problemns of OA)
                                     
 Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values 
             Maintain in the sence reduce or increase the frequency of the element
