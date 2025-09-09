@@ -12,6 +12,9 @@ Pattern 2 : Hashing + Observation:
             Using hash to know that is the current element exist before in the array or not or
                                     is to know the frquency of current element which exist before in the array or not
                                     is the relationship with current element exist before in the array or not
+
+Pattern 2.5 : Hash Concept + Observation:
+              Using Hashing to Know that element exist in same array at index 'k' which is after the index 'I'
                                     
 Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values 
             Maintain in the sence reduce or increase the frequency of the element
@@ -38,10 +41,8 @@ Pattern 4.5 : Prefix Sum + Hashing
                             // prefix[i] = sum of elements b[i], b[i-y], b[i-2y], ...
                             vector<ll> prefix(n + 1, 0);
                             for (ll i = 1; i <= n; i++) {
-                                if (i - y >= 1)
-                                    prefix[i] = b[i] + prefix[i - y];
-                                else
-                                    prefix[i] = b[i];
+                                if (i - y >= 1) prefix[i] = b[i] + prefix[i - y];
+                                else prefix[i] = b[i];
                             }   
              Iterate the Array(i : 1...n):
                    Total Sum at i = prefix[i]
