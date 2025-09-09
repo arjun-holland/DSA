@@ -3,7 +3,7 @@
 
 # Intuition
 ## Brute Force : O(n^4)
-``` 
+```  
 -> n 
 -> b[n+1] r = 0
 
