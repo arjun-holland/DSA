@@ -3,7 +3,7 @@
 
 `Sum of first and last element of the subarray = k : find shortest subarray`
 
-# Intuition
+# Intuition 
 ## Brute Force : O(n^2)
 ```
 ->n.
