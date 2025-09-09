@@ -1,5 +1,5 @@
 # Problem 
-<img width="648" height="129" alt="image" src="https://github.com/user-attachments/assets/ba9f54b4-eff8-45d5-8c5c-f3eebbec6b45" />
+<img width="648" height="129" alt="image" src="https://github.com/user-attachments/assets/ba9f54b4-eff8-45d5-8c5c-f3eebbec6b45" />  
 
 # Intuition
 ```
