@@ -67,6 +67,10 @@ Pattern 6 : Analyzing The Equations (Prefix Sum, Hasing)
 
             Tip : When we got a equation in three or more then three variable use the prefix , suffix arrays
                   to track the max or min elements present before and after at the i'th index and use them.
+                                                            or
+                   When we need to take the elments from the starting and ending of array use prefix and sufix resfectively
+                        Take elements from starting -> prefix
+                        Take elements from ending -> suffix
 ```
 
 ```
