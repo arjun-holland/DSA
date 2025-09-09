@@ -2,7 +2,7 @@
 <img width="675" height="161" alt="image" src="https://github.com/user-attachments/assets/4cda5814-7ac9-4abe-97ff-c5ea5eec2a29" />
 
 
-# Intuition 
+# Intuition  
 ## Brute Force
 ```
 Write 4 for loops to satisy the condition A[i] > A[j] < A[k] >A[l] such that i < j < k < l ;
