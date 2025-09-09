@@ -1,6 +1,6 @@
 # PRoblem
 <img width="675" height="617" alt="image" src="https://github.com/user-attachments/assets/933b1ba6-5404-4680-8a32-98832b8db99f" />
-
+ 
 # Intuition
 ```
 -> You are given string a and string b ; you have to output Yes ; if both of the strings can be made equal by doing some specific operations. 
