@@ -8,6 +8,7 @@
 
 # Intuition
 <img width="689" height="266" alt="image" src="https://github.com/user-attachments/assets/7345b929-ff90-4ec1-a52c-5f958e68cdf2" />
+
 ## Brute Force : O(n^2)
 
 ```
@@ -141,6 +142,7 @@ int main() {
 ---
 # Follow Up Question 1
 <img width="650" height="84" alt="image" src="https://github.com/user-attachments/assets/dac3b34d-cc18-482d-afd7-3100a1950370" />
+
 # Intuition
 <img width="676" height="318" alt="image" src="https://github.com/user-attachments/assets/f482b928-b648-486c-88fc-dbfd93e59fd8" />
 
