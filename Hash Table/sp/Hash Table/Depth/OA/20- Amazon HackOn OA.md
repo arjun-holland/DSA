@@ -91,7 +91,7 @@ int main() {
     // Problem: "second line contains N space separated integers"
     // Example input: A = [1, 20, 30]
     // Index 0 is unused
-    vector<int> b = {0, 1, 20, 30};
+    vector<int> b = {0, 1, 20, 30}; 
 
     long long sum = 0; // sum of all previous elements A[1..j-1]
     long long ans = 0; // final sum of all F(A[i], A[j]) for i < j
