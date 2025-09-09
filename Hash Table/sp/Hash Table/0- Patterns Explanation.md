@@ -31,6 +31,29 @@ Pattern 4 : Prefix Sum + Hashing
                         update the ans with freq of [Extra Size]
                     otherwise update the map with current `Total count`
 
+Pattern 4.5 : Prefix Sum + Hashing 
+             Given : Array
+             Problemm : (find min/max sum in array suach that have to pick X elements at Y distance ..etc)
+             Take prefix vector of size given  to store the elemnt sum at Y distance,
+                            // prefix[i] = sum of elements b[i], b[i-y], b[i-2y], ...
+                            vector<ll> prefix(n + 1, 0);
+                            for (ll i = 1; i <= n; i++) {
+                                if (i - y >= 1)
+                                    prefix[i] = b[i] + prefix[i - y];
+                                else
+                                    prefix[i] = b[i];
+                            }   
+             Iterate the Array(i : 1...n):
+                   Total Sum at i = prefix[i]
+                   start_Index = [i - ((X-1) * Y)]
+                   //at index i : take X elements with Y distance,we have taken ith elements already so (X-1) remaining
+                   if start_Index >= 1    //(start_Index Valid)
+                        prefix[start_Index]  = [Need Valid Array Sum]
+                        if start_Index - Y >= 1  //if there are any element at Y distance from start_Index befpor in array then 
+                               (Total Sum at i - (prefix[start_Index - Y])) = [Need Valid Array Sum]
+                   Take all  [Need Valid Array Sum] and find the min/mix
+
+
 Pattern 5 : Prefix Sum + Hashing
             Given : Array
             Problemm : (find shortet/longest subarray sum ..etc)
