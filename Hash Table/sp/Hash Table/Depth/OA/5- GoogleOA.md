@@ -1,7 +1,7 @@
 # Problem
 <img width="700" height="472" alt="image" src="https://github.com/user-attachments/assets/4b487844-8607-4395-b2ca-ae0434359c7e" />
 <img width="749" height="139" alt="image" src="https://github.com/user-attachments/assets/78f555de-003a-4745-8797-63f6826f5c69" />
-
+ 
 # Brute Intuition
 ```
 ->n->size of the array 
