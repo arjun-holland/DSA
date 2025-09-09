@@ -1,5 +1,5 @@
 # Problem
-<img width="679" height="196" alt="image" src="https://github.com/user-attachments/assets/f369fe1b-739b-44b3-9a1f-71f0a00673a4" />
+<img width="679" height="196" alt="image" src="https://github.com/user-attachments/assets/f369fe1b-739b-44b3-9a1f-71f0a00673a4" /> 
 
 # Intuition
 ## Brute Force : O(n^2)
