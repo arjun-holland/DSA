@@ -1,4 +1,4 @@
-# Problem
+# Problem 
 <img width="757" height="418" alt="image" src="https://github.com/user-attachments/assets/abfb5595-4981-4525-8865-75ff8438083c" />
 
 # Intution
