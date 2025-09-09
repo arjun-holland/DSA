@@ -78,6 +78,8 @@ Pattern 6.2 : Analyzing The Problem (Prefix Sum, Suffix Sum)
                    When we need to take the elments from the starting and ending of array use prefix and sufix resfectively
                         Take elements from starting -> prefix
                         Take elements from ending -> suffix
+
+              General Prefix Usage : prefix arr at i'th index gives the sum from 0 to ith index of given array
 ```
 
 ```
@@ -108,3 +110,4 @@ Pattern 7 : Prefix DIfference Hashing Technique
             {freqA()-freqB()} && {freqD()-freqC()} at (i-1)'th index 
            ------------------------------------------------------------------------------------------------------------------------------------------------- 
 ```
+
