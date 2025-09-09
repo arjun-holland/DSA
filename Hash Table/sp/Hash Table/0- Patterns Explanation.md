@@ -11,7 +11,7 @@ Pattern 1 : Using General Hash
 Pattern 2 : Hashing + Observation:
             Using hash to know that is the current element exist before in the array or not or
                                     is to know the frquency of current element which exist before in the array or not
-                                    is the relationship with current element exist before in the array or not
+                                    is the relationship with current element exist before in the array or not  ----------> Mathematics
 
 Pattern 2.5 : Hash Concept + Observation:
               Using Hashing to Know that element exist in same array at index 'k' which is after the index 'I'
