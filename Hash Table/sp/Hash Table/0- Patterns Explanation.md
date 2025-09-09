@@ -4,8 +4,9 @@ Pattern 1 : Using General Hash
 
 Pattern 2 : Hashing + Observation:
             Using hash to know that is the current element exist before in the array or not or
-                                    is the relationship with current element exist before in the array or not 
-
+                                    is to know the frquency of current element which exist before before in the array or not
+                                    is the relationship with current element exist before in the array or not
+                                    
 Pattern 3 : Using Hash (unordered_map) To maintain the Global assign Values 
             Maintain in the sence reduce or increase the frequency of the element
             We use this pattern when we need to control/Know that char is exist in all the elements of a container....etc
