@@ -89,6 +89,7 @@ int main() {
 
 ## Folow UP
 <img width="811" height="192" alt="image" src="https://github.com/user-attachments/assets/4e084440-4a0a-45db-b6f8-e9c83d8a61ec" />
+
 ![Uploading image.png…]()
 
 ## CDOE 1
@@ -102,8 +103,7 @@ int main() {
 
     // Allowed numbers: 1, 2 (unlimited), 4 (max 2 times), 6 (max 2 times)
 
-    // dp[i][j][k] → number of ways to make sum = i using j 4s and k 6s
-    // j ∈ {0,1,2} and k ∈ {0,1,2}
+    // dp[i][j][k] → number of ways to make sum = i using j 4s and k 6s where j ∈ {0,1,2} and k ∈ {0,1,2}
     vector<vector<vector<int>>> dp(n + 1, vector<vector<int>>(3, vector<int>(3, 0)));
 
     // Base case: There is 1 way to make sum 0 with 0 4s and 0 6s — by choosing nothing
@@ -128,7 +128,7 @@ int main() {
 
         // 1 four, 0, 1, 2 sixes
         dp[i][1][0] = dp[i - 1][1][0] + dp[i - 2][1][0];
-        dp[i][1][1] = dp[i - 1][1][1] + dp[i - 2][0][1];  // note: 4 added in past step
+        dp[i][1][1] = dp[i - 1][1][1] + dp[i - 2][1][1]; 
         dp[i][1][2] = dp[i - 1][1][2] + dp[i - 2][1][2];
 
         // 2 fours, 0, 1, 2 sixes
@@ -140,15 +140,17 @@ int main() {
         // Transitions using 6 — add 6 only if total 6s used ≤ 2
         // ----------------------
         if (i >= 6) {
-            // From 0 sixes → to 1 six
+            // 0 fours,  From 0 sixes → to 1 six
             dp[i][0][1] += dp[i - 6][0][0];
 
-            // From 1 six → to 2 sixes
+            // 0 fours, From 1 six → to 2 sixes
             dp[i][0][2] += dp[i - 6][0][1];
-
+            
+            // 1 fours, From 1 six → to 2 sixes
             dp[i][1][1] += dp[i - 6][1][0];
             dp[i][1][2] += dp[i - 6][1][1];
 
+            // 2 fours, From 1 six → to 2 sixes
             dp[i][2][1] += dp[i - 6][2][0];
             dp[i][2][2] += dp[i - 6][2][1];
         }
@@ -184,7 +186,6 @@ int main() {
 
     return 0;
 }
-
 ```
 
 ## CODE 2
