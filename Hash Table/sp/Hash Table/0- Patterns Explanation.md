@@ -142,6 +142,13 @@ Pattern 7 : Prefix DIfference Hashing Technique
 ```
 Pattern 8 : Prefix Partitioning with Sticks
             What Is This Approach?
-            The “place a stick” analogy refers to finding cut points in an array where you could split it into multiple contiguous subarrays of               equal sum.
-            Each stick is a hypothetical divider placed between two elements — after index i — meaning you're considering the array split between             arr[i] and arr[i+1].
+            The “place a stick” analogy refers to finding cut points in an array where you could split it into multiple contiguous subarrays of equal sum.
+            Each stick is a hypothetical divider placed between two elements — after index i — meaning you're considering the array split between arr[i] and arr[i+1].
+
+
+Pattern 9 : Suffix of Suffix or Preffix of Preffix
+            Generally We have to use the suffix to find the ans at i of array in range[i....n] where the array range is [1.....n]
+            In this technique we are using another suffix to find the ans at i of suffix array in range[i......n] where the sufdfix array range is [i.....n]
 ```
+
+
