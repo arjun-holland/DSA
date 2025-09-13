@@ -3,7 +3,7 @@
 
 ## Intuition
           ```
-          -> answer[1] = a[1] 
+          -> answer[1] = a[1]  
           -> answer[2] = max(a[2] or a[2] + answer[1])
           -> answer[3] = max(a[3] or a[3] + answer[2])
           .
