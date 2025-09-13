@@ -5,7 +5,7 @@
 
 
 # Intuition
-## Brutre Force : O(n ^ 2)
+## Brutre Force : O(n ^ 2) 
 ```
 -> n
 -> b[n+1]
