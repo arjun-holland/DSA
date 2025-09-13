@@ -52,7 +52,7 @@ bool check(int i, int j, int* b) {
     }
     return true;
 }
-
+ 
 int main() {
     int n;
     cin >> n;
