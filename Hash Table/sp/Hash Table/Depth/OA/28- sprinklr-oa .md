@@ -1,26 +1,21 @@
 # Problem
 <img width="298" height="500" alt="image" src="https://github.com/user-attachments/assets/50dc758f-41d1-4394-8c86-fa9f7ce0edf3" />
-
 <img width="326" height="582" alt="image" src="https://github.com/user-attachments/assets/132cd1ac-53a1-4208-bfda-e22ee10ac14c" />
+<img width="843" height="392" alt="image" src="https://github.com/user-attachments/assets/007458dc-c608-47f3-9fb5-b2ee3ec36b3a" />
 
-```
+# INTUITION
+<img width="936" height="324" alt="image" src="https://github.com/user-attachments/assets/bfae4861-ce7d-4e24-9dc3-34ff973c4edb" />
+<img width="1220" height="686" alt="image" src="https://github.com/user-attachments/assets/f136c12c-e852-42c4-8015-fa30029aea64" />
 
-
-```
-
-# Code
 ## Brute Force
 ```
 #include <bits/stdc++.h>
 using namespace std;
 
 int main() {
-    string s;
-    cin >> s;
+    string s; cin >> s;
     int n = s.length();
-
-    int q;
-    cin >> q;
+    int q; cin >> q;
 
     while(q--) {
         int l, r;
@@ -37,10 +32,8 @@ int main() {
         for(int c = 0; c < 26; c++) {
             ans += (freq[c] * (freq[c] + 1)) / 2;
         }
-
         cout << ans << endl;
     }
-
     return 0;
 }
 
