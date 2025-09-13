@@ -146,7 +146,7 @@ Pattern 8 : Prefix Partitioning with Sticks
             Each stick is a hypothetical divider placed between two elements — after index i — meaning you're considering the array split between arr[i] and arr[i+1].
 
 
-Pattern 9 : Suffix of Suffix or Preffix of Preffix
+Pattern 9 : Suffix of Suffix [ or ] Preffix of Preffix
             Generally We have to use the suffix to find the ans at i of array in range[i....n] where the array range is [1.....n]
             In this technique we are using another suffix to find the ans at i of suffix array in range[i......n] where the sufdfix array range is [i.....n]
 ```
