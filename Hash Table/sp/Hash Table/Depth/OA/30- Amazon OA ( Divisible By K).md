@@ -4,6 +4,65 @@
 # Intuition
 <img width="823" height="238" alt="image" src="https://github.com/user-attachments/assets/5702886a-c34f-4708-8e25-043fcb13f05a" />
 
+
+---
+
+Problem Restated
+We are given:
+An array A of size N.
+A number k.
+
+We need to count the number of pairs (i, j) (with i < j) such that:
+    (a[i] + a[j]) \; \% \; k == 0
+	
+---
+
+Key Idea
+
+👉 Instead of checking all pairs (which would be , too slow for ), the code uses modular arithmetic and a hash map to count pairs efficiently in .
+
+
+---
+
+Step-by-Step Intuition
+Remainders Matter
+Any number yy can be represented as:
+         yy = qk + r
+
+If we want (a[i] + a[j]) % k == 0, then:
+       (r1 + r2) % k == 0
+
+Meaning, remainders should complement each other:
+If r1 = 2 and k = 7, then r2 must be 5.
+If r1 = 0, then r2 must also be 0.
+---
+
+ll g = k - (yy % k);
+g = g % k;
+
+Compute the needed complement remainder for the current number.
+
+Example: if yy % k = 3 and k = 7, then g = 7 - 3 = 4. So we need a previous number with remainder 4.
+
+---
+
+Complexity
+
+Time:  → each element processed once.
+
+Space:  in worst case (but typically less since unordered_map stores only used remainders).
+
+
+---
+
+👉 In short:
+The code uses remainder complement pairing. For each number, it finds how many previously seen numbers can pair with it to make the sum divisible by k. Then it stores the current remainder for future matches.
+
+
+---
+
+
+
 ## Brute Force => TC : O(N^2) , SC : O(1) 
 
 ```
