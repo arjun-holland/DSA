@@ -3,7 +3,7 @@
 <img width="628" height="349" alt="image" src="https://github.com/user-attachments/assets/efaddef7-6218-484e-9fb1-048488a0c72b" />
 
 
-# INTUITION
+# INTUITION 
 
 ```
 Understanding : We are given an array B of size “N”; Divide the array into 4 continuous parts
