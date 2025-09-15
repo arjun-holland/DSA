@@ -1,9 +1,6 @@
 # Problem
 <img width="749" height="332" alt="image" src="https://github.com/user-attachments/assets/7582674c-007b-4a19-901c-f155bf4425a2" /> 
 
-
-
-
 ## Intuition
 ` Understanding :-> Find the subarray with maximum sum such that the first and last elements are the same.  ` 
 
