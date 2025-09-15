@@ -8,7 +8,7 @@
 int max_sum_subarray_brute_force(vector<int>& arr, int N, int K) {
     int max_sum = 0;
     
-    for (int i = 0; i < N; ++i) {
+    for (int i = 0; i < N; ++i) { 
         for (int j = i; j < N; ++j) {
             if (abs(arr[i] - arr[j]) == K) {
                 int sub_sum = 0;
