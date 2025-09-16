@@ -7,7 +7,7 @@
 ---
 ![image](https://github.com/user-attachments/assets/e29a700f-b8c7-4bc4-887c-e38344516793)
 
----
+--- 
 
 # Brute Force Way
 ```
