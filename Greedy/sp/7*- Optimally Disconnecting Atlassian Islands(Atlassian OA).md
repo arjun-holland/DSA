@@ -1,4 +1,4 @@
-# Problem
+# Problem 
 ![image](https://github.com/user-attachments/assets/4c769542-6561-4099-b325-2c56ded7c15d)
 ```
 Context: You’re working on a simulation tool at Atlassian that manages a network of islands connected by bridges. Initially, every island is connected to every other island. Each island has an "importance value" associated with it.
