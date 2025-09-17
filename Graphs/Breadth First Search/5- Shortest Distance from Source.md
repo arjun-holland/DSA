@@ -77,3 +77,8 @@ int main() {
 }
 
 ```
+
+# Conclusion :
+```
+Conclusion : Because in the BFS algorithm we travel things in level wise form so each node which we visit for the first time is always at the shortest distance from the source node = 1 ; so the level array gives us the answer of the distance of each node from node 1 automatically. 
+```
