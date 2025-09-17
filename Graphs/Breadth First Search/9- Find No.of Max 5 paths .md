@@ -86,3 +86,7 @@ int main() {
 }
 
 ```
+
+# RUN HERE
+<img width="924" height="464" alt="image" src="https://github.com/user-attachments/assets/c95a048e-69f0-4c7f-a223-19fbd68e1907" />
+https://ideone.com/Fle0Lm
